@@ -55,3 +55,7 @@
     display: block;
   }
 }
+.movie-info{
+  margin-top: 10px;
+  cursor: pointer;
+}

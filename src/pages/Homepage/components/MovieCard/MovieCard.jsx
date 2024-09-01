@@ -17,6 +17,7 @@ const MovieCard = ({ movie }) => {
         <h1>{movie.title}</h1>
         {movie?.genre_ids?.map((item, idx) => (
           <Badge
+            key={idx}
             style={{
               marginLeft: idx == 0 ? "0px" : "3px",
             }}
