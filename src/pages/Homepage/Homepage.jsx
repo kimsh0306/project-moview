@@ -1,11 +1,14 @@
-import React from 'react'
+import React from "react";
+import Banner from "./components/Banner/Banner";
+import PopularMovieSlide from "./components/PopularMovieSlide/PopularMovieSlide";
 
 const Homepage = () => {
   return (
     <div>
-      Homepage
+      <Banner />
+      <PopularMovieSlide/>
     </div>
-  )
-}
+  );
+};
 
-export default Homepage
+export default Homepage;

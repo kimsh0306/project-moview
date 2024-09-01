@@ -1,0 +1,13 @@
+.slideBox {
+  padding: 30px;
+}
+
+.slideBox h3 {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.carousel-container {
+  overflow: hidden;
+  height: 440px;
+}
