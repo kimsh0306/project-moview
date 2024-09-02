@@ -30,7 +30,7 @@
   height: 100%; */
   padding: 30px;
   position: absolute;
-  bottom: 30px
+  top: 0;
 }
 
 .banner-text-area>* {
@@ -58,12 +58,7 @@
     position: static;
   }
 
-  .banner-text-area p {
-    /* display: none; */
-  }
-
   .banner-text-area {
-    /* width: 300px; */
     width: 100%;
   }
 
@@ -75,4 +70,26 @@
 .movie-info {
   margin-top: 10px;
   cursor: pointer;
+}
+
+.top1-badge {
+  width: 40px;
+  height: auto;
+  padding: 3px;
+  margin-bottom: 4px;
+  background-color: #ff0000cc;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.top1-badge h6 {
+  font-size: 12px;
+  margin: 0;
+  font-weight: bold;
+}
+
+.top1-badge h6:first-child {
+  /* font-size: 20px; */
 }

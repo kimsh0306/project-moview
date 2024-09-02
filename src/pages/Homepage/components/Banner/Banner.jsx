@@ -1,5 +1,5 @@
 import React from "react";
-import { usePopularMoviesQuery } from "../../../../hooks/usePopularMovies";
+import { usePopularMoviesQuery } from "../../../../hooks/useQuerys";
 import Alert from "react-bootstrap/Alert";
 import "./Banner.style.css";
 import { InfoOutlined } from "@mui/icons-material";
@@ -25,7 +25,7 @@ const Banner = () => {
 
   const navigate = useNavigate();
   const { data, isLoading, isError, error } = usePopularMoviesQuery();
-  console.log("data: ", data);
+  console.log("data Banner: ", data);
   if (isLoading) {
     <h1>Loading...</h1>;
   }
@@ -46,6 +46,10 @@ const Banner = () => {
         ></div>
       </div>
       <div className="text-white banner-text-area">
+        <div className="top1-badge">
+          <h6>TOP</h6>
+          <h6>1</h6>
+        </div>
         <h1>{data?.results[0].title}</h1>
         <p>{data?.results[0].overview}</p>
 
