@@ -1,16 +1,19 @@
-.banner-box {
-  height: 56vh;
+.banner {
   position: relative;
 }
 
-.banner {
+.banner-img-box {
+  height: 56vh;
+}
+
+.banner-img {
   height: 100%;
-  background-position: left;
+  background-position: top left;
   background-repeat: no-repeat;
   background-size: cover;
 }
 
-.banner::before {
+.banner-img::before {
   content: "";
   background: linear-gradient(to top, black, transparent);
   position: absolute;
@@ -33,29 +36,43 @@
 .banner-text-area>* {
   z-index: 2;
 }
-.banner-text-area P{
+
+.banner-text-area P {
   margin: 0;
 }
 
 @media (max-width: 464px) {
-  .banner {
-    width: 100vw;
-    height: 100%;
+  .banner-img-box {
+    height: 233px;
   }
 
-  .banner-text-area p {
-    display: none;
+  .banner-img {
+    background-size: cover;
+  }
+
+  .banner-img::before {
+    height: 233px;
   }
 
   .banner-text-area {
-    width: 300px;
+    position: static;
   }
 
-  .banner-text-area:hover p {
-    display: block;
+  .banner-text-area p {
+    /* display: none; */
+  }
+
+  .banner-text-area {
+    /* width: 300px; */
+    width: 100%;
+  }
+
+  .banner-text-area>* {
+    z-index: 0;
   }
 }
-.movie-info{
+
+.movie-info {
   margin-top: 10px;
   cursor: pointer;
 }
