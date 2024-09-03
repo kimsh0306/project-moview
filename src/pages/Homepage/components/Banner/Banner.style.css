@@ -39,6 +39,7 @@
 
 .banner-text-area P {
   margin: 0;
+  word-break: keep-all;
 }
 
 @media (max-width: 464px) {

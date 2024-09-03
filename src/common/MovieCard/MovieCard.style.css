@@ -3,6 +3,7 @@
   background-size: cover;
   cursor: pointer;
   transition: 0.5s;
+  border-radius: 10px;
 }
 
 .overlay {
@@ -14,6 +15,7 @@
   transition: all 1s;
   color: white;
   font-weight: bold;
+  word-break: break-all;
   overflow-wrap: break-word;
   position: relative;
 }
@@ -47,6 +49,10 @@
   position: absolute;
   right: 35px;
   bottom: 35px;
+}
+
+.overlay .badge:not(:last-of-type) {
+  margin-right: 3px;
 }
 
 @media (max-width: 464px) {

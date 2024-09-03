@@ -3,15 +3,15 @@ import api from "../utils/api";
 
 
 const fetchPopularMovies = () => {
-  return api.get('/movie/popular?language=KO')
+  return api.get('/movie/popular?language=ko-KR')
 };
 
 const fetchTopRatedMovies = () => {
-  return api.get('/movie/top_rated?language=KO')
+  return api.get('/movie/top_rated?language=ko-KR')
 };
 
 const fetchUpcomingMovies = () => {
-  return api.get('/movie/upcoming?language=KO')
+  return api.get('/movie/upcoming?language=ko-KR')
 };
 
 const usePopularMoviesQuery = () => {
