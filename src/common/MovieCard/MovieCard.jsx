@@ -52,7 +52,7 @@ const MovieCard = ({ movie, type }) => {
     return genreNameList;
   };
 
-  console.log("genreData: ", genreData);
+  // console.log("genreData: ", genreData);
 
   const getAdultBadge = (adult) => {
     if(!adult) {
