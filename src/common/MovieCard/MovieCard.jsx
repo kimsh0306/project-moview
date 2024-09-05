@@ -52,7 +52,7 @@ const MovieCard = ({ movie, type }) => {
     return genreNameList;
   };
 
-  // console.log("genreData: ", genreData);
+  console.log("genreData: ", genreData);
 
   const getAdultBadge = (adult) => {
     if(!adult) {
@@ -110,7 +110,8 @@ const MovieCard = ({ movie, type }) => {
         ))}
         <div className="movieInfo">
           {/* <div>vote_average: {movie.vote_average}</div> */}
-          {/* <div>popularity: {movie.popularity}</div> */}
+          <div>popularity: {movie.popularity}</div>
+          <div>vote_count: {movie.vote_count}</div>
           <div>{getAdultBadge(movie.adult)}</div>
           <div className="vote-avg">
             <CircularProgressWithLabel

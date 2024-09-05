@@ -7,7 +7,7 @@ import ReactPaginate from "react-paginate";
 import RecommendMovie from "./components/RecommendMovie/RecommendMovie";
 import "./MoviePage.style.css";
 
-import { deepOrange, green,amber, grey } from "@mui/material/colors";
+import { grey } from "@mui/material/colors";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -21,26 +21,41 @@ const theme = createTheme({
         root: {
           color: grey[100],
           ".MuiOutlinedInput-notchedOutline": {
-            borderColor: grey[500],
+            borderColor: grey[600],
           },
           "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-            borderColor: grey[500],
+            borderColor: grey[600],
           },
           "&:hover .MuiOutlinedInput-notchedOutline": {
-            borderColor: grey[500],
+            borderColor: grey[600],
           },
           ".MuiSvgIcon-root ": {
-            fill: `${grey[500]} !important`,
+            fill: `${grey[600]} !important`,
           },
         },
       },
     },
     MuiPaper: {
-      styleOverrides:{
-        root:{
+      styleOverrides: {
+        root: {
           backgroundColor: grey[100],
-        }
-      }
+        },
+      },
+    },
+    MuiMenuItem: {
+      styleOverrides: {
+        root: {
+          "&.Mui-selected": {
+            backgroundColor: "none", // 선택된 아이템의 배경색
+          },
+          "&.Mui-selected:hover": {
+            backgroundColor: "none", // 선택된 아이템의 호버 배경색
+          },
+          "&:hover": {
+            backgroundColor: grey[300], // 호버 배경색
+          },
+        },
+      },
     },
     // MuiButtonBase: {
     //   styleOverrides:{
@@ -71,32 +86,71 @@ const MoviePage = () => {
   const [query, setQuery] = useSearchParams();
   const [page, setPage] = useState(1);
   const [sort, setSort] = React.useState("");
-
+  
   const keyword = query.get("q");
-  const { data, isLoading, isError, error } = useSearchMovieQuery(
+  const { data, isLoading, isError, error, refetch } = useSearchMovieQuery(
     keyword,
     page
   );
+  const [appliedData, setAppliedData] = React.useState();
 
-  console.log("selecting data:", data);
-
-  const handleChange = (event) => {
-    // console.log("event: ", event.target.value)
-    const sortType = event.target.value;
-    setSort(sortType);
-
-    if (sortType === "popularity") {
-      
-    }
+  const handleSortChange = (event) => {
+    setSort(event.target.value);
   };
 
   const handlePageClick = ({ selected }) => {
     setPage(selected + 1);
   };
 
-  // useEffect(()=> {
-  //   console.log("sort: ", sort);
-  // },[sort]);
+  const setSortData = (sortType) => {
+    switch (sortType) {
+      case "popularity":
+        console.log("popularity");
+        setAppliedData({
+          ...data,
+          results: [
+            ...data.results.sort((a, b) => b.popularity - a.popularity),
+          ],
+        });
+        break;
+      case "vote_count":
+        console.log("vote_count");
+        setAppliedData({
+          ...data,
+          results: [
+            ...data.results.sort((a, b) => b.vote_count - a.vote_count),
+          ],
+        });
+        break;
+      case "vote_average":
+        console.log("vote_average");
+        setAppliedData({
+          ...data,
+          results: [
+            ...data.results.sort((a, b) => b.vote_average - a.vote_average),
+          ],
+        });
+        break;
+    }
+  }
+
+  useEffect(() => {
+    // console.log("sort:", sort);
+    if (sort !== "") {
+      setSortData(sort)
+    }
+  }, [sort]);
+
+  useEffect(() => {
+    // console.log("data: ", data, " | sort: ", sort)
+    if(data){
+      if(sort) {
+        setSortData(sort)
+      }else{
+        setAppliedData({...data})
+      }
+    }
+  }, [data]);
 
   if (data?.results.length === 0) {
     return <RecommendMovie />;
@@ -115,9 +169,12 @@ const MoviePage = () => {
         <Row>
           <Col lg={4} xs={12}>
             <FormControl fullWidth>
-              <InputLabel 
-              sx={{ color: grey[500] }}
-              id="demo-simple-select-label">sort</InputLabel>
+              <InputLabel
+                sx={{ color: grey[500] }}
+                id="demo-simple-select-label"
+              >
+                sort
+              </InputLabel>
               <Select
                 labelstyle={{ color: "#ff0000" }}
                 selected
@@ -125,7 +182,7 @@ const MoviePage = () => {
                 id="demo-simple-select"
                 value={sort}
                 label="sort"
-                onChange={handleChange}
+                onChange={handleSortChange}
                 // sx={{
                 //   color: "white",
                 //   ".MuiOutlinedInput-notchedOutline": {
@@ -142,13 +199,24 @@ const MoviePage = () => {
                 //   },
                 // }}
               >
-                <MenuItem value="popularity">popularity</MenuItem>
+                <MenuItem value="popularity" disabled={sort === "popularity"}>
+                  popularity
+                </MenuItem>
+                <MenuItem value="vote_count" disabled={sort === "vote_count"}>
+                  vote count
+                </MenuItem>
+                <MenuItem
+                  value="vote_average"
+                  disabled={sort === "vote_average"}
+                >
+                  vote average
+                </MenuItem>
               </Select>
             </FormControl>
           </Col>
           <Col lg={8} xs={12}>
             <Row>
-              {data?.results.map((movie, idx) => (
+              {appliedData?.results?.map((movie, idx) => (
                 <Col key={idx} lg={4} xs={12}>
                   <MovieCard movie={movie} />
                 </Col>
@@ -159,7 +227,7 @@ const MoviePage = () => {
               onPageChange={handlePageClick}
               pageRangeDisplayed={3}
               marginPagesDisplayed={2}
-              pageCount={data?.total_pages}
+              pageCount={appliedData?.total_pages}
               previousLabel="< previous"
               pageClassName="page-item"
               pageLinkClassName="page-link"

@@ -4,7 +4,7 @@ import api from "../utils/api"
 const fetchSearchMovie = (keyword, page) => {
   return keyword
     ? api.get(`/search/movie?query=${keyword}&page=${page}&language=ko-KR`)
-    : api.get(`/movie/popular?page=${page}&language=ko-KR`)
+    : api.get(`/movie/now_playing?page=${page}&language=ko-KR`)
 };
 
 const fetchRecommendMovie = (recommendPage) => {

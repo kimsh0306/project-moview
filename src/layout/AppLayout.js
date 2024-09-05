@@ -15,11 +15,6 @@ const AppLayout = () => {
     setKeyword("");
   }
 
-  // useEffect(()=> {
-  //   console.log("keyword: ", keyword);
-  // },[keyword])
-
-
   return (
     <div>
       <Navbar bg="black" data-bs-theme="dark" expand="lg" className="bg-body-dark">
