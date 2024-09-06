@@ -9,10 +9,10 @@ const MovieReviews = ({ id, title }) => {
 
   console.log("dataReviews: ", data);
 
-  // const newList = [...data?.results?.sort(
-  //   (a, b) => new Date(b.created_a) - new Date(a.created_at)
-  // )]
-  // console.log("newList: ", newList);
+
+  let sortedResult = data?.results?.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+  console.log("sortedResult: ", sortedResult);
+
 
   if (isLoading) {
     return <h1>Loading...</h1>;
@@ -24,7 +24,7 @@ const MovieReviews = ({ id, title }) => {
     <div className="reviews-box">
       <h3>{title}</h3>
       <div>
-        {data?.results?.map((review, idx) => {
+        {sortedResult?.map((review, idx) => {
           return (
             <div style={{ marginTop: idx === 0 ? "0" : "10px" }}>
               <ReviewCard review={review} key={idx} />

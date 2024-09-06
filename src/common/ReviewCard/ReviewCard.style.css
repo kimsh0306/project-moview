@@ -17,12 +17,23 @@
 
 .created_at{
   margin: 0 0 0 0;
-  font-size: .8rem;
+  font-size: .75rem;
+  margin-top: .3rem;
+  margin-left: 1rem;
 }
 
 .more-button, .close-button {
-  color: rgb(198, 17, 17);
+  color: #c61111;
   cursor: pointer;
   font-weight: bold;
   margin-left: 5px;
+}
+
+.header-box {
+  display: flex;
+}
+
+.align {
+  margin-left: auto;
+  margin-right: 0;
 }
