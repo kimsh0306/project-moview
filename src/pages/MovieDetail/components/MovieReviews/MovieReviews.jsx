@@ -6,13 +6,10 @@ import "./MovieReviews.style.css";
 
 const MovieReviews = ({ id, title }) => {
   const { data, isLoading, isError, error } = useMovieReviewsQuery(id);
-
   console.log("dataReviews: ", data);
-
 
   let sortedResult = data?.results?.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
   console.log("sortedResult: ", sortedResult);
-
 
   if (isLoading) {
     return <h1>Loading...</h1>;

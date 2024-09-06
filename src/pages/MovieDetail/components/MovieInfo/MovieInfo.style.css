@@ -59,6 +59,9 @@
   display: flex;
 }
 
+.info-overview{
+  word-break: keep-all;
+}
 /*  */
 
 .detail-poster-img {

@@ -6,6 +6,7 @@
   /* background-color: rgb(60, 60, 60); */
   /* border: "1px solid #3c3c3c"; */
   margin-bottom: 20px;
+  position: relative;
 }
 
 .detail-img-box {
@@ -34,4 +35,22 @@
 /*  */
 .row-spacing {
   margin-bottom: 50px;
+}
+
+.paly-btn{
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+}
+
+.modal-box {
+  position: 'absolute';
+  top: '50%';
+  left: '50%';
+  transform: 'translate(-50%, -50%)';
+  width: 400px;
+  background-color: 'white';
+  /* border: '2px solid #000'; */
+  box-shadow: 24px;
+  padding: 20px;
 }

@@ -17,6 +17,10 @@ const fetchMovieRecommendations = (id) => {
   return api.get(`/movie/${id}/recommendations`)
 };
 
+const fetchMovieVideos = (id) => {
+  return api.get(`/movie/${id}/videos`)
+};
+
 const useMovieDetailQuery = (id) => {
   return useQuery({
     queryKey: ['movie-detail', id],
@@ -49,9 +53,18 @@ const useMovieRecommendationsQuery = (id) => {
   });
 };
 
+const useMovieVideosQuery = (id) => {
+  return useQuery({
+    queryKey: ['movie-videos', id],
+    queryFn: () => fetchMovieVideos(id),
+    select: (result) => result.data,
+  });
+};
+
 export {
   useMovieDetailQuery,
   useMovieImagesQuery,
   useMovieReviewsQuery,
   useMovieRecommendationsQuery,
+  useMovieVideosQuery,
 };

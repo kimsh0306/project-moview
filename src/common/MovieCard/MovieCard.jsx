@@ -117,8 +117,8 @@ const MovieCard = ({ movie }) => {
         ))}
         <div className="movieInfo">
           {/* <div>vote_average: {movie.vote_average}</div> */}
-          <div>popularity: {movie.popularity}</div>
-          <div>vote_count: {movie.vote_count}</div>
+          {/* <div>popularity: {movie.popularity}</div>
+          <div>vote_count: {movie.vote_count}</div> */}
           <div>{getAdultBadge(movie.adult)}</div>
           <div className="vote-avg">
             <CircularProgressWithLabel
