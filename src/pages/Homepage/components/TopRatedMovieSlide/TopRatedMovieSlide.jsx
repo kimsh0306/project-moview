@@ -1,5 +1,5 @@
 import React from "react";
-import { useTopRatedMoviesQuery } from "../../../../hooks/useQuerys";
+import { useTopRatedMoviesQuery } from "../../../../hooks/useMovieListsQuerys";
 import { Alert } from "react-bootstrap";
 import MovieSlider from "../../../../common/MovieSlider/MovieSlider";
 import { responsive } from "../../../../constants/responsive";
@@ -14,7 +14,7 @@ const TopRatedMovieSlide = () => {
     return <Alert variant="danger">{error.message}</Alert>;
   }
   return (
-    <div>
+    <div style={{padding:"30px"}}>
       <MovieSlider
         title="Top Rated Movies"
         movies={data.results}

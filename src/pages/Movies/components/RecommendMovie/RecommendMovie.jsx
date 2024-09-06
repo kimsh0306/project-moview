@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useRecommendMovieQuery } from "../../../../hooks/useSearchMovie";
+import { useRecommendMovieQuery } from "../../../../hooks/useMovieSearch";
 import { Alert, Col, Container, Row } from "react-bootstrap";
 import MovieCard from "../../../../common/MovieCard/MovieCard";
 import ReactPaginate from "react-paginate";

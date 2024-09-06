@@ -1,5 +1,5 @@
 import React from "react";
-import { usePopularMoviesQuery } from "../../../../hooks/useQuerys";
+import { usePopularMoviesQuery } from "../../../../hooks/useMovieListsQuerys";
 import Alert from "react-bootstrap/Alert";
 import "./Banner.style.css";
 import { InfoOutlined } from "@mui/icons-material";
@@ -23,7 +23,7 @@ const Banner = () => {
 
   const navigate = useNavigate();
   const { data, isLoading, isError, error } = usePopularMoviesQuery();
-  console.log("data Banner: ", data);
+  console.log("dataBanner: ", data);
   if (isLoading) {
     <h1>Loading...</h1>;
   }
@@ -35,15 +35,6 @@ const Banner = () => {
   return (
     <div className="banner">
       <div className="banner-img-box">
-        {/* <div
-          className="banner-img"
-          style={{
-            backgroundImage:
-              "url(" +
-              `https://media.themoviedb.org/t/p/w1066_and_h600_bestv2${data?.results[0].poster_path}` +
-              ")",
-          }}
-        ></div> */}
         <div className="banner-img">
           <div className="moving-img">
             <img className="img" src={imgUrl} />
@@ -58,7 +49,6 @@ const Banner = () => {
         <h1>{data?.results[0].title}</h1>
         <p>{data?.results[0].overview}</p>
 
-        {/* <InfoOutlined className="movie-info" /> */}
         <ColorButton
           onClick={() => {
             navigate("/movies/:id");

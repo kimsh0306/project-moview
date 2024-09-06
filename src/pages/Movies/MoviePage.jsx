@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSearchMovieQuery } from "../../hooks/useSearchMovie";
+import { useSearchMovieQuery } from "../../hooks/useMovieSearch";
 import { useSearchParams } from "react-router-dom";
 import { Alert, Col, Container, Row } from "react-bootstrap";
 import MovieCard from "../../common/MovieCard/MovieCard";
@@ -155,80 +155,82 @@ const MoviePage = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container className="movie-container">
-        <Row>
-          <Col lg={4} xs={12}>
-            <FormControl fullWidth sx={{ marginBottom: "10px" }}>
-              <InputLabel
-                sx={{ color: grey[500] }}
-                id="demo-simple-select-label"
-              >
-                sort
-              </InputLabel>
-              <Select
-                labelstyle={{ color: "#ff0000" }}
-                selected
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={sort}
-                label="sort"
-                onChange={handleSortChange}
-              >
-                {sortTypeList.map((type, idx) => {
-                  return (
-                    <MenuItem
-                      key={idx}
-                      value={type.value}
-                      disabled={
-                        type.value === "none"
-                          ? sort === type.value || sort === ""
-                          : sort === type.value
-                      }
-                    >
-                      {type.name}
-                    </MenuItem>
-                  );
-                })}
-              </Select>
-            </FormControl>
-          </Col>
-          <Col lg={8} xs={12}>
-            <Row>
-              {appliedData?.results?.map((movie, idx) => (
-                <Col key={idx} lg={4} xs={12}>
-                  <MovieCard movie={movie} />
-                </Col>
-              ))}
-            </Row>
-            <ReactPaginate
-              nextLabel=">"
-              onPageChange={handlePageClick}
-              pageRangeDisplayed={3}
-              marginPagesDisplayed={2}
-              pageCount={
-                appliedData?.total_pages
-                  ? Math.ceil(appliedData.total_pages)
-                  : 1
-              }
-              previousLabel="<"
-              pageLinkClassName="page-link"
-              previousClassName="page-item"
-              previousLinkClassName="page-link"
-              nextClassName="page-item"
-              nextLinkClassName="page-link"
-              breakLabel="..."
-              breakClassName="page-item"
-              breakLinkClassName="page-link"
-              containerClassName="pagination"
-              activeClassName="active"
-              activeLinkClassName="page-link_active"
-              renderOnZeroPageCount={null}
-              forcePage={page - 1}
-              pageClassName={"page-item"}
-            />
-          </Col>
-        </Row>
-      </Container>
+      <div className="movie-container">
+        <Container style={{ paddingLeft: 0, paddingRight: 0 }}>
+          <Row>
+            <Col lg={4} xs={12}>
+              <FormControl fullWidth sx={{ marginBottom: "10px" }}>
+                <InputLabel
+                  sx={{ color: grey[500] }}
+                  id="demo-simple-select-label"
+                >
+                  sort
+                </InputLabel>
+                <Select
+                  labelstyle={{ color: "#ff0000" }}
+                  selected
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={sort}
+                  label="sort"
+                  onChange={handleSortChange}
+                >
+                  {sortTypeList.map((type, idx) => {
+                    return (
+                      <MenuItem
+                        key={idx}
+                        value={type.value}
+                        disabled={
+                          type.value === "none"
+                            ? sort === type.value || sort === ""
+                            : sort === type.value
+                        }
+                      >
+                        {type.name}
+                      </MenuItem>
+                    );
+                  })}
+                </Select>
+              </FormControl>
+            </Col>
+            <Col lg={8} xs={12}>
+              <Row>
+                {appliedData?.results?.map((movie, idx) => (
+                  <Col key={idx} lg={4} md={4} xs={12}>
+                    <MovieCard movie={movie} />
+                  </Col>
+                ))}
+              </Row>
+              <ReactPaginate
+                nextLabel=">"
+                onPageChange={handlePageClick}
+                pageRangeDisplayed={3}
+                marginPagesDisplayed={2}
+                pageCount={
+                  appliedData?.total_pages
+                    ? Math.ceil(appliedData.total_pages)
+                    : 1
+                }
+                previousLabel="<"
+                pageLinkClassName="page-link"
+                previousClassName="page-item"
+                previousLinkClassName="page-link"
+                nextClassName="page-item"
+                nextLinkClassName="page-link"
+                breakLabel="..."
+                breakClassName="page-item"
+                breakLinkClassName="page-link"
+                containerClassName="pagination"
+                activeClassName="active"
+                activeLinkClassName="page-link_active"
+                renderOnZeroPageCount={null}
+                forcePage={page - 1}
+                pageClassName={"page-item"}
+              />
+            </Col>
+          </Row>
+        </Container>
+      </div>
     </ThemeProvider>
   );
 };

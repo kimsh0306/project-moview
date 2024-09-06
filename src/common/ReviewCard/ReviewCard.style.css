@@ -1,0 +1,20 @@
+.review-container {
+  border: 1px solid grey;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.author {
+  margin: 0 0 5px 0;
+  font-size: 1rem;
+}
+
+.content{
+  margin: 0 0 10px 0;
+  font-size: .9rem;
+}
+
+.created_at{
+  margin: 0 0 0 0;
+  font-size: .8rem;
+}

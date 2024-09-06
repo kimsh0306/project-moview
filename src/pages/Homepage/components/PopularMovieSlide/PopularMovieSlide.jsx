@@ -1,8 +1,8 @@
 import React from "react";
-import { usePopularMoviesQuery } from "../../../../hooks/useQuerys";
 import { Alert } from "react-bootstrap";
 import MovieSlider from "../../../../common/MovieSlider/MovieSlider";
 import { responsive } from "../../../../constants/responsive";
+import { usePopularMoviesQuery } from "../../../../hooks/useMovieListsQuerys";
 
 const PopularMovieSlide = () => {
   const { data, isLoading, isError, error } = usePopularMoviesQuery();
@@ -14,7 +14,7 @@ const PopularMovieSlide = () => {
     return <Alert variant="danger">{error.message}</Alert>;
   }
   return (
-    <div>
+    <div style={{padding:"30px"}}>
       <MovieSlider
         title="Popular Movies"
         movies={data.results}
