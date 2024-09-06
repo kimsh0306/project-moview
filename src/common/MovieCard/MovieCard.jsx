@@ -7,6 +7,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { useMovieGenreQuery } from "../../hooks/useMovieGenre";
+import { useNavigate } from "react-router-dom";
 
 const getColor = () => {
   const shade = 300;
@@ -41,7 +42,8 @@ function CircularProgressWithLabel(props) {
   );
 }
 
-const MovieCard = ({ movie, type }) => {
+const MovieCard = ({ movie }) => {
+  const navigate = useNavigate();
   const { data: genreData } = useMovieGenreQuery();
   const showGenre = (genreIdList) => {
     if (!genreData) return [];
@@ -52,7 +54,11 @@ const MovieCard = ({ movie, type }) => {
     return genreNameList;
   };
 
-  console.log("genreData: ", genreData);
+  // console.log("movie: ", movie);
+
+  const handleCardClick =()=>{
+    navigate(`/movies/${movie.id}`)
+  }
 
   const getAdultBadge = (adult) => {
     if(!adult) {
@@ -94,6 +100,7 @@ const MovieCard = ({ movie, type }) => {
   return (
     <div
       className="movie-card"
+      onClick={handleCardClick}
       style={{
         backgroundImage:
           "url(" +

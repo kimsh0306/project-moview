@@ -12,7 +12,14 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { createTheme, styled, ThemeProvider } from "@mui/material/styles";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+const sortTypeList = [
+  { value: "none", name: "none" },
+  { value: "popularity", name: "popularity" },
+  { value: "vote_count", name: "vote count" },
+  { value: "vote_average", name: "vote average" },
+];
 
 const theme = createTheme({
   components: {
@@ -57,21 +64,6 @@ const theme = createTheme({
         },
       },
     },
-    // MuiButtonBase: {
-    //   styleOverrides:{
-    //     root:{
-    //       color:  deepOrange[500],
-    //       backgroundColor: grey[300],
-    //     }
-    //   }
-    // },
-    // MuiPaper: {
-    //   styleOverrides:{
-    //     root:{
-    //       backgroundColor: grey[300],
-    //     }
-    //   }
-    // },
   },
   palette: {
     primary: {
@@ -86,9 +78,9 @@ const MoviePage = () => {
   const [query, setQuery] = useSearchParams();
   const [page, setPage] = useState(1);
   const [sort, setSort] = React.useState("");
-  
+
   const keyword = query.get("q");
-  const { data, isLoading, isError, error, refetch } = useSearchMovieQuery(
+  const { data, isLoading, isError, error } = useSearchMovieQuery(
     keyword,
     page
   );
@@ -105,7 +97,6 @@ const MoviePage = () => {
   const setSortData = (sortType) => {
     switch (sortType) {
       case "popularity":
-        console.log("popularity");
         setAppliedData({
           ...data,
           results: [
@@ -114,7 +105,6 @@ const MoviePage = () => {
         });
         break;
       case "vote_count":
-        console.log("vote_count");
         setAppliedData({
           ...data,
           results: [
@@ -123,7 +113,6 @@ const MoviePage = () => {
         });
         break;
       case "vote_average":
-        console.log("vote_average");
         setAppliedData({
           ...data,
           results: [
@@ -131,23 +120,24 @@ const MoviePage = () => {
           ],
         });
         break;
+      case "none":
+        setAppliedData({ ...data });
+        break;
     }
-  }
+  };
 
   useEffect(() => {
-    // console.log("sort:", sort);
     if (sort !== "") {
-      setSortData(sort)
+      setSortData(sort);
     }
   }, [sort]);
 
   useEffect(() => {
-    // console.log("data: ", data, " | sort: ", sort)
-    if(data){
-      if(sort) {
-        setSortData(sort)
-      }else{
-        setAppliedData({...data})
+    if (data) {
+      if (sort) {
+        setSortData(sort);
+      } else {
+        setAppliedData({ ...data });
       }
     }
   }, [data]);
@@ -168,7 +158,7 @@ const MoviePage = () => {
       <Container className="movie-container">
         <Row>
           <Col lg={4} xs={12}>
-            <FormControl fullWidth>
+            <FormControl fullWidth sx={{ marginBottom: "10px" }}>
               <InputLabel
                 sx={{ color: grey[500] }}
                 id="demo-simple-select-label"
@@ -183,34 +173,22 @@ const MoviePage = () => {
                 value={sort}
                 label="sort"
                 onChange={handleSortChange}
-                // sx={{
-                //   color: "white",
-                //   ".MuiOutlinedInput-notchedOutline": {
-                //     borderColor: "white",
-                //   },
-                //   "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                //     borderColor: "white",
-                //   },
-                //   "&:hover .MuiOutlinedInput-notchedOutline": {
-                //     borderColor: "white",
-                //   },
-                //   ".MuiSvgIcon-root ": {
-                //     fill: "white !important",
-                //   },
-                // }}
               >
-                <MenuItem value="popularity" disabled={sort === "popularity"}>
-                  popularity
-                </MenuItem>
-                <MenuItem value="vote_count" disabled={sort === "vote_count"}>
-                  vote count
-                </MenuItem>
-                <MenuItem
-                  value="vote_average"
-                  disabled={sort === "vote_average"}
-                >
-                  vote average
-                </MenuItem>
+                {sortTypeList.map((type, idx) => {
+                  return (
+                    <MenuItem
+                      key={idx}
+                      value={type.value}
+                      disabled={
+                        type.value === "none"
+                          ? sort === type.value || sort === ""
+                          : sort === type.value
+                      }
+                    >
+                      {type.name}
+                    </MenuItem>
+                  );
+                })}
               </Select>
             </FormControl>
           </Col>
@@ -223,13 +201,16 @@ const MoviePage = () => {
               ))}
             </Row>
             <ReactPaginate
-              nextLabel="next >"
+              nextLabel=">"
               onPageChange={handlePageClick}
               pageRangeDisplayed={3}
               marginPagesDisplayed={2}
-              pageCount={appliedData?.total_pages}
-              previousLabel="< previous"
-              pageClassName="page-item"
+              pageCount={
+                appliedData?.total_pages
+                  ? Math.ceil(appliedData.total_pages)
+                  : 1
+              }
+              previousLabel="<"
               pageLinkClassName="page-link"
               previousClassName="page-item"
               previousLinkClassName="page-link"
@@ -240,8 +221,10 @@ const MoviePage = () => {
               breakLinkClassName="page-link"
               containerClassName="pagination"
               activeClassName="active"
+              activeLinkClassName="page-link_active"
               renderOnZeroPageCount={null}
               forcePage={page - 1}
+              pageClassName={"page-item"}
             />
           </Col>
         </Row>
