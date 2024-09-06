@@ -22,7 +22,6 @@ const MovieDetailPage = () => {
     return <Alert variant="danger">{error.message}</Alert>;
   }
   const mainImgUrl = `https://media.themoviedb.org/t/p/w1066_and_h600_bestv2${data?.poster_path}`;
-  const posterImgUrl = `https://media.themoviedb.org/t/p/w600_and_h900_bestv2${data?.poster_path}`;
   return (
     <>
       <div className="detail-container">
@@ -35,7 +34,6 @@ const MovieDetailPage = () => {
                     <img className="detail-img" src={mainImgUrl} />
                   </div>
                 </div>
-
                 <MovieInfo data={data} />
               </div>
             </Col>
@@ -59,9 +57,7 @@ const MovieDetailPage = () => {
           </Row>
         </Container>
 
-        {/* <div className="detail-poster-img-box">
-          <img className="detail-poster-img" src={posterImgUrl} />
-        </div> */}
+
       </div>
     </>
   );

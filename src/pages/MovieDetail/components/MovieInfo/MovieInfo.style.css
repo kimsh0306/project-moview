@@ -47,21 +47,21 @@
 }
 
 /*  */
-/* .ab {
-display: flex;
-}
-.aaa {
-  border: 1px solid white;
-  width: 100px;
-  height: 30px;
-} */
-
-
-/*  */
 .genre-badge {
   margin-bottom: 30px;
 }
 
 .badge:not(:last-of-type) {
   margin-right: 3px;
+}
+
+.info-item-area {
+  display: flex;
+}
+
+/*  */
+
+.detail-poster-img {
+  width: 100px;
+  border-radius: 10px;
 }

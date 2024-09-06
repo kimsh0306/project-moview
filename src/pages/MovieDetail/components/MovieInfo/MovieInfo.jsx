@@ -13,19 +13,6 @@ const getColor = () => {
 };
 
 function CircularProgressWithLabel(props) {
-  // const getInfoItem = () => {
-  //   return (
-  //     <div className="ab">
-  //       <div className="aaa">
-  //         <h6>1</h6>
-  //       </div>
-  //       <div className="aaa">
-  //         <h6>2</h6>
-  //       </div>
-  //     </div>
-  //   );
-  // };
-
   return (
     <Box sx={{ position: "relative", display: "inline-flex" }}>
       <CircularProgress variant="determinate" {...props} />
@@ -58,6 +45,8 @@ function CircularProgressWithLabel(props) {
 }
 
 const MovieInfo = ({ data }) => {
+  const posterImgUrl = `https://media.themoviedb.org/t/p/w600_and_h900_bestv2${data?.poster_path}`;
+
   return (
     <div className="detail-info-area">
       <div className="detail-info">
@@ -73,29 +62,28 @@ const MovieInfo = ({ data }) => {
             );
           })}
         </div>
-        <div className="info-item-box">
-          <div className="info-key">
-            <h6>adult</h6>
-            <h6>genres</h6>
-            <h6>popularity</h6>
-            <h6>vote_count</h6>
-            <h6>relese_date</h6>
-            <h6>runtime</h6>
-          </div>
-          <div className="info-val">
-            <h6>{data?.adult ? "19" : "all"}</h6>
-            <div className="genre-box">
-              {data?.genres?.map((item, idx) => {
-                return <h6 key={idx}>{item.name}</h6>;
-              })}
+        <div className="info-item-area">
+          {/* <div className="detail-poster-img-box">
+            <img className="detail-poster-img" src={posterImgUrl} />
+          </div> */}
+          <div className="info-item-box">
+            <div className="info-key">
+              <h6>adult</h6>
+              <h6>popularity</h6>
+              <h6>vote_count</h6>
+              <h6>relese_date</h6>
+              <h6>runtime</h6>
             </div>
-            <h6>{data?.popularity}</h6>
-            <h6>{data?.vote_count}</h6>
-            <h6>{data?.release_date}</h6>
-            <h6>{data?.runtime}</h6>
+            <div className="info-val">
+              <h6>{data?.adult ? "19" : "all"}</h6>
+              <h6>{data?.popularity}</h6>
+              <h6>{data?.vote_count}</h6>
+              <h6>{data?.release_date}</h6>
+              <h6>{data?.runtime}</h6>
+            </div>
           </div>
         </div>
-        <div className="vote-avr-box">
+        {/* <div className="vote-avr-box">
           <CircularProgressWithLabel
             sx={{
               color: getColor(),
@@ -103,7 +91,7 @@ const MovieInfo = ({ data }) => {
             value={data?.vote_average * 10}
             thickness={2}
           />
-        </div>
+        </div> */}
         <Container className="info-item-container">
           <Row>
             <Col></Col>

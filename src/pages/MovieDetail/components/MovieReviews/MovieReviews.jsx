@@ -24,8 +24,12 @@ const MovieReviews = ({ id, title }) => {
     <div className="reviews-box">
       <h3>{title}</h3>
       <div>
-        {data.results.map((review, idx) => {
-          return <ReviewCard review={review} key={idx} />;
+        {data?.results?.map((review, idx) => {
+          return (
+            <div style={{ marginTop: idx === 0 ? "0" : "10px" }}>
+              <ReviewCard review={review} key={idx} />
+            </div>
+          );
         })}
       </div>
     </div>

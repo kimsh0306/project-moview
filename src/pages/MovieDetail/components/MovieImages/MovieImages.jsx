@@ -19,20 +19,27 @@ const MovieImages = ({ id }) => {
 
   return (
     <div>
-      <Container>
-        <Row>
-          <Col xl={12} l={4} xs={6}>
+      <Container style={{margin:0}}>
+        <Row >
+          {data?.posters.map((item, idx)=> {
+            return (
+              <Col xl={6} l={4} md={3} xs={6}>
+                <img className="de-img" src={`https://media.themoviedb.org/t/p/w1066_and_h600_bestv2${data?.posters[idx].file_path}`} />
+              </Col>
+            );
+          })}
+          {/* <Col xl={6} l={4} md={3} xs={6}>
             <img className="de-img" src={imgUrl} />
           </Col>
-          <Col xl={12} l={4} xs={6}>
+          <Col xl={6} l={4} md={3} xs={6}>
             <img className="de-img" src={imgUrl} />
           </Col>
-          <Col xl={12} l={4} xs={6}>
+          <Col xl={6} l={4} md={3} xs={6}>
             <img className="de-img" src={imgUrl} />
           </Col>
-          <Col xl={12} l={4} xs={6}>
+          <Col xl={6} l={4} md={3} xs={6}>
             <img className="de-img" src={imgUrl} />
-          </Col>
+          </Col> */}
         </Row>
       </Container>
     </div>

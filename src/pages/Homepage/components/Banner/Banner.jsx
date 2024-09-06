@@ -51,7 +51,7 @@ const Banner = () => {
 
         <ColorButton
           onClick={() => {
-            navigate("/movies/:id");
+            navigate(`/movies/${data?.results[0].id}`);
           }}
           sx={{
             marginTop: "14px",
