@@ -1,5 +1,6 @@
 .review-container {
   border: 1px solid grey;
+  color: grey;
   border-radius: 10px;
   padding: 20px;
 }
@@ -11,10 +12,17 @@
 
 .content{
   margin: 0 0 10px 0;
-  font-size: .9rem;
+  font-size: .8rem;
 }
 
 .created_at{
   margin: 0 0 0 0;
   font-size: .8rem;
+}
+
+.more-button, .close-button {
+  color: rgb(228, 159, 20);
+  cursor: pointer;
+  font-weight: bold;
+  margin-left: 5px;
 }

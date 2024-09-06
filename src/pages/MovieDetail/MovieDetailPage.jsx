@@ -28,7 +28,7 @@ const MovieDetailPage = () => {
       <div className="detail-container">
         <Container className="no-padding">
           <Row className="row-spacing">
-            <Col md={8} xs={12}>
+            <Col xl={8} xs={12}>
               <div>
                 <div className="detail-img-area">
                   <div className="detail-img-box">
@@ -39,15 +39,21 @@ const MovieDetailPage = () => {
                 <MovieInfo data={data} />
               </div>
             </Col>
-            <Col md={4} xs={12}>
+            <Col xl={4} xs={12}>
+              <>
+                {/* <MovieImages id={id}/> */}
+              </>
+            </Col>
+          </Row>
+          <Row className="row-spacing">
+            <Col xl={8} xs={12}>
               <div className="detail-review-area">
-                {/* <MovieImages id={id} /> */}
-                <MovieReviews id={id} />
+                <MovieReviews id={id} title={"Reviews"} />
               </div>
             </Col>
           </Row>
           <Row>
-            <Col>
+            <Col xl={8} xs={12}>
               <MovieRecommendations id={id} />
             </Col>
           </Row>

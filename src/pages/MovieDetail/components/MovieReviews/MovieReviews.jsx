@@ -2,13 +2,17 @@ import React from "react";
 import { useMovieReviewsQuery } from "../../../../hooks/useMovieDetail";
 import { Alert } from "react-bootstrap";
 import ReviewCard from "../../../../common/ReviewCard/ReviewCard";
+import "./MovieReviews.style.css";
 
-
-
-const MovieReviews = ({ id }) => {
+const MovieReviews = ({ id, title }) => {
   const { data, isLoading, isError, error } = useMovieReviewsQuery(id);
 
   console.log("dataReviews: ", data);
+
+  // const newList = [...data?.results?.sort(
+  //   (a, b) => new Date(b.created_a) - new Date(a.created_at)
+  // )]
+  // console.log("newList: ", newList);
 
   if (isLoading) {
     return <h1>Loading...</h1>;
@@ -17,9 +21,12 @@ const MovieReviews = ({ id }) => {
     return <Alert variant="danger">{error.message}</Alert>;
   }
   return (
-    <div>
+    <div className="reviews-box">
+      <h3>{title}</h3>
       <div>
-        <ReviewCard reviewList={data.results}/>
+        {data.results.map((review, idx) => {
+          return <ReviewCard review={review} key={idx} />;
+        })}
       </div>
     </div>
   );

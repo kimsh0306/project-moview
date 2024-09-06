@@ -1,0 +1,5 @@
+.de-img {
+  height: 140px;
+  overflow: hidden;
+  object-fit: contain;
+}
