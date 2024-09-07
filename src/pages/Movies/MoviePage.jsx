@@ -91,7 +91,7 @@ const MoviePage = () => {
   const [selectedGenre, setSelectedGenre] = React.useState("");
 
   const handleGenreClick = (event) => {
-    if(selectedGenre !== event.target.name){
+    if (selectedGenre !== event.target.name) {
       setSelectedGenre(event.target.name);
       setAppliedData((prevState) => {
         return {
@@ -115,34 +115,49 @@ const MoviePage = () => {
     setPage(selected + 1);
   };
 
-  const setSortData = (sortType) => {
+  const getSortData = (sortType) => {
     switch (sortType) {
       case "popularity":
-        setAppliedData({
-          ...data,
-          results: [
-            ...data.results.sort((a, b) => b.popularity - a.popularity),
-          ],
+        setAppliedData((prevState) => {
+          return {
+            ...prevState,
+            results: [
+              ...prevState.results.sort((a, b) => b.popularity - a.popularity),
+            ],
+          };
         });
         break;
       case "vote_count":
-        setAppliedData({
-          ...data,
-          results: [
-            ...data.results.sort((a, b) => b.vote_count - a.vote_count),
-          ],
+        setAppliedData((prevState) => {
+          return {
+            ...prevState,
+            results: [
+              ...prevState.results.sort((a, b) => b.vote_count - a.vote_count),
+            ],
+          };
         });
         break;
       case "vote_average":
-        setAppliedData({
-          ...data,
-          results: [
-            ...data.results.sort((a, b) => b.vote_average - a.vote_average),
-          ],
+        setAppliedData((prevState) => {
+          return {
+            ...prevState,
+            results: [
+              ...prevState.results.sort(
+                (a, b) => b.vote_average - a.vote_average
+              ),
+            ],
+          };
         });
         break;
       case "none":
-        setAppliedData({ ...data });
+        setAppliedData((prevState) => {
+          return {
+            ...prevState,
+            results: [
+              ...prevState.results.sort((a, b) => b.popularity - a.popularity),
+            ],
+          };
+        });
         break;
     }
   };
@@ -152,17 +167,19 @@ const MoviePage = () => {
   }, [appliedData]);
 
   useEffect(() => {
-    // if (sort !== "") {
-    //   setSortData(sort);
-    // }
+    if (sort !== "" && appliedData) {
+      console.log("::");
+      getSortData(sort);
+    }
   }, [sort]);
 
   useEffect(() => {
+    console.log("data: ", data);
     if (data) {
       setAppliedData({ ...data });
       setOriginalData({ ...data });
       // if (sort) {
-      //   setSortData(sort);
+      //   getSortData(sort);
       // } else {
       // }
     }
@@ -224,7 +241,9 @@ const MoviePage = () => {
                     <Button
                       key={idx}
                       className="badge"
-                      variant={selectedGenre === item.name ? "danger" : "secondary"}
+                      variant={
+                        selectedGenre === item.name ? "danger" : "secondary"
+                      }
                       onClick={handleGenreClick}
                       value={item.id}
                       name={item.name}
