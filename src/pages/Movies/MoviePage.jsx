@@ -167,8 +167,8 @@ const MoviePage = () => {
   }, [appliedData]);
 
   useEffect(() => {
+    console.log("::");
     if (sort !== "" && appliedData) {
-      console.log("::");
       getSortData(sort);
     }
   }, [sort]);
@@ -178,10 +178,9 @@ const MoviePage = () => {
     if (data) {
       setAppliedData({ ...data });
       setOriginalData({ ...data });
-      // if (sort) {
-      //   getSortData(sort);
-      // } else {
-      // }
+      if (sort) {
+        getSortData(sort);
+      }
     }
   }, [data]);
 
