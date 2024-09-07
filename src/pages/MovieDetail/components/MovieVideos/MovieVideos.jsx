@@ -8,8 +8,8 @@ const MovieVideos = ({ id }) => {
   console.log("dataVideos: ", data);
 
   const opts = {
-    height: "390",
     width: "640",
+    height: "390",
     playerVars: {
       // https://developers.google.com/youtube/player_parameters
       autoplay: 1,

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSearchMovieQuery } from "../../hooks/useMovieSearch";
 import { useSearchParams } from "react-router-dom";
-import { Alert, Col, Container, Row } from "react-bootstrap";
+import { Alert, Badge, Button, Col, Container, Row } from "react-bootstrap";
 import MovieCard from "../../common/MovieCard/MovieCard";
 import ReactPaginate from "react-paginate";
 import RecommendMovie from "./components/RecommendMovie/RecommendMovie";
@@ -13,6 +13,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { genreList } from "../../constants/genreList";
 
 const sortTypeList = [
   { value: "none", name: "none" },
@@ -84,7 +85,21 @@ const MoviePage = () => {
     keyword,
     page
   );
+  console.log("dataMovie: ", data);
   const [appliedData, setAppliedData] = React.useState();
+  const [originalData, setOriginalData] = React.useState();
+
+  const handleGenreClick = (event) => {
+    console.log("!!!value: ", Number(event.target.value));
+
+    setAppliedData((prevState) => {
+      return {
+        ...prevState,
+        results: originalData.results.filter((obj) => obj.genre_ids.includes(Number(event.target.value))),
+      };
+    });
+
+  };
 
   const handleSortChange = (event) => {
     setSort(event.target.value);
@@ -127,6 +142,10 @@ const MoviePage = () => {
   };
 
   useEffect(() => {
+    console.log("appliedData: ", appliedData);
+  }, [appliedData]);
+
+  useEffect(() => {
     if (sort !== "") {
       setSortData(sort);
     }
@@ -138,6 +157,7 @@ const MoviePage = () => {
         setSortData(sort);
       } else {
         setAppliedData({ ...data });
+        setOriginalData({ ...data });
       }
     }
   }, [data]);
@@ -192,6 +212,21 @@ const MoviePage = () => {
                   })}
                 </Select>
               </FormControl>
+              <div>
+                {genreList.map((item, idx) => {
+                  return (
+                    <Button
+                      key={idx}
+                      className="badge"
+                      variant="secondary"
+                      onClick={handleGenreClick}
+                      value={item.id}
+                    >
+                      {item.name}
+                    </Button>
+                  );
+                })}
+              </div>
             </Col>
             <Col lg={8} xs={12}>
               <Row>
