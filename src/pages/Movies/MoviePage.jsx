@@ -88,18 +88,23 @@ const MoviePage = () => {
   console.log("dataMovie: ", data);
   const [appliedData, setAppliedData] = React.useState();
   const [originalData, setOriginalData] = React.useState();
-  const [selectedGenre, setSelectedGenre] = React.useState();
+  const [selectedGenre, setSelectedGenre] = React.useState("");
 
   const handleGenreClick = (event) => {
-    setSelectedGenre(event.target.name);
-    setAppliedData((prevState) => {
-      return {
-        ...prevState,
-        results: originalData.results.filter((obj) =>
-          obj.genre_ids.includes(Number(event.target.value))
-        ),
-      };
-    });
+    if(selectedGenre !== event.target.name){
+      setSelectedGenre(event.target.name);
+      setAppliedData((prevState) => {
+        return {
+          ...prevState,
+          results: originalData.results.filter((obj) =>
+            obj.genre_ids.includes(Number(event.target.value))
+          ),
+        };
+      });
+    } else {
+      setSelectedGenre("");
+      setAppliedData(originalData);
+    }
   };
 
   const handleSortChange = (event) => {
@@ -147,19 +152,19 @@ const MoviePage = () => {
   }, [appliedData]);
 
   useEffect(() => {
-    if (sort !== "") {
-      setSortData(sort);
-    }
+    // if (sort !== "") {
+    //   setSortData(sort);
+    // }
   }, [sort]);
 
   useEffect(() => {
     if (data) {
-      if (sort) {
-        setSortData(sort);
-      } else {
-        setAppliedData({ ...data });
-        setOriginalData({ ...data });
-      }
+      setAppliedData({ ...data });
+      setOriginalData({ ...data });
+      // if (sort) {
+      //   setSortData(sort);
+      // } else {
+      // }
     }
   }, [data]);
 
