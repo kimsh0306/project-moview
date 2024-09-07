@@ -88,17 +88,18 @@ const MoviePage = () => {
   console.log("dataMovie: ", data);
   const [appliedData, setAppliedData] = React.useState();
   const [originalData, setOriginalData] = React.useState();
+  const [selectedGenre, setSelectedGenre] = React.useState();
 
   const handleGenreClick = (event) => {
-    console.log("!!!value: ", Number(event.target.value));
-
+    setSelectedGenre(event.target.name);
     setAppliedData((prevState) => {
       return {
         ...prevState,
-        results: originalData.results.filter((obj) => obj.genre_ids.includes(Number(event.target.value))),
+        results: originalData.results.filter((obj) =>
+          obj.genre_ids.includes(Number(event.target.value))
+        ),
       };
     });
-
   };
 
   const handleSortChange = (event) => {
@@ -218,9 +219,10 @@ const MoviePage = () => {
                     <Button
                       key={idx}
                       className="badge"
-                      variant="secondary"
+                      variant={selectedGenre === item.name ? "danger" : "secondary"}
                       onClick={handleGenreClick}
                       value={item.id}
+                      name={item.name}
                     >
                       {item.name}
                     </Button>
