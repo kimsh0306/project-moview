@@ -2,27 +2,12 @@
   position: relative;
 }
 
-.banner-img-box {
-  /* border: 1px solid white; */
+.banner__img-area {
   height: 56vh;
-}
-
-.banner-img {
-  height: 100%;
   overflow: hidden;
 }
 
-@keyframes moving-img {
-  from {
-    top: 0;
-  }
-
-  to {
-    top: -40%;
-  }
-}
-
-.banner-img::before {
+.banner__img-area::before {
   content: "";
   background: linear-gradient(to top, black, transparent);
   position: absolute;
@@ -32,13 +17,23 @@
   z-index: 2;
 }
 
-.img {
+@keyframes banner__img-moving {
+  from {
+    top: 0;
+  }
+
+  to {
+    top: -40%;
+  }
+}
+
+.banner__img {
   width: 100%;
   min-height: 56vh;
   object-fit: cover;
 }
 
-.banner-text-area {
+.banner__content-area {
   width: 400px;
   padding: 30px;
   position: absolute;
@@ -46,41 +41,41 @@
   z-index: 3;
 }
 
-.banner-text-area P {
+.banner__content-area P {
   margin: 0;
   word-break: keep-all;
 }
 
 @media (max-width: 464px) {
-  .banner-img-box {
+  .banner__img-area {
     height: 233px;
   }
 
-  .img {
+  .banner__img-area::before {
+    display: none;
+  }
+
+  .banner__img {
     min-height: 0;
     object-fit: cover;
   }
 
-  .banner-img::before {
-    height: 233px;
-  }
-
-  .banner-text-area {
+  .banner__content-area {
     position: static;
   }
 
-  .banner-text-area {
+  .banner__content-area {
     width: 100%;
     z-index: 0;
   }
 }
 
 @media (min-width: 1100px) {
-  .moving-img {
+  .banner__img-moving {
     position: relative;
     z-index: -1;
     top: 0%;
-    animation-name: moving-img;
+    animation-name: banner__img-moving;
     animation-duration: 10000ms;
     animation-timing-function: ease-in-out;
     animation-iteration-count: infinite;
@@ -88,24 +83,20 @@
   }
 }
 
-.movie-info {
-  margin-top: 10px;
-  cursor: pointer;
-}
-
-.top1-badge {
+/* badge */
+.banner__content-badge {
   width: 40px;
   height: auto;
   padding: 3px;
   margin-bottom: 4px;
-  background-color: #ff0000cc;
+  background-color: #d32f2f;
   border-radius: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.top1-badge h6 {
+.banner__content-badge h6 {
   font-size: 12px;
   margin: 0;
   font-weight: bold;

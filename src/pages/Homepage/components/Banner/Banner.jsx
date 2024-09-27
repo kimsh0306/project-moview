@@ -1,65 +1,43 @@
 import React from "react";
-import { usePopularMoviesQuery } from "../../../../hooks/useMovieListsQuerys";
-import Alert from "react-bootstrap/Alert";
-import "./Banner.style.css";
-import { InfoOutlined } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-
-import IconButton from "@mui/material/IconButton";
-import Button from "@mui/material/Button";
-import { styled } from "@mui/material/styles";
+import { usePopularMoviesQuery } from "../../../../hooks/useMovieListsQuerys";
+import { Alert } from "react-bootstrap";
+import CustomButton from "../../../../common/CustomButton/CustomButton";
+import "./Banner.style.css";
 
 const Banner = () => {
-  const ColorButton = styled(Button)(({ theme }) => ({
-    color: "white",
-    backgroundColor: "none",
-    border: "1px solid #999",
-    marginTop: "14px",
-    "&:hover": {
-      backgroundColor: "white",
-      backgroundColor: "none",
-      border: "1px solid white",
-    },
-  }));
-
   const navigate = useNavigate();
   const { data, isLoading, isError, error } = usePopularMoviesQuery();
-  console.log("dataBanner: ", data);
+  // console.log("dataBanner: ", data);
+
+  const handleBtnClick = () => navigate(`/movies/${data?.results[0].id}`);
+
   if (isLoading) {
     <h1>Loading...</h1>;
-  }
+  };
   if (isError) {
     <Alert variant="danger">{error.message}</Alert>;
-  }
+  };
 
   const imgUrl = `https://media.themoviedb.org/t/p/w1066_and_h600_bestv2${data?.results[0].poster_path}`;
   return (
     <div className="banner">
-      <div className="banner-img-box">
-        <div className="banner-img">
-          <div className="moving-img">
-            <img className="img" src={imgUrl} />
-          </div>
+      <div className="banner__img-area">
+        <div className="banner__img-moving">
+          <img className="banner__img" src={imgUrl} />
         </div>
       </div>
-      <div className="text-white banner-text-area">
-        <div className="top1-badge">
-          <h6>TOP</h6>
-          <h6>1</h6>
+      <div className="banner__content-area">
+        <div className="banner__content-badge">
+          <h6>TOP1</h6>
         </div>
         <h1>{data?.results[0].title}</h1>
         <p>{data?.results[0].overview}</p>
-
-        <ColorButton
-          onClick={() => {
-            navigate(`/movies/${data?.results[0].id}`);
-          }}
-          variant="outlined"
-          size="small"
-          startIcon={<InfoOutlined />}
-        >
-          movie info
-        </ColorButton>
+        <CustomButton
+          handleBtnClick={handleBtnClick}
+          mt="1rem"
+          value="movie info"
+        />
       </div>
     </div>
   );
