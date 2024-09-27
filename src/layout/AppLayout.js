@@ -8,18 +8,18 @@ import { Outlet, useNavigate } from 'react-router-dom';
 
 const AppLayout = () => {
   const [keyword, setKeyword] = useState("");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const searchByKeyword = (event) => {
     event.preventDefault();
     navigate(`/movies?q=${keyword}`);
     setKeyword("");
-  }
+  };
 
   return (
     <div>
       <Navbar bg="black" data-bs-theme="dark" expand="lg" className="bg-body-dark">
         <Container fluid>
-          <Navbar.Brand href="/">
+          <Navbar.Brand onClick={() => {navigate('/')}}>
             <div className="navbarlogo">
               <img width={50} src="https://images.ctfassets.net/y2ske730sjqp/1aONibCke6niZhgPxuiilC/2c401b05a07288746ddf3bd3943fbc76/BrandAssets_Logos_01-Wordmark.jpg?w=940" />
             </div>
@@ -31,8 +31,8 @@ const AppLayout = () => {
               style={{ maxHeight: '100px' }}
               navbarScroll
             >
-              <Nav.Link href="/">Home</Nav.Link>
-              <Nav.Link href="/movies">movies</Nav.Link>
+              <Nav.Link onClick={() => {navigate('/')}}>Home</Nav.Link>
+              <Nav.Link onClick={() => {navigate('/movies')}}>movies</Nav.Link>
             </Nav>
             <Form className="d-flex" onSubmit={searchByKeyword}>
               <Form.Control
