@@ -1,47 +1,4 @@
 body {
-  background-color: black !important;
+  background-color: #181818 !important;
   color: white !important;
-}
-
-/*  */
-.notfound {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.notfound h1 {
-  margin: 10px 0 0 4px;
-  text-align: center;
-  font-size: 50px;
-}
-
-.notfound h3 {
-  margin: 0;
-  text-align: center;
-  font-size: 30px;
-  font-weight: 100;
-}
-
-.notfound div {
-  /* transform: translateY(-50px); */
-  width: 300px;
-  height: 30%;
-  overflow: hidden;
-}
-
-
-/*  */
-
-.navbarlogo {
-  width: 80px;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-}
-.navbarlogo img {
-  transform: translateX(10px);
-  transform:scale(3)
 }
