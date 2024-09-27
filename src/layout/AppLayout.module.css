@@ -15,14 +15,14 @@
 }
 
 .search-btn {
-  background-color: #d32f2f;
-  border: none;
+  background-color: #d32f2f !important;
+  border: none  !important;
   margin-left: 0.6rem;
   min-width: 4rem;
 }
 
 .search-btn:hover {
-  background-color: #c62828;
+  background-color: #c62828 !important;
 }
 
 .search-btn:active {
@@ -30,10 +30,10 @@
 }
 
 .search-input {
-  font-size: 0.9rem;
+  font-size: 0.9rem !important;
 }
 
 .search-input:focus {
-  border: 1px solid #a4a4a4;
-  box-shadow: none;
+  border: 1px solid #a4a4a4 !important;
+  box-shadow: none !important;
 }
