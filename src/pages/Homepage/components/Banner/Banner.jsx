@@ -14,6 +14,7 @@ const Banner = () => {
     color: "white",
     backgroundColor: "none",
     border: "1px solid #999",
+    marginTop: "14px",
     "&:hover": {
       backgroundColor: "white",
       backgroundColor: "none",
@@ -53,12 +54,8 @@ const Banner = () => {
           onClick={() => {
             navigate(`/movies/${data?.results[0].id}`);
           }}
-          sx={{
-            marginTop: "14px",
-          }}
           variant="outlined"
           size="small"
-          color="primary"
           startIcon={<InfoOutlined />}
         >
           movie info
