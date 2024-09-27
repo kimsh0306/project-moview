@@ -4,7 +4,7 @@ import React from 'react'
 
 const NotFoundPage = () => {
   return (
-    <div className='notfound'>
+    <div className='not-found'>
       <h3>sorry,<br/>
       page not fond...</h3>
       <div>

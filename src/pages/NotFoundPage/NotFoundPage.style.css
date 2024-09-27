@@ -1,5 +1,4 @@
-
-.notfound {
+.not-found {
   background-color: white;
   color: black;
   height: 100vh;
@@ -9,13 +8,13 @@
   align-items: center;
 }
 
-.notfound h1 {
+.not-found h1 {
   margin: 10px 0 0 4px;
   text-align: center;
   font-size: 80px;
 }
 
-.notfound h3 {
+.not-found h3 {
   margin: 0;
   text-align: center;
   font-size: 50px;
@@ -23,8 +22,7 @@
   color: #8e8e8e;
 }
 
-.notfound div {
-  /* transform: translateY(-50px); */
+.not-found div {
   width: 300px;
   height: 260px;
   overflow: hidden;
