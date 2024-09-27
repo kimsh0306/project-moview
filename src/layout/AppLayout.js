@@ -1,16 +1,25 @@
-import React, { useEffect, useState } from 'react'
-import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
+import React, { useState } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom';
+import {
+  Button,
+  Container,
+  Form,
+  Nav,
+  Navbar
+} from 'react-bootstrap';
+import styles from "./AppLayout.module.css";
 
 const AppLayout = () => {
-  const [keyword, setKeyword] = useState("");
   const navigate = useNavigate();
+
+  const [keyword, setKeyword] = useState("");
+
   const searchByKeyword = (event) => {
     event.preventDefault();
+    if(!keyword) {
+      alert("검색할 영화를 입력해주세요.");
+      return;
+    };
     navigate(`/movies?q=${keyword}`);
     setKeyword("");
   };
@@ -19,8 +28,8 @@ const AppLayout = () => {
     <div>
       <Navbar bg="black" data-bs-theme="dark" expand="lg" className="bg-body-dark">
         <Container fluid>
-          <Navbar.Brand onClick={() => {navigate('/')}}>
-            <div className="navbarlogo">
+          <Navbar.Brand className={styles["navbar-brand"]} onClick={() => {navigate('/')}}>
+            <div className={styles["navbar-logo"]}>
               <img width={50} src="https://images.ctfassets.net/y2ske730sjqp/1aONibCke6niZhgPxuiilC/2c401b05a07288746ddf3bd3943fbc76/BrandAssets_Logos_01-Wordmark.jpg?w=940" />
             </div>
           </Navbar.Brand>
@@ -37,13 +46,13 @@ const AppLayout = () => {
             <Form className="d-flex" onSubmit={searchByKeyword}>
               <Form.Control
                 type="search"
-                placeholder="Search"
-                className="me-2"
+                placeholder="제목"
+                className={styles["search-input"]}
                 aria-label="Search"
                 value={keyword}
                 onChange={(event) => setKeyword(event.target.value)}
               />
-              <Button variant="danger" type="submit">Search</Button>
+              <Button className={styles["search-btn"]} type="submit" size="sm">검색</Button>
             </Form>
           </Navbar.Collapse>
         </Container>

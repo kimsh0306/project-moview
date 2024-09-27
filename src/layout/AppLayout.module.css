@@ -1,0 +1,39 @@
+.navbar-logo {
+  width: 80px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+.navbar-logo img {
+  transform: translateX(10px);
+  transform: scale(3)
+}
+
+.navbar-brand {
+  cursor: pointer;
+}
+
+.search-btn {
+  background-color: #d32f2f;
+  border: none;
+  margin-left: 0.6rem;
+  min-width: 4rem;
+}
+
+.search-btn:hover {
+  background-color: #c62828;
+}
+
+.search-btn:active {
+  background-color: #b71c1c !important;
+}
+
+.search-input {
+  font-size: 0.9rem;
+}
+
+.search-input:focus {
+  border: 1px solid #a4a4a4;
+  box-shadow: none;
+}
