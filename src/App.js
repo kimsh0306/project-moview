@@ -1,11 +1,12 @@
-import './App.css';
+import { Route, Routes } from 'react-router-dom';
 import AppLayout from './layout/AppLayout';
 import Homepage from './pages/Homepage/Homepage';
 import MoviePage from './pages/Movies/MoviePage';
 import MovieDetailPage from './pages/MovieDetail/MovieDetailPage';
-import { Route, Routes } from 'react-router-dom';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.scss';
+import './App.css';
 
 function App() {
   return (
@@ -18,7 +19,6 @@ function App() {
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Route>
-
     </Routes>
   );
 }

@@ -1,12 +1,7 @@
-.slide-box {
-  margin-bottom: 10px;
-  /* padding: 30px; */
-  height: 330px;
-}
-
 .slide-box h3 {
-  font-size: 1.2rem;
-  margin: 0 0 10px 0;
+  color: var(--custom-secondary);
+  font-size: 1rem;
+  margin: 0 0 0.8rem 0;
 }
 
 .slide-box h3::before {
@@ -14,12 +9,7 @@
   display: block;
   width: 60px;
   height: 3px;
-  background-color: #ff0000cc;
+  background-color: var(--custom-primary);
   margin-bottom: 6px;
   border-radius: 1.5px;
-}
-
-.carousel-container {
-  overflow: hidden;
-  height: auto;
 }

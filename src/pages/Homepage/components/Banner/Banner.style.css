@@ -89,7 +89,7 @@
   height: auto;
   padding: 3px;
   margin-bottom: 4px;
-  background-color: #d32f2f;
+  background-color: var(--custom-primary);
   border-radius: 5px;
   display: flex;
   justify-content: center;

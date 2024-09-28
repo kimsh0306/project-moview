@@ -14,13 +14,11 @@ const UpcomingMovieSlide = () => {
     return <Alert variant="danger">{error.message}</Alert>;
   }
   return (
-    <div style={{padding:"30px"}}>
-      <MovieSlider
-        title="Upcoming Movies"
-        movies={data.results}
-        responsive={responsive}
-      />
-    </div>
+    <MovieSlider
+      title="Upcoming Movies"
+      movies={data.results}
+      responsive={responsive}
+    />
   );
 };
 

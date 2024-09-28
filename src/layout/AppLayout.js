@@ -7,7 +7,7 @@ import {
   Nav,
   Navbar
 } from 'react-bootstrap';
-import styles from "./AppLayout.module.css";
+import "./AppLayout.style.css";
 
 const AppLayout = () => {
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ const AppLayout = () => {
 
   const searchByKeyword = (event) => {
     event.preventDefault();
-    if(!keyword) {
+    if (!keyword) {
       alert("검색할 영화를 입력해주세요.");
       return;
     };
@@ -25,11 +25,11 @@ const AppLayout = () => {
   };
 
   return (
-    <div>
+    <>
       <Navbar bg="black" data-bs-theme="dark" expand="lg" className="bg-body-dark">
         <Container fluid>
-          <Navbar.Brand className={styles["navbar-brand"]} onClick={() => {navigate('/')}}>
-            <div className={styles["navbar-logo"]}>
+          <Navbar.Brand onClick={() => { navigate('/') }}>
+            <div className="navbar-logo">
               <img width={50} src="https://images.ctfassets.net/y2ske730sjqp/1aONibCke6niZhgPxuiilC/2c401b05a07288746ddf3bd3943fbc76/BrandAssets_Logos_01-Wordmark.jpg?w=940" />
             </div>
           </Navbar.Brand>
@@ -40,25 +40,29 @@ const AppLayout = () => {
               style={{ maxHeight: '100px' }}
               navbarScroll
             >
-              <Nav.Link onClick={() => {navigate('/')}}>Home</Nav.Link>
-              <Nav.Link onClick={() => {navigate('/movies')}}>movies</Nav.Link>
+              <Nav.Link onClick={() => { navigate('/') }}>Home</Nav.Link>
+              <Nav.Link onClick={() => { navigate('/movies') }}>movies</Nav.Link>
             </Nav>
             <Form className="d-flex" onSubmit={searchByKeyword}>
               <Form.Control
                 type="search"
                 placeholder="제목"
-                className={styles["search-input"]}
                 aria-label="Search"
                 value={keyword}
                 onChange={(event) => setKeyword(event.target.value)}
               />
-              <Button className={styles["search-btn"]} type="submit" size="sm">검색</Button>
+              <Button
+                type="submit"
+                size="sm"
+              >
+                검색
+              </Button>
             </Form>
           </Navbar.Collapse>
         </Container>
       </Navbar>
       <Outlet />
-    </div>
+    </>
   )
 }
 

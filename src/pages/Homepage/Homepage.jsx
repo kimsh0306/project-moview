@@ -3,15 +3,18 @@ import Banner from "./components/Banner/Banner";
 import PopularMovieSlide from "./components/PopularMovieSlide/PopularMovieSlide";
 import TopRatedMovieSlide from "./components/TopRatedMovieSlide/TopRatedMovieSlide";
 import UpcomingMovieSlide from "./components/UpcomingMovieSlide/UpcomingMovieSlide";
+import "./Homepage.style.css";
 
 const Homepage = () => {
   return (
-    <div>
+    <>
       <Banner />
-      <PopularMovieSlide/>
-      <TopRatedMovieSlide/>
-      <UpcomingMovieSlide/>
-    </div>
+      <div className="home__content">
+        <PopularMovieSlide />
+        <TopRatedMovieSlide />
+        <UpcomingMovieSlide />
+      </div>
+    </>
   );
 };
 

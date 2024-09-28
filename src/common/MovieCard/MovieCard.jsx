@@ -94,7 +94,6 @@ const MovieCard = ({ movie }) => {
         </div>
       )
     }
-    return <></>;
   }
 
   return (
