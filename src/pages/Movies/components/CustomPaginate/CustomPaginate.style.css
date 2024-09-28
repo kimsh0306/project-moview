@@ -1,0 +1,44 @@
+/* pagination */
+.movie-page .pagination {
+  margin-top: 2rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: .5rem;
+
+  >* {
+    cursor: pointer;
+  }
+}
+
+.movie-page .page-link {
+  width: auto;
+  height: auto;
+  transition: all 0.25s;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.7rem;
+  border-radius: 0.3rem;
+  background-color: black !important;
+  color: #f5f5f5 !important;
+  border-color: #757575 !important;
+}
+
+.movie-page .page-link_active {
+  border-color: var(--custom-primary) !important;
+  color: var(--custom-primary) !important;
+}
+
+.movie-page .page-item:hover .page-link {
+  border-color: var(--color-red-500) !important;
+  color: var(--color-red-500) !important;
+}
+
+.movie-page .disabled .page-link  {
+  pointer-events: none !important;
+  background-color: lightgray;
+  color: gray;
+}
+
+.movie-page .page-link:focus {
+  box-shadow: none !important; /* 모든 버튼의 포커스 시 파란색 그림자 제거 */
+}
