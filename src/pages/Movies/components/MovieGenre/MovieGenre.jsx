@@ -1,26 +1,46 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button } from "react-bootstrap";
 import "./MovieGenre.style.css";
 
 const MovieGenre = ({ originalData, setAppliedData, genreList }) => {
-  const [selectedGenre, setSelectedGenre] = React.useState("");
-  
+  // const [selectedGenre, setSelectedGenre] = React.useState("");
+  const [selectedGenreIds, setSelectedGenreIds] = React.useState([]);
+
   const handleGenreClick = (event) => {
-    if (selectedGenre !== event.target.name) {
-      setSelectedGenre(event.target.name);
-      setAppliedData((prevState) => {
-        return {
-          ...prevState,
-          results: originalData.results.filter((obj) =>
-            obj.genre_ids.includes(Number(event.target.value))
-          ),
-        };
-      });
+    const genreId = event.target.value;
+    if (!selectedGenreIds.includes(genreId)) {
+      setSelectedGenreIds((prevState) => [...prevState, genreId]);
     } else {
-      setSelectedGenre("");
-      setAppliedData(originalData);
+      setSelectedGenreIds((prevState) =>
+        prevState.filter((item) => item !== genreId)
+      );
     }
   };
+
+  useEffect(() => {
+    if (selectedGenreIds.length > 0) {
+      let result = [];
+  
+      selectedGenreIds.forEach((item) => {
+        const filteredResults = originalData.results.filter((obj) =>
+          obj.genre_ids.includes(Number(item))
+        );
+        
+        filteredResults.forEach((movie) => {
+          // 이미 result에 포함되지 않은 경우에만 추가
+          if (!result.some((res) => res.id === movie.id)) {
+            result = [...result, movie];
+          }
+        });
+      });
+  
+      setAppliedData((prevState) => {
+        return { ...prevState, results: result };
+      });
+    } else {
+      setAppliedData(originalData);
+    }
+  }, [selectedGenreIds]);
 
   return (
     <>
@@ -29,7 +49,11 @@ const MovieGenre = ({ originalData, setAppliedData, genreList }) => {
           <Button
             key={`${item}-${idx}`}
             className="badge"
-            variant={selectedGenre === item.name ? "primary" : "secondary"}
+            variant={
+              selectedGenreIds.includes(item.id.toString())
+                ? "primary"
+                : "secondary"
+            }
             onClick={handleGenreClick}
             value={item.id}
             name={item.name}

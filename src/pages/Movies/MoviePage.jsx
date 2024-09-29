@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSearchMovieQuery } from "../../hooks/useMovieSearch";
 import { useSearchParams } from "react-router-dom";
-import { Alert, Col, Container, Row } from "react-bootstrap";
+import { Alert, Col, Container, Row, Button } from "react-bootstrap";
 import { genreList } from "../../constants/genreList";
 import RecommendMovie from "./components/RecommendMovie/RecommendMovie";
 import MovieCard from "../../common/MovieCard/MovieCard";
@@ -14,6 +14,7 @@ const MoviePage = () => {
   const [query, setQuery] = useSearchParams();
   const [page, setPage] = useState(1);
   const [sort, setSort] = React.useState("");
+  const [show, setShow] = useState(true);
 
   const keyword = query.get("q");
   const { data, isLoading, isError, error } = useSearchMovieQuery(
@@ -72,9 +73,9 @@ const MoviePage = () => {
     }
   };
 
-  useEffect(() => {
-    console.log("appliedData: ", appliedData);
-  }, [appliedData]);
+  // useEffect(() => {
+  //   console.log("appliedData: ", appliedData);
+  // }, [appliedData]);
 
   useEffect(() => {
     // console.log("::");
@@ -142,7 +143,13 @@ const MoviePage = () => {
               />
             </>
           ) : (
-            <div className="no-result">영화를 찾지 못했습니다.</div>
+            <Alert show={show} variant="primary">
+              <Alert.Heading>알림</Alert.Heading>
+              <hr />
+              <p className="m-0">
+                선택하신 장르의 영화를 찾지 못했습니다. 다른 장르를 선택해주세요.
+              </p>
+            </Alert>
           )}
         </Row>
       </Container>

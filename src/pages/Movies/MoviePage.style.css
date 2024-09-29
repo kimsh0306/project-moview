@@ -26,7 +26,3 @@
   --bs-gutter-x: .5rem;
   --bs-gutter-y: .5rem;
 }
-
-.movie-page__contents.row .no-result {
-  text-align: center;
-}
