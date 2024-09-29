@@ -19,6 +19,7 @@
   overflow-wrap: break-word;
   position: relative;
   border-radius: 10px;
+  border: 1px solid var(--color-gray-600);
 }
 
 .overlay h1 {

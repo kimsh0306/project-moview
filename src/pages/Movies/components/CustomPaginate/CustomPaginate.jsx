@@ -9,7 +9,6 @@ const CustomPaginate = ({ appliedData, page, setPage }) => {
 
   return (
     <ReactPaginate
-      nextLabel=">"
       onPageChange={handlePageClick}
       pageRangeDisplayed={3}
       marginPagesDisplayed={2}
@@ -17,20 +16,21 @@ const CustomPaginate = ({ appliedData, page, setPage }) => {
         appliedData?.total_pages ? Math.ceil(appliedData.total_pages) : 1
       }
       previousLabel="<"
-      pageLinkClassName="page-link"
-      previousClassName="page-item"
-      previousLinkClassName="page-link"
-      nextClassName="page-item"
-      nextLinkClassName="page-link"
+      nextLabel=">"
       breakLabel="..."
-      breakClassName="page-item"
-      breakLinkClassName="page-link"
-      containerClassName="pagination"
-      activeClassName="active"
-      activeLinkClassName="page-link_active"
       renderOnZeroPageCount={null}
       forcePage={page - 1}
-      pageClassName={"page-item"}
+      containerClassName="pagination"
+      pageClassName="page-item"
+      previousClassName="page-item prev"
+      nextClassName="page-item next"
+      breakClassName="page-item break"
+      activeClassName="page-item active"
+      pageLinkClassName="page-link"
+      previousLinkClassName="page-link prev"
+      nextLinkClassName="page-link next"
+      breakLinkClassName="page-link break"
+      activeLinkClassName="page-link active"
     />
   );
 };

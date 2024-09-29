@@ -5,7 +5,7 @@ import MoviePage from './pages/Movies/MoviePage';
 import MovieDetailPage from './pages/MovieDetail/MovieDetailPage';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.scss';
+import "./styles/custom.scss";
 import './App.css';
 
 function App() {

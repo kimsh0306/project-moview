@@ -4,11 +4,12 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 import "./CustomDropdown.style.css";
 
 const sortTypeList = [
-  { value: "none", name: "none" },
-  { value: "popularity", name: "popularity" },
-  { value: "vote_count", name: "vote count" },
-  { value: "vote_average", name: "vote average" },
+  { value: "none", name: "없음" },
+  { value: "popularity", name: "인기 순" },
+  { value: "vote_count", name: "투표 순" },
+  { value: "vote_average", name: "투표 평균 순" },
 ];
+const sortList = ["none", "popularity", "vote_count", "vote_average"];
 
 const CustomDropdown = ({ sort, setSort }) => {
   const handleSortChange = (eventKey) => {
@@ -17,8 +18,14 @@ const CustomDropdown = ({ sort, setSort }) => {
   return (
     <div className="custom-dropdown">
       <DropdownButton
+        size="sm"
+        variant="outline-primary"
         id="dropdown-basic-button"
-        title={sort ? sort : "Sort"}
+        title={
+          sort
+            ? sortTypeList.map((type) => sort === type.value && type.name)
+            : "정렬"
+        }
         onSelect={handleSortChange}
       >
         {sortTypeList.map((type, idx) => {
@@ -26,7 +33,6 @@ const CustomDropdown = ({ sort, setSort }) => {
             <Dropdown.Item
               key={`${type.value}-${idx}`}
               eventKey={type.value}
-              value={type.value}
               disabled={
                 type.value === "none"
                   ? sort === type.value || sort === ""

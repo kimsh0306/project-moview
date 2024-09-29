@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom';
 import {
   Button,
   Container,
   Form,
+  FormCheck,
   Nav,
   Navbar
 } from 'react-bootstrap';
@@ -12,7 +13,17 @@ import "./AppLayout.style.css";
 const AppLayout = () => {
   const navigate = useNavigate();
 
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
   const [keyword, setKeyword] = useState("");
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-bs-theme', theme);
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
+  };
 
   const searchByKeyword = (event) => {
     event.preventDefault();
@@ -26,12 +37,10 @@ const AppLayout = () => {
 
   return (
     <>
-      <Navbar bg="black" data-bs-theme="dark" expand="lg" className="bg-body-dark">
+      <Navbar bg="black" data-bs-theme="dark" expand="lg">
         <Container fluid>
           <Navbar.Brand onClick={() => { navigate('/') }}>
-            <div className="navbar-logo">
-              <img width={50} src="https://images.ctfassets.net/y2ske730sjqp/1aONibCke6niZhgPxuiilC/2c401b05a07288746ddf3bd3943fbc76/BrandAssets_Logos_01-Wordmark.jpg?w=940" />
-            </div>
+            MovieUn
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
@@ -40,9 +49,16 @@ const AppLayout = () => {
               style={{ maxHeight: '100px' }}
               navbarScroll
             >
-              <Nav.Link onClick={() => { navigate('/') }}>Home</Nav.Link>
               <Nav.Link onClick={() => { navigate('/movies') }}>movies</Nav.Link>
             </Nav>
+            <FormCheck
+              type="switch"
+              id="theme-switch"
+              label="컬러 모드"
+              onChange={toggleTheme}
+              checked={theme === 'dark'}
+              variant="danger"
+            />
             <Form className="d-flex" onSubmit={searchByKeyword}>
               <Form.Control
                 type="search"
@@ -50,10 +66,10 @@ const AppLayout = () => {
                 aria-label="Search"
                 value={keyword}
                 onChange={(event) => setKeyword(event.target.value)}
+                data-bs-theme="dark"
               />
               <Button
                 type="submit"
-                size="sm"
               >
                 검색
               </Button>

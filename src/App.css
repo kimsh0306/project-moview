@@ -1,4 +1,9 @@
 body {
-  background-color: #181818;
-  color: white;
+  background-color: var(--bs-body-bg-light);
+  color: var(--bs-body-text-light);
+}
+
+[data-bs-theme="dark"] body {
+  background-color: var(--bs-body-bg-dark);
+  color: var(--bs-body-text-dark);
 }

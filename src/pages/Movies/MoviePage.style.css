@@ -1,15 +1,32 @@
-.movie-page {
+.movie-page .container-fluid {
   padding: 1.875Rem;
 }
 
-.movie-page__box.row {
-  --bs-gutter-y: 3rem;
+.movie-page__header {
+  margin-bottom: 2rem;
+  gap: 1rem;
 }
 
-.movie-page__options.row {
-  --bs-gutter-y: 1rem;
+.movie-page .page-name {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.movie-page .page-name h2{
+  margin: 0;
+}
+
+.movie-page__genre .genre {
+  padding: 1rem;
+  text-align: center;
 }
 
 .movie-page__contents.row {
-  --bs-gutter-y: 1.5rem;
+  --bs-gutter-x: .5rem;
+  --bs-gutter-y: .5rem;
+}
+
+.movie-page__contents.row .no-result {
+  text-align: center;
 }

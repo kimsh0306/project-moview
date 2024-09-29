@@ -1,5 +1,6 @@
 import React from "react";
 import { Button } from "react-bootstrap";
+import "./MovieGenre.style.css";
 
 const MovieGenre = ({ originalData, setAppliedData, genreList }) => {
   const [selectedGenre, setSelectedGenre] = React.useState("");
@@ -22,13 +23,13 @@ const MovieGenre = ({ originalData, setAppliedData, genreList }) => {
   };
 
   return (
-    <div>
+    <>
       {genreList.map((item, idx) => {
         return (
           <Button
-            key={idx}
+            key={`${item}-${idx}`}
             className="badge"
-            variant={selectedGenre === item.name ? "danger" : "secondary"}
+            variant={selectedGenre === item.name ? "primary" : "secondary"}
             onClick={handleGenreClick}
             value={item.id}
             name={item.name}
@@ -37,7 +38,7 @@ const MovieGenre = ({ originalData, setAppliedData, genreList }) => {
           </Button>
         );
       })}
-    </div>
+    </>
   );
 };
 

@@ -5,11 +5,10 @@ import { Alert, Col, Container, Row } from "react-bootstrap";
 import { genreList } from "../../constants/genreList";
 import RecommendMovie from "./components/RecommendMovie/RecommendMovie";
 import MovieCard from "../../common/MovieCard/MovieCard";
-import CustomSelect from "./components/CustomSelect/CustomSelect";
 import CustomPaginate from "./components/CustomPaginate/CustomPaginate";
 import MovieGenre from "./components/MovieGenre/MovieGenre";
-import "./MoviePage.style.css";
 import CustomDropdown from "./components/CustomDropdown/CustomDropdown";
+import "./MoviePage.style.css";
 
 const MoviePage = () => {
   const [query, setQuery] = useSearchParams();
@@ -23,8 +22,8 @@ const MoviePage = () => {
   );
   // console.log("dataMovie: ", data);
 
-  const [appliedData, setAppliedData] = React.useState();
   const [originalData, setOriginalData] = React.useState();
+  const [appliedData, setAppliedData] = React.useState();
 
   const getSortData = (sortType) => {
     switch (sortType) {
@@ -74,7 +73,7 @@ const MoviePage = () => {
   };
 
   useEffect(() => {
-    // console.log("appliedData: ", appliedData);
+    console.log("appliedData: ", appliedData);
   }, [appliedData]);
 
   useEffect(() => {
@@ -109,32 +108,42 @@ const MoviePage = () => {
   return (
     <div className="movie-page">
       <Container fluid>
-        <Row className="movie-page__box">
-          <Col lg={4} xs={12}>
-            <Row className="movie-page__options">
+        <Row className="movie-page__header">
+          <div className="page-name">
+            <h2>영화</h2>
+            <div className="dropdown">
               <CustomDropdown sort={sort} setSort={setSort} />
-              {/* <CustomSelect sort={sort} setSort={setSort} /> */}
-              <MovieGenre
-                originalData={originalData}
-                setAppliedData={setAppliedData}
-                genreList={genreList}
-              />
-            </Row>
-          </Col>
-          <Col lg={8} xs={12}>
-            <Row className="movie-page__contents">
+            </div>
+          </div>
+          <div className="movie-page__genre">
+            <Col xs={12}>
+              <div className="genre">
+                <MovieGenre
+                  originalData={originalData}
+                  setAppliedData={setAppliedData}
+                  genreList={genreList}
+                />
+              </div>
+            </Col>
+          </div>
+        </Row>
+        <Row className="movie-page__contents">
+          {appliedData?.results.length > 0 ? (
+            <>
               {appliedData?.results?.map((movie, idx) => (
-                <Col key={idx} lg={4} md={4} sm={6} xs={12}>
+                <Col key={idx} xl={2} lg={3} md={4} sm={6} xs={6}>
                   <MovieCard movie={movie} />
                 </Col>
               ))}
-            </Row>
-            <CustomPaginate
-              appliedData={appliedData}
-              page={page}
-              setPage={setPage}
-            />
-          </Col>
+              <CustomPaginate
+                appliedData={appliedData}
+                page={page}
+                setPage={setPage}
+              />
+            </>
+          ) : (
+            <div className="no-result">영화를 찾지 못했습니다.</div>
+          )}
         </Row>
       </Container>
     </div>

@@ -1,0 +1,147 @@
+// primary color custom 설정 1/2
+$primary: #fd7e14;
+
+/* bootstrap color system */
+:root {
+  /* Blue */
+  --color-blue-100: #cfe2ff;
+  --color-blue-200: #9ec5fe;
+  --color-blue-300: #6ea8fe;
+  --color-blue-400: #3d8bfd;
+  --color-blue-500: #0d6efd;
+  --color-blue-600: #0a58ca;
+  --color-blue-700: #084298;
+  --color-blue-800: #052c65;
+  --color-blue-900: #031633;
+
+  /* Indigo */
+  --color-indigo-100: #e0cffc;
+  --color-indigo-200: #c29ffa;
+  --color-indigo-300: #a370f7;
+  --color-indigo-400: #8540f5;
+  --color-indigo-500: #6610f2;
+  --color-indigo-600: #520dc2;
+  --color-indigo-700: #3d0a91;
+  --color-indigo-800: #290661;
+  --color-indigo-900: #140331;
+
+  /* Purple */
+  --color-purple-100: #e2d9f3;
+  --color-purple-200: #c5b3e6;
+  --color-purple-300: #a98eda;
+  --color-purple-400: #8c68cd;
+  --color-purple-500: #6f42c1;
+  --color-purple-600: #59359a;
+  --color-purple-700: #442874;
+  --color-purple-800: #2e1a4d;
+  --color-purple-900: #170d27;
+
+  /* Pink */
+  --color-pink-100: #fcd1e5;
+  --color-pink-200: #f9a3cb;
+  --color-pink-300: #f675b0;
+  --color-pink-400: #f34796;
+  --color-pink-500: #f63384;
+  --color-pink-600: #cc2977;
+  --color-pink-700: #991f5a;
+  --color-pink-800: #66143d;
+  --color-pink-900: #330a1f;
+
+  /* Red */
+  --color-red-100: #f8d7da;
+  --color-red-200: #f5c6cb;
+  --color-red-300: #f1b0b7;
+  --color-red-400: #ea868f;
+  --color-red-500: #dc3545;
+  --color-red-600: #c82333;
+  --color-red-700: #bd2130;
+  --color-red-800: #b21f2d;
+  --color-red-900: #7b1f21;
+
+  /* Orange */
+  --color-orange-100: #ffe5d0;
+  --color-orange-200: #ffcca2;
+  --color-orange-300: #ffb374;
+  --color-orange-400: #ff9945;
+  --color-orange-500: #fd7e14;
+  --color-orange-600: #ca6510;
+  --color-orange-700: #984c0c;
+  --color-orange-800: #653208;
+  --color-orange-900: #331904;
+
+  /* Yellow */
+  --color-yellow-100: #fff3cd;
+  --color-yellow-200: #ffe69c;
+  --color-yellow-300: #ffda6a;
+  --color-yellow-400: #ffcd39;
+  --color-yellow-500: #ffc107;
+  --color-yellow-600: #cc9a06;
+  --color-yellow-700: #997404;
+  --color-yellow-800: #664d03;
+  --color-yellow-900: #332701;
+
+  /* Green */
+  --color-green-100: #d1e7dd;
+  --color-green-200: #a3cfbb;
+  --color-green-300: #75b798;
+  --color-green-400: #479f76;
+  --color-green-500: #198754;
+  --color-green-600: #146c43;
+  --color-green-700: #0f5132;
+  --color-green-800: #0a3622;
+  --color-green-900: #051b11;
+
+  /* Teal */
+  --color-teal-100: #d2f4ea;
+  --color-teal-200: #a6e9d5;
+  --color-teal-300: #79dec0;
+  --color-teal-400: #4dd3aa;
+  --color-teal-500: #20c997;
+  --color-teal-600: #1aa379;
+  --color-teal-700: #137d5b;
+  --color-teal-800: #0d584c;
+  --color-teal-900: #062b24;
+
+  /* Cyan */
+  --color-cyan-100: #cff4fc;
+  --color-cyan-200: #9eeaf9;
+  --color-cyan-300: #6edff6;
+  --color-cyan-400: #3dd5f3;
+  --color-cyan-500: #0dcaf0;
+  --color-cyan-600: #0aa2c0;
+  --color-cyan-700: #086990;
+  --color-cyan-800: #054460;
+  --color-cyan-900: #021130;
+
+  /* Gray */
+  --color-gray-100: #f8f9fa;
+  --color-gray-200: #e9ecef;
+  --color-gray-300: #dee2e6;
+  --color-gray-400: #ced4da;
+  --color-gray-500: #adb5bd;
+  --color-gray-600: #6c757d;
+  --color-gray-700: #495057;
+  --color-gray-800: #343a40;
+  --color-gray-900: #212529;
+
+  /* Black and White */
+  --color-black: #000000;
+  --color-white: #ffffff;
+
+  /* theme - color modes */
+  --bs-body-bg-light: var(--color-white);
+  --bs-body-bg-dark: var(--color-gray-900);
+
+  --bs-body-text-light: var(--color-black);
+  --bs-body-text-dark: var(--color-white);
+
+  // primary color custom 설정 2/2
+  --custom-primary: #{$primary};
+
+  // gray border box
+  --custom-border-light: var(--color-gray-700);
+  --custom-border-dark: var(--color-gary-300);
+}
+
+// primary color를 custom 하기 위해 import
+@import "~bootstrap/scss/bootstrap";

@@ -1,40 +1,17 @@
-.navbar-logo {
-  width: 80px;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-}
-
-.navbar-logo img {
-  transform: translateX(10px);
-  transform: scale(3)
-}
-
-.navbar-brand {
+.navbar .navbar-brand {
   cursor: pointer;
+  color: var(--custom-primary);
 }
 
-.navbar .btn {
-  background-color: var(--custom-primary);
-  border: none;
-  margin-left: 0.6rem;
-  min-width: 4rem;
+.navbar .d-flex {
+  /* margin-left: .6rem; */
 }
 
-.navbar .btn:hover {
-  background-color: var(--custom-primary-hover);
+.navbar .btn.btn-primary {
+  white-space : nowrap;
+  color: white;
+  margin-left: .3rem;
 }
-
 .navbar .btn.btn-primary:active {
-  background-color: var(--custom-primary-active);
-}
-
-.navbar .form-control {
-  font-size: 0.9rem;
-  border: 1px solid var(--color-gray-700);
-}
-
-.navbar .form-control:focus {
-  border: 1px solid var(--color-gray-600);
-  box-shadow: none;
+  color: white;
 }
