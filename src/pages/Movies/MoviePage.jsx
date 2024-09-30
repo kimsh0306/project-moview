@@ -14,7 +14,6 @@ const MoviePage = () => {
   const [query, setQuery] = useSearchParams();
   const [page, setPage] = useState(1);
   const [sort, setSort] = React.useState("");
-  const [show, setShow] = useState(true);
 
   const keyword = query.get("q");
   const { data, isLoading, isError, error } = useSearchMovieQuery(
@@ -74,7 +73,7 @@ const MoviePage = () => {
   };
 
   // useEffect(() => {
-  //   console.log("appliedData: ", appliedData);
+  //   console.log("appliedData: ", appliedData?.results);
   // }, [appliedData]);
 
   useEffect(() => {
@@ -143,7 +142,7 @@ const MoviePage = () => {
               />
             </>
           ) : (
-            <Alert show={show} variant="primary">
+            <Alert show={true} variant="primary">
               <Alert.Heading>알림</Alert.Heading>
               <hr />
               <p className="m-0">
