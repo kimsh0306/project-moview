@@ -44,11 +44,6 @@ const MoviePage = () => {
             ...data.results.sort((a, b) => b.vote_average - a.vote_average),
           ],
         };
-      case "none":
-        return {
-          ...data,
-          results: [...data.results.sort((a, b) => b.popularity - a.popularity)],
-        };
       default:
         return data;
     }
