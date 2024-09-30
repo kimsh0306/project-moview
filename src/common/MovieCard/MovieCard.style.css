@@ -1,13 +1,17 @@
 .movie-card {
-  height: 330px;
+  height: 20.625rem;
   background-size: cover;
   cursor: pointer;
   transition: 0.5s;
-  border-radius: 10px;
+  border-radius: 0.625rem;
+}
+
+.movie-card:hover .overlay {
+  opacity: 1;
 }
 
 .overlay {
-  padding: 10px;
+  padding: 0.625rem;
   width: 100%;
   height: 100%;
   background: rgba(43, 41, 41, 0.9);
@@ -18,8 +22,12 @@
   word-break: break-all;
   overflow-wrap: break-word;
   position: relative;
-  border-radius: 10px;
-  border: 1px solid var(--color-gray-600);
+  border-radius: 0.625rem;
+  border: 0.0625rem solid var(--color-gray-600);
+}
+
+.overlay .badge:not(:last-of-type) {
+  margin-right: 0.1875rem;
 }
 
 .overlay h1 {
@@ -27,28 +35,21 @@
   word-break: keep-all;
 }
 
-.movie-card:hover .overlay {
-  opacity: 1;
-}
-
-.movieInfo {
-  margin-top: 20px;
+.movie-info {
+  margin-top: 1.25rem;
   font-weight: 400;
   font-size: .8rem;
 }
 
 .vote-avg {
   border-radius: 50%;
-  /* background-color: #363636; */
-  width: 40px;
-  height: 40px;
-  margin-top: 10px;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-top: 0.625rem;
   transform: scale(2);
   position: absolute;
-  right: 35px;
-  bottom: 35px;
+  right: 2.1875rem;
+  bottom: 2.1875rem;
 }
 
-.overlay .badge:not(:last-of-type) {
-  margin-right: 3px;
-}
+

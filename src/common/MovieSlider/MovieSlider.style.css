@@ -1,15 +1,16 @@
+ /* 컴포넌트 title */
 .slide-box h3 {
-  color: var(--custom-secondary);
   font-size: 1rem;
   margin: 0 0 0.8rem 0;
 }
 
+/* title 상단 bar */
 .slide-box h3::before {
   content: "";
   display: block;
-  width: 60px;
-  height: 3px;
+  width: 3.75rem;
+  height: 0.1875rem;
   background-color: var(--custom-primary);
-  margin-bottom: 6px;
-  border-radius: 1.5px;
+  margin-bottom: 0.375rem;
+  border-radius: 0.09375rem;
 }

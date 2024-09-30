@@ -7,12 +7,12 @@ const CustomButton = ({ handleBtnClick, value, mt = "0" }) => {
   const IconButton = styled(Button)(({ theme }) => ({
     color: "white",
     backgroundColor: "none",
-    border: "1px solid #999",
+    border: "0.0625rem solid #999",
     marginTop: mt,
     "&:hover": {
       backgroundColor: "white",
       backgroundColor: "none",
-      border: "1px solid white",
+      border: "0.0625rem solid white",
     },
   }));
 

@@ -1,5 +1,5 @@
 .movie-page .container-fluid {
-  padding: 1.875Rem;
+  padding: 1.875rem;
 }
 
 .movie-page__header {
@@ -15,6 +15,10 @@
 
 .movie-page .page-name h2{
   margin: 0;
+}
+
+.movie-page .dropdown{
+  padding-top: .1rem;
 }
 
 .movie-page__genre .genre {

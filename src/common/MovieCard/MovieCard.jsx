@@ -16,7 +16,7 @@ function CircularProgressWithLabel(props) {
         sx={{
           zIndex: "-1",
           borderRadius: "50%",
-          border: "2px solid",
+          border: "0.125rem solid",
           borderColor: grey[700],
           top: 0,
           left: 0,
