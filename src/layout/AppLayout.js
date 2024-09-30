@@ -4,7 +4,6 @@ import {
   Button,
   Container,
   Form,
-  FormCheck,
   Nav,
   Navbar
 } from 'react-bootstrap';
@@ -52,15 +51,6 @@ const AppLayout = () => {
               <Nav.Link onClick={() => { navigate('/movies') }}>movies</Nav.Link>
               <Nav.Link onClick={() => { navigate('/movies') }}>movies</Nav.Link>
             </Nav>
-
-            {/* <FormCheck
-              type="switch"
-              id="theme-switch"
-              label={theme === "dark" ? "밝은 테마" : "어두운 테마"}
-              onChange={toggleTheme}
-              checked={theme === 'dark'}
-              variant="danger"
-            /> */}
             <Form className="d-flex" onSubmit={searchByKeyword}>
               <Form.Control
                 type="search"
