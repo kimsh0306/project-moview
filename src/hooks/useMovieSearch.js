@@ -7,8 +7,8 @@ const fetchSearchMovie = (keyword, page) => {
     : api.get(`/movie/now_playing?page=${page}&language=ko-KR`)
 };
 
-const fetchRecommendMovie = (recommendPage) => {
-  return api.get(`/movie/now_playing?page=${recommendPage}&language=ko-KR`)
+const fetchRecommendMovie = (page) => {
+  return api.get(`/movie/now_playing?page=${page}&language=ko-KR`)
 };
 
 const useSearchMovieQuery = (keyword, page) => {
@@ -19,10 +19,10 @@ const useSearchMovieQuery = (keyword, page) => {
   });
 };
 
-const useRecommendMovieQuery = (recommendPage) => {
+const useRecommendMovieQuery = (page) => {
   return useQuery({
-    queryKey: ['movie-recommend', recommendPage],
-    queryFn: () => fetchRecommendMovie(recommendPage),
+    queryKey: ['movie-recommend', page],
+    queryFn: () => fetchRecommendMovie(page),
     select: (result) => result.data,
   });
 };

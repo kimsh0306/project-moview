@@ -18,7 +18,7 @@ const MoviePage = () => {
   const keyword = query.get("q");
   const { data, isLoading, isError, error } = useSearchMovieQuery(
     keyword,
-    page,
+    page
   );
   // console.log("dataMovie: ", data);
 
@@ -89,15 +89,32 @@ const MoviePage = () => {
     setSort("popularity");
   }, [page]);
 
-  if (data?.results?.length === 0) {
-    return <RecommendMovie />;
-  }
-
   if (isLoading) {
     return <h1>Loading...</h1>;
   }
   if (isError) {
     return <Alert variant="danger">{error.message}</Alert>;
+  }
+
+  // keyword 검색 결과가 없을 경우 
+  if (data?.results?.length === 0) {
+    return (
+      <div className="movie-page">
+        <Container fluid>
+          <Row className="movie-page__contents">
+            <Col xs={12}>
+              <Alert show={true} variant="primary">
+                <p className="m-0">
+                  입력하신 검색어와 일치하는 영화를 찾지 못했습니다. 다른 영화를
+                  추천드려요.
+                </p>
+              </Alert>
+            </Col>
+            <RecommendMovie page={page} />
+          </Row>
+        </Container>
+      </div>
+    );
   }
 
   return (
@@ -123,6 +140,7 @@ const MoviePage = () => {
           </div>
         </Row>
         <Row className="movie-page__contents">
+          {/* 장르로 정렬했을 때 데이터가 없을 경우 */}
           {appliedData?.results?.length > 0 ? (
             <>
               {appliedData?.results?.map((movie, idx) => (
