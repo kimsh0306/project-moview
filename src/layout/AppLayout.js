@@ -45,11 +45,11 @@ const AppLayout = () => {
           <Navbar.Collapse id="navbarScroll">
             <Nav
               className="me-auto my-2 my-lg-0"
-              style={{ maxHeight: '100px' }}
+              style={{ maxHeight: '6.25rem' }}
               navbarScroll
             >
-              <Nav.Link onClick={() => { navigate('/movies') }}>movies</Nav.Link>
-              <Nav.Link onClick={() => { navigate('/movies') }}>movies</Nav.Link>
+              <Nav.Link onClick={() => { navigate('/movies') }}>영화</Nav.Link>
+              <Nav.Link onClick={() => { navigate('/my-list') }}>내가 찜한 영화</Nav.Link>
             </Nav>
             <Form className="d-flex" onSubmit={searchByKeyword}>
               <Form.Control
