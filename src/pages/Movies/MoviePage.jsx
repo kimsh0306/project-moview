@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSearchMovieQuery } from "../../hooks/useMovieSearch";
 import { useSearchParams } from "react-router-dom";
 import _ from "lodash";
-import { Alert, Col, Container, Row, Button } from "react-bootstrap";
+import { Alert, Col, Container, Row } from "react-bootstrap";
 import { genreList } from "../../constants/genreList";
 import RecommendMovie from "./components/RecommendMovie/RecommendMovie";
 import MovieCard from "../../common/MovieCard/MovieCard";
@@ -77,10 +77,13 @@ const MoviePage = () => {
     if (data) {
       // data를 받아오면 clone
       const cloneData = _.cloneDeep(data);
-      // sort는 항상 먼저 진행 후, 장르가 선택돼 있다면 선별한 데이터 가져오기 
-      const filteredData = selectedGenreIds.length > 0 ? getSelectedGenreData(cloneData) : cloneData;
+      // sort는 항상 먼저 진행 후, 장르가 선택돼 있다면 선별한 데이터 가져오기
+      const filteredData =
+        selectedGenreIds.length > 0
+          ? getSelectedGenreData(cloneData)
+          : cloneData;
       const sortedData = getSortedData(sort, filteredData);
-      setAppliedData(sortedData); 
+      setAppliedData(sortedData);
     }
   }, [data, sort, selectedGenreIds, page]);
 
@@ -154,14 +157,21 @@ const MoviePage = () => {
               />
             </>
           ) : (
-            <Alert show={true} variant="primary">
-              <Alert.Heading>알림</Alert.Heading>
-              <hr />
-              <p className="m-0">
-                선택하신 장르의 영화를 찾지 못했습니다. 다른 장르를
-                선택해주세요.
-              </p>
-            </Alert>
+            <>
+              <Alert show={true} variant="primary">
+                <Alert.Heading>알림</Alert.Heading>
+                <hr />
+                <p className="m-0">
+                  선택하신 장르의 영화를 찾지 못했습니다. 다른 장르를
+                  선택해주세요.
+                </p>
+              </Alert>
+              <CustomPaginate
+                appliedData={appliedData}
+                page={page}
+                setPage={setPage}
+              />
+            </>
           )}
         </Row>
       </Container>
