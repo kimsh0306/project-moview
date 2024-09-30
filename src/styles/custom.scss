@@ -1,8 +1,23 @@
 // primary color custom 설정 1/2
 $primary: #fd7e14;
 
-/* bootstrap color system */
+$breakpoint-xs: 36rem;
+$breakpoint-sm: 36rem;
+$breakpoint-md: 48rem;
+$breakpoint-lg: 62rem;
+$breakpoint-xl: 75rem;
+$breakpoint-xxl: 87.5rem;
+
 :root {
+  /* bootstrap breakpoint */
+  --breakpoint-xs: #{$breakpoint-xs};
+  --breakpoint-sm: #{$breakpoint-sm};
+  --breakpoint-me: #{$breakpoint-md};
+  --breakpoint-lg: #{$breakpoint-lg};
+  --breakpoint-xl: #{$breakpoint-xl};
+  --breakpoint-xxl: #{$breakpoint-xxl};
+  
+  /* bootstrap color system */
   /* Blue */
   --color-blue-100: #cfe2ff;
   --color-blue-200: #9ec5fe;
