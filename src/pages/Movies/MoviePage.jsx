@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSearchMovieQuery } from "../../hooks/useMovieSearch";
 import { useSearchParams } from "react-router-dom";
+import _ from "lodash";
 import { Alert, Col, Container, Row, Button } from "react-bootstrap";
 import { genreList } from "../../constants/genreList";
 import RecommendMovie from "./components/RecommendMovie/RecommendMovie";
@@ -14,6 +15,7 @@ const MoviePage = () => {
   const [query, setQuery] = useSearchParams();
   const [page, setPage] = useState(1);
   const [sort, setSort] = React.useState("popularity");
+  const [selectedGenreIds, setSelectedGenreIds] = React.useState([]);
 
   const keyword = query.get("q");
   const { data, isLoading, isError, error } = useSearchMovieQuery(
@@ -22,20 +24,23 @@ const MoviePage = () => {
   );
   // console.log("dataMovie: ", data);
 
-  const [originalData, setOriginalData] = React.useState();
   const [appliedData, setAppliedData] = React.useState();
 
-  const getSortData = (sortType, data) => {
+  const getSortedData = (sortType, data) => {
     switch (sortType) {
       case "popularity":
         return {
           ...data,
-          results: [...data.results.sort((a, b) => b.popularity - a.popularity)],
+          results: [
+            ...data.results.sort((a, b) => b.popularity - a.popularity),
+          ],
         };
       case "vote_count":
         return {
           ...data,
-          results: [...data.results.sort((a, b) => b.vote_count - a.vote_count)],
+          results: [
+            ...data.results.sort((a, b) => b.vote_count - a.vote_count),
+          ],
         };
       case "vote_average":
         return {
@@ -49,20 +54,35 @@ const MoviePage = () => {
     }
   };
 
+  const getSelectedGenreData = (data) => {
+    let result = [];
+
+    selectedGenreIds.forEach((item) => {
+      const filteredResults = data?.results.filter((obj) =>
+        obj.genre_ids.includes(Number(item))
+      );
+
+      filteredResults?.forEach((movie) => {
+        // 이미 result에 포함되지 않은 경우에만 추가
+        if (!result.some((res) => res.id === movie.id)) {
+          result = [...result, movie];
+        }
+      });
+    });
+
+    return { ...data, results: result };
+  };
+
   useEffect(() => {
     if (data) {
-      const sortedData = getSortData(sort, data); // 정렬된 데이터를 반환
-      setAppliedData({ ...sortedData });
-      setOriginalData({ ...data });
+      // data를 받아오면 clone
+      const cloneData = _.cloneDeep(data);
+      // sort는 항상 먼저 진행 후, 장르가 선택돼 있다면 선별한 데이터 가져오기 
+      const filteredData = selectedGenreIds.length > 0 ? getSelectedGenreData(cloneData) : cloneData;
+      const sortedData = getSortedData(sort, filteredData);
+      setAppliedData(sortedData); 
     }
-  }, [data, sort]);
-  
-  useEffect(() => {
-    if (appliedData) {
-      const sortedData = getSortData(sort, appliedData); // 현재 sort 상태로 적용
-      setAppliedData(sortedData);
-    }
-  }, [page]);
+  }, [data, sort, selectedGenreIds, page]);
 
   if (isLoading) {
     return <h1>Loading...</h1>;
@@ -71,7 +91,7 @@ const MoviePage = () => {
     return <Alert variant="danger">{error.message}</Alert>;
   }
 
-  // keyword 검색 결과가 없을 경우 
+  // keyword 검색 결과가 없을 경우
   if (data?.results?.length === 0) {
     return (
       <div className="movie-page">
@@ -106,9 +126,13 @@ const MoviePage = () => {
             <Col xs={12}>
               <div className="genre">
                 <MovieGenre
-                  originalData={originalData}
+                  data={data}
                   setAppliedData={setAppliedData}
                   genreList={genreList}
+                  sort={sort}
+                  getSortedData={getSortedData}
+                  selectedGenreIds={selectedGenreIds}
+                  setSelectedGenreIds={setSelectedGenreIds}
                 />
               </div>
             </Col>
