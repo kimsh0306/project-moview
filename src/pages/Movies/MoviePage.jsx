@@ -25,68 +25,48 @@ const MoviePage = () => {
   const [originalData, setOriginalData] = React.useState();
   const [appliedData, setAppliedData] = React.useState();
 
-  const getSortData = (sortType) => {
+  const getSortData = (sortType, data) => {
     switch (sortType) {
       case "popularity":
-        setAppliedData((prevState) => {
-          return {
-            ...prevState,
-            results: [
-              ...prevState.results.sort((a, b) => b.popularity - a.popularity),
-            ],
-          };
-        });
-        break;
+        return {
+          ...data,
+          results: [...data.results.sort((a, b) => b.popularity - a.popularity)],
+        };
       case "vote_count":
-        setAppliedData((prevState) => {
-          return {
-            ...prevState,
-            results: [
-              ...prevState.results.sort((a, b) => b.vote_count - a.vote_count),
-            ],
-          };
-        });
-        break;
+        return {
+          ...data,
+          results: [...data.results.sort((a, b) => b.vote_count - a.vote_count)],
+        };
       case "vote_average":
-        setAppliedData((prevState) => {
-          return {
-            ...prevState,
-            results: [
-              ...prevState.results.sort(
-                (a, b) => b.vote_average - a.vote_average
-              ),
-            ],
-          };
-        });
-        break;
+        return {
+          ...data,
+          results: [
+            ...data.results.sort((a, b) => b.vote_average - a.vote_average),
+          ],
+        };
       case "none":
-        setAppliedData((prevState) => {
-          return {
-            ...prevState,
-            results: [
-              ...prevState.results.sort((a, b) => b.popularity - a.popularity),
-            ],
-          };
-        });
-        break;
+        return {
+          ...data,
+          results: [...data.results.sort((a, b) => b.popularity - a.popularity)],
+        };
+      default:
+        return data;
     }
   };
 
   useEffect(() => {
     if (data) {
-      setAppliedData({ ...data });
+      const sortedData = getSortData(sort, data); // 정렬된 데이터를 반환
+      setAppliedData({ ...sortedData });
       setOriginalData({ ...data });
     }
-  }, [data]);
-
+  }, [data, sort]);
+  
   useEffect(() => {
     if (appliedData) {
-      getSortData(sort);
+      const sortedData = getSortData(sort, appliedData); // 현재 sort 상태로 적용
+      setAppliedData(sortedData);
     }
-  }, [sort]);
-
-  useEffect(() => {
-    setSort("popularity");
   }, [page]);
 
   if (isLoading) {
