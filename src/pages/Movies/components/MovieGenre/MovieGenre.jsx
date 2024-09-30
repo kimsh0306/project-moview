@@ -18,7 +18,7 @@ const MovieGenre = ({ originalData, setAppliedData, genreList }) => {
   };
 
   useEffect(() => {
-    if (selectedGenreIds.length > 0) {
+    if (selectedGenreIds.length > 0 && originalData) {
       let result = [];
   
       selectedGenreIds.forEach((item) => {

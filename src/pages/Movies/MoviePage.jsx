@@ -13,12 +13,12 @@ import "./MoviePage.style.css";
 const MoviePage = () => {
   const [query, setQuery] = useSearchParams();
   const [page, setPage] = useState(1);
-  const [sort, setSort] = React.useState("");
+  const [sort, setSort] = React.useState("popularity");
 
   const keyword = query.get("q");
   const { data, isLoading, isError, error } = useSearchMovieQuery(
     keyword,
-    page
+    page,
   );
   // console.log("dataMovie: ", data);
 
@@ -72,29 +72,24 @@ const MoviePage = () => {
     }
   };
 
-  // useEffect(() => {
-  //   console.log("appliedData: ", appliedData?.results);
-  // }, [appliedData]);
+  useEffect(() => {
+    if (data) {
+      setAppliedData({ ...data });
+      setOriginalData({ ...data });
+    }
+  }, [data]);
 
   useEffect(() => {
-    // console.log("::");
-    if (sort !== "" && appliedData) {
+    if (appliedData) {
       getSortData(sort);
     }
   }, [sort]);
 
   useEffect(() => {
-    // console.log("data: ", data);
-    if (data) {
-      setAppliedData({ ...data });
-      setOriginalData({ ...data });
-      if (sort) {
-        getSortData(sort);
-      }
-    }
-  }, [data]);
+    setSort("popularity");
+  }, [page]);
 
-  if (data?.results.length === 0) {
+  if (data?.results?.length === 0) {
     return <RecommendMovie />;
   }
 
@@ -128,7 +123,7 @@ const MoviePage = () => {
           </div>
         </Row>
         <Row className="movie-page__contents">
-          {appliedData?.results.length > 0 ? (
+          {appliedData?.results?.length > 0 ? (
             <>
               {appliedData?.results?.map((movie, idx) => (
                 <Col key={idx} xl={2} lg={3} md={4} sm={6} xs={6}>
@@ -146,7 +141,8 @@ const MoviePage = () => {
               <Alert.Heading>알림</Alert.Heading>
               <hr />
               <p className="m-0">
-                선택하신 장르의 영화를 찾지 못했습니다. 다른 장르를 선택해주세요.
+                선택하신 장르의 영화를 찾지 못했습니다. 다른 장르를
+                선택해주세요.
               </p>
             </Alert>
           )}
