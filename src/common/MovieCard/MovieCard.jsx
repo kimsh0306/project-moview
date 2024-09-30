@@ -1,18 +1,12 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { useMovieGenreQuery } from "../../hooks/useMovieGenre";
 import { Badge } from "react-bootstrap";
-import "./MovieCard.style.css";
-
 import { deepOrange, amber, grey } from "@mui/material/colors";
 import CircularProgress from "@mui/material/CircularProgress";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { useMovieGenreQuery } from "../../hooks/useMovieGenre";
-import { useNavigate } from "react-router-dom";
-
-const getColor = () => {
-  const shade = 300;
-  return grey[shade];
-};
+import "./MovieCard.style.css";
 
 function CircularProgressWithLabel(props) {
   return (
@@ -34,11 +28,31 @@ function CircularProgressWithLabel(props) {
           justifyContent: "center",
         }}
       >
-        <Typography variant="caption" component="div" sx={{ color: getColor() }}>
+        <Typography variant="caption" component="div" sx={{ color: grey[300] }}>
           {`${Math.round(props.value)}%`}
         </Typography>
       </Box>
     </Box>
+  );
+}
+
+function AdultBadge({ adult }) {
+  return (
+    <div
+      style={{
+        width: "1.5rem",
+        height: "1.5rem",
+        backgroundColor: adult ? deepOrange[500] : amber[500],
+        color: "black",
+        fontWeight: "bold",
+        borderRadius: "20%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      {adult ? "19" : "all"}
+    </div>
   );
 }
 
@@ -56,50 +70,10 @@ const MovieCard = ({ movie }) => {
 
   // console.log("movie: ", movie);
 
-  const handleCardClick =()=>{
-    navigate(`/movies/${movie.id}`)
-  }
-
-  const getAdultBadge = (adult) => {
-    if(!adult) {
-      return (
-        <div style={{
-          width:"24px",
-          height:"24px",
-          backgroundColor:amber[500],
-          color:"black",
-          fontWeight:"bold",
-          borderRadius:"20%",
-          display:"flex",
-          justifyContent:"center",
-          alignItems:"center",
-        }}>
-          all
-        </div>
-      )
-    } else {
-      return (
-        <div style={{
-          width:"24px",
-          height:"24px",
-          backgroundColor:deepOrange[500],
-          color:"black",
-          fontWeight:"bold",
-          borderRadius:"20%",
-          display:"flex",
-          justifyContent:"center",
-          alignItems:"center",
-        }}>
-          19
-        </div>
-      )
-    }
-  }
-
   return (
     <div
       className="movie-card"
-      onClick={handleCardClick}
+      onClick={() => navigate(`/movies/${movie.id}`)}
       style={{
         backgroundImage:
           "url(" +
@@ -114,15 +88,15 @@ const MovieCard = ({ movie }) => {
             {item}
           </Badge>
         ))}
-        <div className="movieInfo">
-          {/* <div>vote_average: {movie.vote_average}</div> */}
-          {/* <div>popularity: {movie.popularity}</div>
-          <div>vote_count: {movie.vote_count}</div> */}
-          <div>{getAdultBadge(movie.adult)}</div>
+        <div className="movie-info">
+          <AdultBadge adult={movie.adult} />
+          {/* <div>투표평균: {movie.vote_average}</div>
+          <div>인기도: {movie.popularity}</div>
+          <div>투표수: {movie.vote_count}</div> */}
           <div className="vote-avg">
             <CircularProgressWithLabel
               sx={{
-                color: getColor(),
+                color: grey[300],
               }}
               value={movie.vote_average * 10}
               thickness={2}
