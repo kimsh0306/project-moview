@@ -1,70 +1,87 @@
-.detail-info-area {
-  margin-bottom: 20px;
-  position: relative;
+.info-comp {
+  display: flex;
+  padding: 30px;
+  color: white !important;
 }
 
-.info-title {
+.detail-page .info-comp .row {
+  --bs-gutter-x: 2rem;
+}
+
+.info-comp .poster {
+  width: 100%;
+  object-fit: contain;
+  object-position: top;
+  border-radius: 10px;
+}
+
+.info-comp .title {
   margin: 0 0 10px 0;
 }
 
-
-/*  */
-.info-item-container {
-  position: relative;
-  /* border: 1px solid white; */
+.info-comp .badge-genres {
+  margin: 0 0 20px 0;
 }
 
-.info-item-box {
-  display: flex;
-  justify-content: flex-start;
-  margin-bottom: 20px;
-}
-
-.info-item-box h6 {
-  display: flex;
-  justify-content: flex-start;
-}
-
-/*  */
-.info-key{
-  margin-right: 30px;
-}
-.genre-box {
-  display: flex;
-}
-.genre-box h6{
-  margin-right: 5px;
-}
-
-.vote-avr-box {
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-start;
-  transform: scale(2.5);
-  position: absolute;
-  top: 30px;
-  right: 30px;
-}
-
-/*  */
-.genre-badge {
-  margin-bottom: 30px;
-}
-
-.badge:not(:last-of-type) {
+.info-comp .badge:not(:last-of-type) {
   margin-right: 3px;
 }
 
-.info-item-area {
+.info-comp .info__group {
+  position: relative;
   display: flex;
 }
 
-.info-overview{
+.info-comp .info__group>dd {
+  position: absolute;
+  margin-left: 80px;
+}
+
+.info-comp .info__etc {
+  display: flex;
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.info-comp .etc-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.info-comp .vote-avr {
+  transform: scale(1.2);
+  position: relative;
+  top: 3px;
+  left: 3px;
+}
+
+.info-comp .etc-group .btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  padding: 0;
+}
+
+.info-comp .info__overview {
+  margin-top: 30px;
+}
+
+.info-comp .info__overview h5 {
   word-break: keep-all;
 }
-/*  */
 
-.detail-poster-img {
-  width: 100px;
-  border-radius: 10px;
+.info-comp .info__overview p {
+  word-break: keep-all;
+}
+
+/* 미디어 쿼리 */
+@media (max-width: 36rem) {
+  .info-comp .poster {
+    width: 200px;
+    object-fit: contain;
+    object-position: top;
+    border-radius: 10px;
+    margin-right: 30px;
+  }
 }

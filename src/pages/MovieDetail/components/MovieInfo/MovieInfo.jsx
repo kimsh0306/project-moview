@@ -1,16 +1,8 @@
 import React from "react";
+import { green, grey } from "@mui/material/colors";
+import { Typography, Box, CircularProgress } from "@mui/material";
+import { Badge, Button, Col, Row } from "react-bootstrap";
 import "./MovieInfo.style.css";
-
-import { deepOrange, amber, grey } from "@mui/material/colors";
-import CircularProgress from "@mui/material/CircularProgress";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import { Badge, Col, Container, Row } from "react-bootstrap";
-
-const getColor = () => {
-  const shade = 300;
-  return grey[shade];
-};
 
 function CircularProgressWithLabel(props) {
   return (
@@ -20,7 +12,7 @@ function CircularProgressWithLabel(props) {
         sx={{
           zIndex: "-1",
           borderRadius: "50%",
-          border: "2px solid",
+          border: "4px solid",
           borderColor: grey[700],
           top: 0,
           left: 0,
@@ -32,11 +24,7 @@ function CircularProgressWithLabel(props) {
           justifyContent: "center",
         }}
       >
-        <Typography
-          variant="caption"
-          component="div"
-          sx={{ color: getColor() }}
-        >
+        <Typography variant="caption" component="div" sx={{ color: grey[300] }}>
           {`${Math.round(props.value)}%`}
         </Typography>
       </Box>
@@ -44,64 +32,79 @@ function CircularProgressWithLabel(props) {
   );
 }
 
-const MovieInfo = ({ data }) => {
+const MovieInfo = ({ data, handleOpen }) => {
   const posterImgUrl = `https://media.themoviedb.org/t/p/w600_and_h900_bestv2${data?.poster_path}`;
 
   return (
-    <div className="detail-info-area">
-      <div className="detail-info">
-        <div className="info-title">
-          <h3>{data?.title}</h3>
-        </div>
-        <div className="genre-badge">
-          {data.genres.map((item, idx) => {
-            return (
-              <Badge key={idx} className="badge" bg="danger">
-                {item.name}
-              </Badge>
-            );
-          })}
-        </div>
-        <div className="info-item-area">
-          {/* <div className="detail-poster-img-box">
-            <img className="detail-poster-img" src={posterImgUrl} />
-          </div> */}
-          <div className="info-item-box">
-            <div className="info-key">
-              <h6>adult</h6>
-              <h6>popularity</h6>
-              <h6>vote_count</h6>
-              <h6>relese_date</h6>
-              <h6>runtime</h6>
+    <div className="info-comp">
+      <Row>
+        <Col xs={12} sm={4}>
+          <img className="poster" src={posterImgUrl} />
+        </Col>
+        <Col xs={12} sm={8}>
+          <h1 className="title">{data?.title}</h1>
+          <div className="badge-genres">
+            {data.genres.map((item, idx) => {
+              return (
+                <Badge key={idx} className="badge" bg="danger">
+                  {item.name}
+                </Badge>
+              );
+            })}
+          </div>
+          <div className="info__contents">
+            <dl>
+              <div className="info__group">
+                <dt>등급</dt>
+                <dd>{data?.adult ? "19세 이상 관람가" : "전체"}</dd>
+              </div>
+              <div className="info__group">
+                <dt>인기도</dt>
+                <dd>{data?.popularity}</dd>
+              </div>
+              <div className="info__group">
+                <dt>투표수</dt>
+                <dd>{data?.vote_count}</dd>
+              </div>
+              <div className="info__group">
+                <dt>개봉일</dt>
+                <dd>{data?.release_date}</dd>
+              </div>
+              <div className="info__group">
+                <dt>러닝타임</dt>
+                <dd>{data?.runtime}분</dd>
+              </div>
+            </dl>
+
+            <div className="info__etc">
+              <div className="etc-group">
+                <div>
+                  <strong>회원점수</strong>
+                </div>
+                <div className="vote-avr">
+                  <CircularProgressWithLabel
+                    sx={{
+                      color: green[600],
+                    }}
+                    value={data?.vote_average * 10}
+                    thickness={4}
+                  />
+                </div>
+              </div>
+              <div className="etc-group">
+                <div>
+                  <strong>트레일러 재생</strong>
+                </div>
+                <Button variant="outline-primary" handleOpen={handleOpen}>play</Button>
+              </div>
             </div>
-            <div className="info-val">
-              <h6>{data?.adult ? "19" : "all"}</h6>
-              <h6>{data?.popularity}</h6>
-              <h6>{data?.vote_count}</h6>
-              <h6>{data?.release_date}</h6>
-              <h6>{data?.runtime}</h6>
+            <div className="info__overview">
+              <h5>개요</h5>
+              <p>{data?.overview}</p>
             </div>
           </div>
-        </div>
-        {/* <div className="vote-avr-box">
-          <CircularProgressWithLabel
-            sx={{
-              color: getColor(),
-            }}
-            value={data?.vote_average * 10}
-            thickness={2}
-          />
-        </div> */}
-        <Container className="info-item-container">
-          <Row>
-            <Col></Col>
-            <Col></Col>
-          </Row>
-        </Container>
-        <div className="info-overview">
-          <p>{data?.overview}</p>
-        </div>
-      </div>
+        </Col>
+      </Row>
     </div>
   );
 };
