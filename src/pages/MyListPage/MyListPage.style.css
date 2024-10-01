@@ -1,0 +1,22 @@
+.my-list .container-fluid {
+  padding: 1.875rem;
+}
+
+.my-list__header {
+  margin-bottom: 2rem;
+  gap: 1rem;
+}
+
+.my-list .page-name {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.my-list .page-name h2{
+  margin: 0;
+}
+
+.my-list .dropdown{
+  padding-top: .1rem;
+}

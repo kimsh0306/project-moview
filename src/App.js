@@ -3,6 +3,7 @@ import AppLayout from './layout/AppLayout';
 import Homepage from './pages/Homepage/Homepage';
 import MoviePage from './pages/Movies/MoviePage';
 import MovieDetailPage from './pages/MovieDetail/MovieDetailPage';
+import MyListPage from './pages/MyListPage/MyListPage';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./styles/custom.scss";
@@ -17,6 +18,7 @@ function App() {
           <Route index element={<MoviePage />} />
           <Route path=":id" element={<MovieDetailPage />} />
         </Route>
+        <Route path="my-list" element={<MyListPage />} /> 
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
