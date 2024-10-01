@@ -1,12 +1,16 @@
-import React, { useEffect } from "react";
-import { Button } from "react-bootstrap";
+import React from "react";
+import { Alert, Button } from "react-bootstrap";
+import { useMovieGenreQuery } from "../../../../hooks/useMovieGenre";
 import "./MovieGenre.style.css";
 
-const MovieGenre = ({
-  genreList,
-  selectedGenreIds,
-  setSelectedGenreIds
-}) => {
+const MovieGenre = ({ selectedGenreIds, setSelectedGenreIds }) => {
+  const {
+    data: genreData,
+    status,
+    isLoading,
+    isError,
+    error,
+  } = useMovieGenreQuery();
 
   const handleGenreClick = (event) => {
     const genreId = event.target.value;
@@ -19,9 +23,23 @@ const MovieGenre = ({
     }
   };
 
+  if (isLoading) {
+    console.log("Loading - genreData...");
+    return <h1>Loading...</h1>;
+  }
+
+  // if (status === 'success') {
+  //   console.log("Success - genreData: ", genreData);
+  // }
+
+  if (isError) {
+    console.log("Error: ", error.message);
+    return <Alert variant="danger">{error.message}</Alert>;
+  }
+
   return (
     <>
-      {genreList.map((item, idx) => {
+      {genreData.map((item, idx) => {
         return (
           <Button
             key={`${item}-${idx}`}

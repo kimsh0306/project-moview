@@ -3,7 +3,6 @@ import { useSearchMovieQuery } from "../../hooks/useMovieSearch";
 import { useSearchParams } from "react-router-dom";
 import _ from "lodash";
 import { Alert, Col, Container, Row } from "react-bootstrap";
-import { genreList } from "../../constants/genreList";
 import RecommendMovie from "./components/RecommendMovie/RecommendMovie";
 import MovieCard from "../../common/MovieCard/MovieCard";
 import CustomPaginate from "./components/CustomPaginate/CustomPaginate";
@@ -129,11 +128,6 @@ const MoviePage = () => {
             <Col xs={12}>
               <div className="genre">
                 <MovieGenre
-                  data={data}
-                  setAppliedData={setAppliedData}
-                  genreList={genreList}
-                  sort={sort}
-                  getSortedData={getSortedData}
                   selectedGenreIds={selectedGenreIds}
                   setSelectedGenreIds={setSelectedGenreIds}
                 />
