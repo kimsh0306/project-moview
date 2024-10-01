@@ -52,7 +52,7 @@
   }
 
   .banner__img-area::before {
-    display: none;
+    height: 15rem;
   }
 
   .banner__content-area {
