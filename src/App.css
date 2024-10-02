@@ -7,3 +7,22 @@ body {
   background-color: var(--bs-body-bg-dark);
   color: var(--bs-body-text-dark);
 }
+
+/* 공통 적용 */
+.btn.btn-primary {
+  white-space: nowrap;
+  color: white;
+}
+.btn.btn-primary:hover {
+  color: white;
+}
+.btn.btn-primary:active {
+  color: white;
+}
+
+.btn.btn-outline-primary:hover {
+  color: white;
+}
+.btn.btn-outline-primary:active {
+  color: white;
+}
