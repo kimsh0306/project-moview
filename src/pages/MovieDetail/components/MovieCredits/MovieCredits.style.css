@@ -1,0 +1,15 @@
+.credits-comp .card-title {
+  font-size: .9rem;
+}
+.credits-comp .card-text {
+  font-size: .8rem;
+}
+.credits-comp .people-box {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.credits-comp .more-btn {
+  margin: auto 0;
+}
