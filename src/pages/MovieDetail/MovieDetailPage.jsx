@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useMovieDetailQuery } from "../../hooks/useMovieDetail";
 import { Alert, Button, Col, Container, Row, Tab, Tabs } from "react-bootstrap";
@@ -6,19 +6,19 @@ import { Box, Modal } from "@mui/material";
 import MovieImages from "./components/MovieImages/MovieImages";
 import MovieReviews from "./components/MovieReviews/MovieReviews";
 import MovieInfo from "./components/MovieInfo/MovieInfo";
-import MovieRecommendations from "./components/MovieRecommendations/MovieRecommendations";
 import MovieVideos from "./components/MovieVideos/MovieVideos";
 import MovieCredits from "./components/MovieCredits/MovieCredits";
+import MovieSimilar from "./components/MovieSimilar/MovieSimilar";
 import "./MovieDetailPage.style.css";
 
 const MovieDetailPage = () => {
   let { id } = useParams();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const { data, isLoading, isError, error } = useMovieDetailQuery(id);
-  console.log("dataDetail: ", data);
+  // console.log("dataDetail: ", data);
 
   if (isLoading) {
     return <h1>Loading...</h1>;
@@ -46,17 +46,25 @@ const MovieDetailPage = () => {
       <Container fluid>
         <Row>
           <Col xs={12}>
-            <MovieCredits id={id} />
+            <Tabs
+              onSelect={() => window.dispatchEvent(new Event("resize"))}
+              defaultActiveKey="credits"
+              id="uncontrolled-tab-example"
+              className="mb-3"
+              justify
+            >
+              <Tab eventKey="credits" title="감독/배우">
+                <MovieCredits id={id} />
+              </Tab>
+              <Tab eventKey="reviews" title="리뷰">
+                <MovieReviews id={id} />
+              </Tab>
+              <Tab eventKey="similarMovies" title="유사한 영화">
+                <MovieSimilar id={id} />
+              </Tab>
+            </Tabs>
           </Col>
-
-          <Col xs={12}>
-            <MovieReviews id={id} title={"Reviews"} />
-          </Col>
-
-          <Col xs={12}>
-            {/* 비슷한 영화로 변경하기 */}
-            <MovieRecommendations id={id} />
-          </Col>
+          <Col xs={12}></Col>
         </Row>
       </Container>
 
