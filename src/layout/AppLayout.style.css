@@ -10,13 +10,7 @@
 
 /* 검색 버튼 */
 .navbar .btn.btn-primary {
-  white-space: nowrap;
-  color: white;
   margin-left: .3rem;
-}
-
-.navbar .btn.btn-primary:active {
-  color: white;
 }
 
 /* 햄버거 토글 */

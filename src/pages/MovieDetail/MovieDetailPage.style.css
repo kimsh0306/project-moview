@@ -4,14 +4,14 @@
 
 .detail-page .row {
   --bs-gutter-x: 1.5rem;
-  --bs-gutter-y: 1.5rem;
+  --bs-gutter-y: 3rem;
 }
 
 .detail-page .bg-box {
   background-color: rgb(0, 0, 0, 0.8);
 }
 
-.background-image::before {
+.detail-page .background-image::before {
   content: '';
   position: absolute;
   top: 0;
@@ -21,13 +21,15 @@
   background-color: rgba(0, 0, 0, 0.85);
 }
 
-.background-image>* {
+.detail-page .background-image>* {
   position: relative;
   z-index: 1;
 }
 
-/* 미디어 쿼리 */
-@media (max-width: 36rem) {
-
-
+.detail-page .nav-link {
+  border: none;
 }
+
+
+/* 미디어 쿼리 */
+@media (max-width: 36rem) {}

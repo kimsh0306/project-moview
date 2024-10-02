@@ -3,14 +3,6 @@
   width: 100%;
 }
 
-.custom-dropdown .dropdown-toggle.btn:hover {
-  color: white;
-}
-
-.custom-dropdown .dropdown-toggle.btn:active {
-  color: white;
-}
-
 .custom-dropdown .dropdown-toggle.btn:focus {
   color: var(--custom-primary);
   background-color: transparent;

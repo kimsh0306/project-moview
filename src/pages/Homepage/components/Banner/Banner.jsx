@@ -34,7 +34,7 @@ const Banner = () => {
         <h1>{data?.results[0].title}</h1>
         <p>{data?.results[0].overview}</p>
         <Button
-          className="mt-3 hover:text-white"
+          className="mt-3"
           variant="outline-primary"
           size="sm"
           onClick={handleBtnClick}
