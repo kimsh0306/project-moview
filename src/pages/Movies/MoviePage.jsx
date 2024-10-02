@@ -17,7 +17,7 @@ const MoviePage = () => {
   const [selectedGenreIds, setSelectedGenreIds] = React.useState([]);
 
   const keyword = query.get("q");
-  const { data, isLoading, isError, error } = useSearchMovieQuery(
+  const { data, isLoading, isPreviousData, isError, error } = useSearchMovieQuery(
     keyword,
     page
   );
@@ -86,6 +86,16 @@ const MoviePage = () => {
     }
   }, [data, sort, selectedGenreIds, page]);
 
+  useEffect(() => {
+    // 페이지 이동 시 캐싱된 데이터만 사용 중일 때, 화면을 위로 스크롤
+    if (!isPreviousData) {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+  }, [page, isPreviousData]);
+
   if (isLoading) {
     return <h1>Loading...</h1>;
   }
@@ -153,8 +163,6 @@ const MoviePage = () => {
           ) : (
             <>
               <Alert show={true} variant="primary">
-                <Alert.Heading>알림</Alert.Heading>
-                <hr />
                 <p className="m-0">
                   선택하신 장르의 영화를 찾지 못했습니다. 다른 장르를
                   선택해주세요.
