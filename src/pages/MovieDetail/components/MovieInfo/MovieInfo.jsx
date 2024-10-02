@@ -33,14 +33,17 @@ function CircularProgressWithLabel(props) {
 }
 
 const MovieInfo = ({ data, handleOpen }) => {
+  console.log("data?.poster_path", data?.poster_path);
   const posterImgUrl = `https://media.themoviedb.org/t/p/w600_and_h900_bestv2${data?.poster_path}`;
 
   return (
     <div className="info-comp">
       <Row>
-        <Col xs={12} sm={4}>
-          <img className="poster" src={posterImgUrl} />
-        </Col>
+        {data?.poster_path !== null && (
+          <Col xs={12} sm={4}>
+            <img className="poster" src={posterImgUrl} alt="영화 포스터" />
+          </Col>
+        )}
         <Col xs={12} sm={8}>
           <h1 className="title">{data?.title}</h1>
           <div className="badge-genres">
@@ -95,7 +98,9 @@ const MovieInfo = ({ data, handleOpen }) => {
                 <div>
                   <strong>트레일러 재생</strong>
                 </div>
-                <Button variant="outline-primary" handleOpen={handleOpen}>play</Button>
+                <Button variant="outline-primary" onClick={handleOpen}>
+                  play
+                </Button>
               </div>
             </div>
             <div className="info__overview">
