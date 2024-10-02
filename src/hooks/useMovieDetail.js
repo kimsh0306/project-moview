@@ -21,6 +21,13 @@ const fetchMovieVideos = (id) => {
   return api.get(`/movie/${id}/videos`)
 };
 
+const fetchMovieCredits = (id) => {
+  return api.get(`/movie/${id}/credits`)
+};
+const fetchMovieSimilar = (id) => {
+  return api.get(`/movie/${id}/similar`)
+};
+
 const useMovieDetailQuery = (id) => {
   return useQuery({
     queryKey: ['movie-detail', id],
@@ -61,10 +68,27 @@ const useMovieVideosQuery = (id) => {
   });
 };
 
+const useMovieCreditsQuery = (id) => {
+  return useQuery({
+    queryKey: ['movie-credits', id],
+    queryFn: () => fetchMovieCredits(id),
+    select: (result) => result.data,
+  });
+};
+const useMovieSimilar = (id) => {
+  return useQuery({
+    queryKey: ['movie-similar', id],
+    queryFn: () => fetchMovieSimilar(id),
+    select: (result) => result.data,
+  });
+};
+
 export {
   useMovieDetailQuery,
   useMovieImagesQuery,
   useMovieReviewsQuery,
   useMovieRecommendationsQuery,
   useMovieVideosQuery,
+  useMovieCreditsQuery,
+  useMovieSimilar,
 };
