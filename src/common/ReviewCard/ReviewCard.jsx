@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import "./ReviewCard.style.css";
 import moment from "moment";
+import Card from "react-bootstrap/Card";
+import "./ReviewCard.style.css";
 
 const ReviewCard = ({ review }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -10,17 +11,15 @@ const ReviewCard = ({ review }) => {
   };
 
   return (
-    <div className="review-container">
-      <div className="review-box">
-        <div className="header-box">
-          <h5 className="author">{review.author}</h5>
-          <div className="align">
-            <h6 className="created_at">
-              {moment(review.created_at).format("YYYY-MM-DD HH:mm")}
-            </h6>
-          </div>
+    <Card>
+      <Card.Body>
+        <div style={{ display: "flex" }}>
+          <Card.Title className="text-nowrap">{review.author}</Card.Title>
+          <Card.Subtitle className="mb-2 text-muted w-100 pt-2 text-end">
+            {moment(review.created_at).format("YYYY-MM-DD HH:mm")}
+          </Card.Subtitle>
         </div>
-        <p className="content">
+        <Card.Text>
           {isExpanded ? review.content : truncateText(review.content, 200)}
           {!isExpanded && review.content.length > 200 && (
             <span className="more-button" onClick={() => setIsExpanded(true)}>
@@ -34,9 +33,9 @@ const ReviewCard = ({ review }) => {
               close
             </span>
           )}
-        </p>
-      </div>
-    </div>
+        </Card.Text>
+      </Card.Body>
+    </Card>
   );
 };
 
