@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useMovieDetailQuery } from "../../hooks/useMovieDetail";
 import { Alert, Button, Col, Container, Row, Tab, Tabs } from "react-bootstrap";
@@ -14,13 +14,19 @@ import "./MovieDetailPage.style.css";
 const MovieDetailPage = () => {
   let { id } = useParams();
   const [open, setOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState("credits");
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const { data, isLoading, isError, error } = useMovieDetailQuery(id);
-  // console.log("dataDetail: ", data);
+
+  useEffect(() => {
+    data || setActiveTab("credits");
+    data && console.log("dataDetail!!: ", data);
+  }, [data]);
 
   if (isLoading) {
+    console.log("Loading...");
     return <h1>Loading...</h1>;
   }
   if (isError) {
@@ -41,26 +47,27 @@ const MovieDetailPage = () => {
           position: "relative",
         }}
       >
-        <MovieInfo data={data} handleOpen={handleOpen} />
+        <MovieInfo data={data} />
       </div>
       <Container fluid>
         <Row>
           <Col xs={12}>
             <Tabs
-              onSelect={() => window.dispatchEvent(new Event("resize"))}
+              onSelect={(eventKey) => setActiveTab(eventKey)}
               defaultActiveKey="credits"
               id="uncontrolled-tab-example"
               className="mb-3"
               justify
             >
+              {/* 탭 변경 시 활성화된 탭만 렌더링 */}
               <Tab eventKey="credits" title="감독/배우">
-                <MovieCredits id={id} />
+                {activeTab === "credits" && <MovieCredits id={id} />}
               </Tab>
               <Tab eventKey="reviews" title="리뷰">
-                <MovieReviews id={id} />
+                {activeTab === "reviews" && <MovieReviews id={id} />}
               </Tab>
               <Tab eventKey="similarMovies" title="유사한 영화">
-                <MovieSimilar id={id} />
+                {activeTab === "similarMovies" && <MovieSimilar id={id} />}
               </Tab>
             </Tabs>
           </Col>

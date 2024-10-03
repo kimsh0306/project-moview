@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { green, grey } from "@mui/material/colors";
 import { Typography, Box, CircularProgress } from "@mui/material";
 import { Badge, Button, Col, Row } from "react-bootstrap";
@@ -32,9 +32,14 @@ function CircularProgressWithLabel(props) {
   );
 }
 
-const MovieInfo = ({ data, handleOpen }) => {
-  console.log("data?.poster_path", data?.poster_path);
+/*
+  React.memo 적용
+    부모 컴포넌트가 다시 렌더링되더라도 MovieInfo가 받는 props가 변경되지 않는 한, 
+    MovieInfo 컴포넌트가 불필요하게 재렌더링되는 것을 방지
+*/
+const MovieInfo = memo(({ data }) => {
   const posterImgUrl = `https://media.themoviedb.org/t/p/w600_and_h900_bestv2${data?.poster_path}`;
+  console.log("posterImgUrl", posterImgUrl);
 
   return (
     <div className="info-comp">
@@ -98,9 +103,7 @@ const MovieInfo = ({ data, handleOpen }) => {
                 <div>
                   <strong>트레일러 재생</strong>
                 </div>
-                <Button variant="outline-primary" onClick={handleOpen}>
-                  play
-                </Button>
+                <Button variant="outline-primary">play</Button>
               </div>
             </div>
             <div className="info__overview">
@@ -112,6 +115,6 @@ const MovieInfo = ({ data, handleOpen }) => {
       </Row>
     </div>
   );
-};
+});
 
 export default MovieInfo;
