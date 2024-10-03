@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useMovieCreditsQuery } from "../../../../hooks/useMovieDetail";
-import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
+import { Alert, Button, Card } from "react-bootstrap";
 import "./MovieCredits.style.css";
 
 const itemsToShow = 12;
@@ -41,8 +40,15 @@ const MovieCredits = ({ id }) => {
     }
   }, [data]);
 
+  if (isLoading) {
+    return <h1>Loading...</h1>;
+  }
+  if (isError) {
+    return <Alert variant="danger">{error.message}</Alert>;
+  }
   return (
     <div className="credits-comp">
+      <p className="mb-1 text-nowrap text-end"> 총 {peopleList.length}건</p>
       <div className="people-box">
         {peopleList
           .filter((_, idx) => isExpanded || idx < itemsToShow)
