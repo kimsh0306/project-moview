@@ -1,23 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useMovieDetailQuery } from "../../hooks/useMovieDetail";
-import { Alert, Button, Col, Container, Row, Tab, Tabs } from "react-bootstrap";
-import { Box, Modal } from "@mui/material";
+import { Alert, Col, Container, Row, Tab, Tabs } from "react-bootstrap";
 import MovieImages from "./components/MovieImages/MovieImages";
 import MovieReviews from "./components/MovieReviews/MovieReviews";
 import MovieInfo from "./components/MovieInfo/MovieInfo";
-import MovieVideos from "./components/MovieVideos/MovieVideos";
 import MovieCredits from "./components/MovieCredits/MovieCredits";
 import MovieSimilar from "./components/MovieSimilar/MovieSimilar";
 import "./MovieDetailPage.style.css";
 
 const MovieDetailPage = () => {
   let { id } = useParams();
-  const [open, setOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("credits");
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
   const { data, isLoading, isError, error } = useMovieDetailQuery(id);
 
   useEffect(() => {
@@ -47,7 +41,7 @@ const MovieDetailPage = () => {
           position: "relative",
         }}
       >
-        <MovieInfo data={data} />
+        <MovieInfo data={data} id={id} />
       </div>
       <Container fluid>
         <Row>
@@ -74,31 +68,6 @@ const MovieDetailPage = () => {
           <Col xs={12}></Col>
         </Row>
       </Container>
-
-      <div>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box
-            sx={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              bgcolor: "black",
-              border: "2px solid #000",
-              borderRadius: "20px",
-              boxShadow: 24,
-              p: 4,
-            }}
-          >
-            <MovieVideos id={id} />
-          </Box>
-        </Modal>
-      </div>
     </div>
   );
 };

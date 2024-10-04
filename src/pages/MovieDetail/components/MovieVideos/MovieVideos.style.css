@@ -1,0 +1,25 @@
+.video-comp {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  /* border: 1px solid green; */
+}
+
+.video-comp .responsive-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* border: 1px solid white; */
+}
+
+@media (min-width: 62rem) {
+  .video-comp {
+    width: 1280px;
+    height: 720px;
+    padding-bottom: 0;
+  }
+}

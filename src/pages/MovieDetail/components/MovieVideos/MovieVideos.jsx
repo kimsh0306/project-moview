@@ -2,34 +2,34 @@ import React from "react";
 import YouTube from "react-youtube";
 import { useMovieVideosQuery } from "../../../../hooks/useMovieDetail";
 import { Alert } from "react-bootstrap";
+import "./MovieVideos.style.css";
 
 const MovieVideos = ({ id }) => {
   const { data, isLoading, isError, error } = useMovieVideosQuery(id);
   console.log("dataVideos: ", data);
 
   const opts = {
-    width: "640",
-    height: "390",
     playerVars: {
-      // https://developers.google.com/youtube/player_parameters
       autoplay: 1,
+      mute: 1,
     },
   };
 
   if (isLoading) {
+    console.log("Loading...");
     return <h1>Loading...</h1>;
   }
   if (isError) {
     return <Alert variant="danger">{error.message}</Alert>;
   }
   return (
-    <YouTube
-      videoId={data.results[0].key}
-      opts={opts}
-      onReady={(event) => {
-        event.target.pauseVideo();
-      }}
-    />
+    <div className="video-comp">
+      <YouTube
+        videoId={data.results[0].key}
+        opts={opts}
+        iframeClassName="responsive-iframe" // iframe에 클래스 적용
+      />
+    </div>
   );
 };
 
