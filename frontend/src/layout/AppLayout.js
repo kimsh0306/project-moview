@@ -65,7 +65,7 @@ const AppLayout = () => {
       <Navbar bg="black" data-bs-theme="dark" expand="lg">
         <Container fluid>
           <Navbar.Brand onClick={() => { navigate('/') }}>
-            moView
+            Moview
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
