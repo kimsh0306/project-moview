@@ -5,7 +5,7 @@ const app = express();
 
 dbConnect();
 
-app.get("/", (req, res) => {
+app.get("/node", (req, res) => {
   res.send("Hello, Node!");
 });
 
@@ -15,6 +15,9 @@ app.use(express.urlencoded({ extended: true })); // 바디파서
 app.use("/users", require("./routes/userRoutes"));
 
 
-app.listen(5000, () => {
-  console.log("서버 실행 중");
-});
+// app.listen(5000, () => {
+//   console.log("서버 실행 중");
+// });
+
+
+module.exports = app;
