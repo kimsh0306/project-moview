@@ -94,14 +94,17 @@ const AppLayout = () => {
             </Form>
           </Navbar.Collapse>
         </Container>
-        <Form.Group controlId="theme-switch" className="fom-group">
-          <Form.Label>{theme === "dark" ? "밝은 테마" : "어두운 테마"}</Form.Label>
-          <Form.Check
-            type="switch"
-            onChange={toggleTheme}
-            checked={theme === 'dark'}
-          />
-        </Form.Group>
+        <div className='added-item'>
+          <button className='login-btn' onClick={() => { navigate('/login') }}>로그인</button>
+          <Form.Group controlId="theme-switch" className="fom-group">
+            <Form.Label>{theme === "dark" ? "밝은 테마" : "어두운 테마"}</Form.Label>
+            <Form.Check
+              type="switch"
+              onChange={toggleTheme}
+              checked={theme === 'dark'}
+            />
+          </Form.Group>
+        </div>
       </Navbar>
       <Outlet />
       {showButton && (
