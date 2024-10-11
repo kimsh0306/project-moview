@@ -30,7 +30,7 @@ const AppLayout = () => {
         setShowButton(true);
       } else {
         setShowButton(false);
-      }
+      };
     };
     window.addEventListener("scroll", handleScroll);
     return () => {
@@ -75,14 +75,9 @@ const AppLayout = () => {
     if (!userData) {
       navigate("/login");
       return;
-    }
+    };
     navigate("/my-list");
   };
-
-  useEffect(() => {
-    if(!userData) return;
-    console.log("userData: ", userData);
-  }, [userData])
 
   return (
     <>
