@@ -1,0 +1,13 @@
+.sign-up-page {
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sign-up-page .form-area{
+  padding: 20px;
+  border-radius: 20px;
+  width: 400px;
+  border: .1px solid var(--color-gray-500);
+}

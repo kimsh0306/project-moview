@@ -5,6 +5,7 @@ import MoviePage from './pages/Movies/MoviePage';
 import MovieDetailPage from './pages/MovieDetail/MovieDetailPage';
 import MyListPage from './pages/MyListPage/MyListPage';
 import LoginPage from './pages/LoginPage/LoginPage';
+import SignUpPage from './pages/SignUpPage/SignUpPage';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./styles/custom.scss";
@@ -19,10 +20,11 @@ function App() {
           <Route index element={<MoviePage />} />
           <Route path=":id" element={<MovieDetailPage />} />
         </Route>
-        <Route path="my-list" element={<MyListPage />} /> 
-        <Route path="login" element={<LoginPage />} /> 
+        <Route path="my-list" element={<MyListPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
+      <Route path="login" element={<LoginPage />} />
+      <Route path="sign-up" element={<SignUpPage />} />
     </Routes>
   );
 }

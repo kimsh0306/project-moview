@@ -1,0 +1,6 @@
+.loading.modal .modal-content {
+  background-color: transparent;
+  border: none;
+  flex-direction: row;
+  justify-content: center;
+}
