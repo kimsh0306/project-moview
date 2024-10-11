@@ -15,9 +15,15 @@ const AppLayout = () => {
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
   const [keyword, setKeyword] = useState("");
   const [showButton, setShowButton] = useState(false);
-
+  const [userData, setUserData] = useState();
 
   useEffect(() => {
+    const userId = localStorage.getItem('userId');
+    const userNum = localStorage.getItem('userNum');
+    if (userId && userNum) {
+      setUserData({ user_id: userId, _id: userNum });
+    };
+
     const handleScroll = () => {
       // 스크롤 위치가 600px 이상 내려갔을 때 버튼을 보여줌
       if (window.scrollY > 600) {
@@ -26,7 +32,6 @@ const AppLayout = () => {
         setShowButton(false);
       }
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
@@ -60,6 +65,25 @@ const AppLayout = () => {
     setKeyword("");
   };
 
+  const handleLogout = () => {
+    setUserData();
+    localStorage.removeItem('userId')
+    localStorage.removeItem('userNum')
+  };
+
+  const handelMyList = () => {
+    if (!userData) {
+      navigate("/login");
+      return;
+    }
+    navigate("/my-list");
+  };
+
+  useEffect(() => {
+    if(!userData) return;
+    console.log("userData: ", userData);
+  }, [userData])
+
   return (
     <>
       <Navbar bg="black" data-bs-theme="dark" expand="lg">
@@ -75,7 +99,7 @@ const AppLayout = () => {
               navbarScroll
             >
               <Nav.Link onClick={() => { navigate('/movies') }}>영화</Nav.Link>
-              <Nav.Link onClick={() => { navigate('/my-list') }}>내가 찜한 영화</Nav.Link>
+              <Nav.Link onClick={handelMyList}>내가 찜한 영화</Nav.Link>
             </Nav>
             <Form className="d-flex" onSubmit={searchByKeyword}>
               <Form.Control
@@ -95,7 +119,35 @@ const AppLayout = () => {
           </Navbar.Collapse>
         </Container>
         <div className='added-item'>
-          <button className='login-btn' onClick={() => { navigate('/login') }}>로그인</button>
+          <div className='d-flex align-items-center me-2'>
+            {userData
+              ?
+              <>
+                <button className='login-btn' onClick={handleLogout}>{userData.user_id}</button>
+                <div
+                  style={{
+                    width: "30px",
+                    height: "30px",
+                    border: "1px solid orange",
+                    borderRadius: "50%",
+                    overflow: "hidden",
+                  }}>
+                  <img
+                    style={{
+                      width: "100%",
+                      objectFit: "cover",
+                    }}
+                    src="https://as2.ftcdn.net/v2/jpg/03/49/49/79/1000_F_349497933_Ly4im8BDmHLaLzgyKg2f2yZOvJjBtlw5.jpg"
+                    alt="user image"
+                  />
+                </div>
+              </>
+              :
+              <>
+                <button className='login-btn' onClick={() => { navigate('/login') }}>로그인</button>
+              </>
+            }
+          </div>
           <Form.Group controlId="theme-switch" className="fom-group">
             <Form.Label>{theme === "dark" ? "밝은 테마" : "어두운 테마"}</Form.Label>
             <Form.Check
@@ -104,6 +156,7 @@ const AppLayout = () => {
               checked={theme === 'dark'}
             />
           </Form.Group>
+
         </div>
       </Navbar>
       <Outlet />
@@ -111,10 +164,10 @@ const AppLayout = () => {
         <Button
           onClick={scrollToTop}
           style={{
-            width:"50px",
-            height:"50px",
+            width: "50px",
+            height: "50px",
             padding: 0,
-            borderRadius:"50%",
+            borderRadius: "50%",
             position: "fixed",
             bottom: "20px",
             right: "20px",
