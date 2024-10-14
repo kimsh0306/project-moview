@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import {
   Button,
   Container,
@@ -8,20 +9,22 @@ import {
   Navbar
 } from 'react-bootstrap';
 import "./AppLayout.style.css";
+import CheckLoginModal from '../common/CheckLoginModal/CheckLoginModal';
 
 const AppLayout = () => {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
   const [keyword, setKeyword] = useState("");
   const [showButton, setShowButton] = useState(false);
   const [userData, setUserData] = useState();
+  const [showCheckLoginModal, setShowCheckLoginModal] = useState(false);
 
   useEffect(() => {
     const userId = localStorage.getItem('userId');
     const userNum = localStorage.getItem('userNum');
     if (userId && userNum) {
-      setUserData({ user_id: userId, _id: userNum });
+      setUserData({ userId, userNum });
     };
 
     const handleScroll = () => {
@@ -69,11 +72,13 @@ const AppLayout = () => {
     setUserData();
     localStorage.removeItem('userId')
     localStorage.removeItem('userNum')
+    dispatch({ type: "LOGOUT" });
+    navigate("/");
   };
 
   const handelMyList = () => {
     if (!userData) {
-      navigate("/login");
+      setShowCheckLoginModal(true);
       return;
     };
     navigate("/my-list");
@@ -118,7 +123,7 @@ const AppLayout = () => {
             {userData
               ?
               <>
-                <button className='login-btn' onClick={handleLogout}>{userData.user_id}</button>
+                <button className='login-btn' onClick={handleLogout}>{userData.userId}</button>
                 <div
                   style={{
                     width: "30px",
@@ -133,7 +138,7 @@ const AppLayout = () => {
                       objectFit: "cover",
                     }}
                     src="https://as2.ftcdn.net/v2/jpg/03/49/49/79/1000_F_349497933_Ly4im8BDmHLaLzgyKg2f2yZOvJjBtlw5.jpg"
-                    alt="user image"
+                    alt="user"
                   />
                 </div>
               </>
@@ -171,6 +176,10 @@ const AppLayout = () => {
           Top
         </Button>
       )}
+      <CheckLoginModal
+        show={showCheckLoginModal}
+        setShow={setShowCheckLoginModal}
+      />
     </>
   )
 }

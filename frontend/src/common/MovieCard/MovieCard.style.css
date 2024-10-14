@@ -4,6 +4,7 @@
   cursor: pointer;
   transition: 0.5s;
   border-radius: 0.625rem;
+  border: .001rem solid var(--color-gray-600);
 }
 
 .movie-card:hover .overlay {
@@ -23,7 +24,6 @@
   overflow-wrap: break-word;
   position: relative;
   border-radius: 0.625rem;
-  border: 0.0625rem solid var(--color-gray-600);
 }
 
 .overlay .badge:not(:last-of-type) {
