@@ -1,12 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useMovieDetailQuery } from "../../hooks/useMovieDetail";
-import { Alert, Col, Container, Row, Tab, Tabs } from "react-bootstrap";
+import {
+  Alert,
+  Col,
+  Container,
+  Row,
+  Tab,
+  Tabs,
+  Spinner,
+} from "react-bootstrap";
 import MovieImages from "./components/MovieImages/MovieImages";
 import MovieReviews from "./components/MovieReviews/MovieReviews";
 import MovieInfo from "./components/MovieInfo/MovieInfo";
 import MovieCredits from "./components/MovieCredits/MovieCredits";
 import MovieSimilar from "./components/MovieSimilar/MovieSimilar";
+import LoadingModal from "../../common/LoadingModal/LoadingModal";
 import "./MovieDetailPage.style.css";
 
 const MovieDetailPage = () => {
@@ -21,7 +30,7 @@ const MovieDetailPage = () => {
 
   if (isLoading) {
     console.log("Loading...");
-    return <h1>Loading...</h1>;
+    return <LoadingModal show={true} handleClose={() => {}} />;
   }
   if (isError) {
     return <Alert variant="danger">{error.message}</Alert>;

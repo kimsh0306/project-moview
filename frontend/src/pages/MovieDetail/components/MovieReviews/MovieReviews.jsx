@@ -1,6 +1,6 @@
 import React from "react";
 import { useMovieReviewsQuery } from "../../../../hooks/useMovieDetail";
-import { Alert } from "react-bootstrap";
+import { Alert, Spinner } from "react-bootstrap";
 import ReviewCard from "../../../../common/ReviewCard/ReviewCard";
 import "./MovieReviews.style.css";
 
@@ -14,7 +14,11 @@ const MovieReviews = ({ id }) => {
   // console.log("sortedResult: ", sortedResult);
 
   if (isLoading) {
-    return <h1>Loading...</h1>;
+    return (
+      <Spinner animation="border" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </Spinner>
+    );
   }
   if (isError) {
     return <Alert variant="danger">{error.message}</Alert>;

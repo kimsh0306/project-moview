@@ -3,6 +3,7 @@ import YouTube from "react-youtube";
 import { useMovieVideosQuery } from "../../../../hooks/useMovieDetail";
 import { Alert } from "react-bootstrap";
 import "./MovieVideos.style.css";
+import LoadingModal from "../../../../common/LoadingModal/LoadingModal";
 
 const MovieVideos = ({ id }) => {
   const { data, isLoading, isError, error } = useMovieVideosQuery(id);
@@ -17,7 +18,7 @@ const MovieVideos = ({ id }) => {
 
   if (isLoading) {
     console.log("Loading...");
-    return <h1>Loading...</h1>;
+    return <LoadingModal show={true} handleClose={() => {}} />;
   }
   if (isError) {
     return <Alert variant="danger">{error.message}</Alert>;
@@ -25,7 +26,7 @@ const MovieVideos = ({ id }) => {
   return (
     <div className="video-comp">
       <YouTube
-        videoId={data.results[0].key}
+        videoId={data?.results[0]?.key}
         opts={opts}
         iframeClassName="responsive-iframe" // iframe에 클래스 적용
       />

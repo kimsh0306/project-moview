@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useMovieCreditsQuery } from "../../../../hooks/useMovieDetail";
-import { Alert, Button, Card } from "react-bootstrap";
+import { Alert, Button, Card, Spinner } from "react-bootstrap";
 import "./MovieCredits.style.css";
 
 const itemsToShow = 12;
@@ -41,7 +41,11 @@ const MovieCredits = ({ id }) => {
   }, [data]);
 
   if (isLoading) {
-    return <h1>Loading...</h1>;
+    return (
+      <Spinner animation="border" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </Spinner>
+    );
   }
   if (isError) {
     return <Alert variant="danger">{error.message}</Alert>;

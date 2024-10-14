@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useMovieSimilar } from "../../../../hooks/useMovieDetail";
-import { Alert } from "react-bootstrap";
+import { Alert, Spinner } from "react-bootstrap";
 import { responsive } from "../../../../constants/responsive";
 import MovieSlider from "../../../../common/MovieSlider/MovieSlider";
 
@@ -13,7 +13,11 @@ const MovieSimilar = ({ id }) => {
   }, []);
 
   if (isLoading) {
-    return <h1>Loading...</h1>;
+    return (
+      <Spinner animation="border" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </Spinner>
+    );
   }
   if (isError) {
     return <Alert variant="danger">{error.message}</Alert>;

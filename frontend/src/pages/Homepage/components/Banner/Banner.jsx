@@ -1,8 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { usePopularMoviesQuery } from "../../../../hooks/useMovieListsQuerys";
-import { Alert, Badge, Button } from "react-bootstrap";
-import CustomButton from "../../../../common/CustomButton/CustomButton";
+import { Alert, Badge, Button, Spinner } from "react-bootstrap";
 import "./Banner.style.css";
 
 const Banner = () => {
@@ -13,7 +12,11 @@ const Banner = () => {
   const handleBtnClick = () => navigate(`/movies/${data?.results[0].id}`);
 
   if (isLoading) {
-    <h1>Loading...</h1>;
+    return (
+      <Spinner animation="border" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </Spinner>
+    );
   }
   if (isError) {
     <Alert variant="danger">{error.message}</Alert>;

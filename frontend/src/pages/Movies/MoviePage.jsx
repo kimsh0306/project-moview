@@ -8,6 +8,7 @@ import MovieCard from "../../common/MovieCard/MovieCard";
 import CustomPaginate from "./components/CustomPaginate/CustomPaginate";
 import MovieGenre from "./components/MovieGenre/MovieGenre";
 import CustomDropdown from "./components/CustomDropdown/CustomDropdown";
+import LoadingModal from "../../common/LoadingModal/LoadingModal";
 import "./MoviePage.style.css";
 
 const MoviePage = () => {
@@ -17,10 +18,8 @@ const MoviePage = () => {
   const [selectedGenreIds, setSelectedGenreIds] = React.useState([]);
 
   const keyword = query.get("q");
-  const { data, isLoading, isPreviousData, isError, error } = useSearchMovieQuery(
-    keyword,
-    page
-  );
+  const { data, isLoading, isPreviousData, isError, error } =
+    useSearchMovieQuery(keyword, page);
   // console.log("dataMovie: ", data);
 
   const [appliedData, setAppliedData] = React.useState();
@@ -97,7 +96,7 @@ const MoviePage = () => {
   }, [page, isPreviousData]);
 
   if (isLoading) {
-    return <h1>Loading...</h1>;
+    return <LoadingModal show={true} handleClose={() => {}} />;
   }
   if (isError) {
     return <Alert variant="danger">{error.message}</Alert>;
