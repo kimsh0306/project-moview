@@ -3,13 +3,7 @@ import { BsBookmarkPlus, BsBookmarkDashFill } from "react-icons/bs";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 
-const FavoriteMark = ({ isFavorite, setIsFavorite, fontSize = "1.7rem" }) => {
-  
-  const handleFavoriteItem = (e) => {
-    e.stopPropagation(); // 이벤트 버블링을 막음
-    setIsFavorite((prev) => !prev);
-  };
-
+const FavoriteMark = ({ isFavorite, handleFavoriteItem, fontSize = "1.7rem" }) => {
   return isFavorite ? (
     <OverlayTrigger overlay={<Tooltip>찜목록에서 제거</Tooltip>}>
       <div>
