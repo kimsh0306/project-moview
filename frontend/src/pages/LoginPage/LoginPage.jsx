@@ -14,9 +14,9 @@ const initData = {
 const LoginPage = () => {
   const navigate = useNavigate();
   const [userData, setUserData] = useState(initData);
+  const [errorData, setErrorData] = useState();
   const [resData, setResData] = useState();
   const [showLoading, setShowLoading] = useState(false);
-  const [isError, setIsError] = useState();
 
   const handleLoadingClose = () => setShowLoading(false);
 
@@ -24,8 +24,13 @@ const LoginPage = () => {
     setUserData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
-  const handleLogin = () => {
-    setIsError(false);
+  const handleLogin = (e) => {
+    e.preventDefault();
+    setErrorData();
+    if (userData.user_id === "" || userData.password === "") {
+      setErrorData("필수 값이 입력되지 않았습니다.");
+      return;
+    };
     setShowLoading(true);
     axios
       .post("https://project-moview-api.vercel.app/users/login", userData)
@@ -37,7 +42,7 @@ const LoginPage = () => {
         const { message } = error.response.data;
         console.error(error);
         console.log("로그인 실패:", message);
-        setIsError(true);
+        setErrorData(message);
       })
       .finally(() => {
         setShowLoading(false);
@@ -57,7 +62,7 @@ const LoginPage = () => {
     <>
       <div className="login-page">
         <div className="form-area">
-          <Form onChange={handleInput}>
+          <Form onChange={handleInput} onSubmit={handleLogin}>
             <Form.Group className="mb-3" controlId="user_id">
               <Form.Label>아이디</Form.Label>
               <Form.Control type="text" placeholder="아이디 입력" />
@@ -66,8 +71,8 @@ const LoginPage = () => {
               <Form.Label>비밀번호</Form.Label>
               <Form.Control type="password" placeholder="비밀번호 입력" />
             </Form.Group>
-            {isError && <p>아이디 또는 비밀번호가 일치하지 않습니다.</p>}
-            <Button className="w-100" variant="primary" onClick={handleLogin}>
+            {errorData && <p>{errorData}</p>}
+            <Button className="w-100" type="submit" variant="primary">
               로그인
             </Button>
             <div
