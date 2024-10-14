@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { ImNotification } from "react-icons/im";
 
 const CheckLoginModal = ({ show, setShow }) => {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ const CheckLoginModal = ({ show, setShow }) => {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>알림</Modal.Title>
+          <Modal.Title><ImNotification/></Modal.Title>
         </Modal.Header>
         <Modal.Body>
           로그인이 필요한 서비스입니다. 로그인하시겠습니까?
