@@ -4,11 +4,8 @@ import PopularMovieSlide from "./components/PopularMovieSlide/PopularMovieSlide"
 import TopRatedMovieSlide from "./components/TopRatedMovieSlide/TopRatedMovieSlide";
 import UpcomingMovieSlide from "./components/UpcomingMovieSlide/UpcomingMovieSlide";
 import "./Homepage.style.css";
-import { useSelector } from "react-redux";
 
 const Homepage = () => {
-  const myMovies = useSelector((state) => state.myMovies);
-  console.log("myMovies: ", myMovies)
   return (
     <>
       <Banner />
