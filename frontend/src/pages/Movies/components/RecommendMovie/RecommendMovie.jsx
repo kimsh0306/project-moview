@@ -1,6 +1,7 @@
 import React from "react";
 import { useRecommendMovieQuery } from "../../../../hooks/useMovieSearch";
 import { Alert, Col } from "react-bootstrap";
+import LoadingModal from "../../../../common/LoadingModal/LoadingModal";
 import MovieCard from "../../../../common/MovieCard/MovieCard";
 
 const RecommendMovie = ({page}) => {
@@ -8,7 +9,7 @@ const RecommendMovie = ({page}) => {
     useRecommendMovieQuery(page);
 
   if (isLoading) {
-    return <h1>Loading...</h1>;
+    return <LoadingModal show={true} handleClose={() => {}} />;
   }
   if (isError) {
     return <Alert variant="danger">{error.message}</Alert>;

@@ -1,5 +1,5 @@
 import React from "react";
-import { Alert, Button } from "react-bootstrap";
+import { Alert, Button, Spinner } from "react-bootstrap";
 import { useMovieGenreQuery } from "../../../../hooks/useMovieGenre";
 import "./MovieGenre.style.css";
 
@@ -25,12 +25,12 @@ const MovieGenre = ({ selectedGenreIds, setSelectedGenreIds }) => {
 
   if (isLoading) {
     console.log("Loading - genreData...");
-    return <h1>Loading...</h1>;
+    return (
+      <Spinner animation="border" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </Spinner>
+    );
   }
-
-  // if (status === 'success') {
-  //   console.log("Success - genreData: ", genreData);
-  // }
 
   if (isError) {
     console.log("Error: ", error.message);
@@ -38,16 +38,15 @@ const MovieGenre = ({ selectedGenreIds, setSelectedGenreIds }) => {
   }
 
   return (
-    <>
+    <div className="movie-genre">
       {genreData.map((item, idx) => {
         return (
           <Button
             key={`${item}-${idx}`}
-            className="badge"
             variant={
               selectedGenreIds.includes(item.id.toString())
                 ? "primary"
-                : "secondary"
+                : "outline-secondary"
             }
             onClick={handleGenreClick}
             value={item.id}
@@ -57,7 +56,7 @@ const MovieGenre = ({ selectedGenreIds, setSelectedGenreIds }) => {
           </Button>
         );
       })}
-    </>
+    </div>
   );
 };
 

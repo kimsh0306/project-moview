@@ -1,14 +1,6 @@
-.movie-page .badge.btn {
-  width: 4rem;
-  height: 4rem;
+.movie-genre .btn {
+  white-space: nowrap;
   border-radius: 2rem;
-  margin: .1rem;
-}
-
-.movie-page .badge.btn:hover {
-  color: white;
-}
-
-.movie-page .badge.btn:active {
-  color: white;
+  font-size: .8rem;
+  margin: .2rem;
 }
