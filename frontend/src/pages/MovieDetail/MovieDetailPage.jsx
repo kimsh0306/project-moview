@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useMovieDetailQuery } from "../../hooks/useMovieDetail";
 import { Alert, Col, Container, Row, Tab, Tabs } from "react-bootstrap";
@@ -14,12 +14,12 @@ const MovieDetailPage = () => {
 
   let { id } = useParams();
 
-  const { data, isLoading, isError, error } = useMovieDetailQuery(id);
-  const mainImgUrl = `https://media.themoviedb.org/t/p/w1066_and_h600_bestv2${data?.poster_path}`;
+  const { data: movie, isLoading, isError, error } = useMovieDetailQuery(id);
+  const mainImgUrl = `https://media.themoviedb.org/t/p/w1066_and_h600_bestv2${movie?.poster_path}`;
 
   if (isLoading) return <LoadingModal show={true} />;
   if (isError) return <Alert variant="danger">{error.message}</Alert>;
-  if (!data) return <Alert variant="danger">No data available</Alert>;
+  if (!movie) return <Alert variant="danger">No data available</Alert>;
 
   return (
     <div className="detail-page">
@@ -33,7 +33,7 @@ const MovieDetailPage = () => {
           position: "relative",
         }}
       >
-        <MovieInfo data={data} id={id} />
+        <MovieInfo movie={movie} />
       </div>
       <Container fluid>
         <Row>

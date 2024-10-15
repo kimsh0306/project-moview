@@ -4,6 +4,7 @@ import { Typography, Box, CircularProgress } from "@mui/material";
 import { Badge, Button, Col, Row } from "react-bootstrap";
 import { IoPlayOutline, IoCloseCircleOutline } from "react-icons/io5";
 import MovieVideos from "../MovieVideos/MovieVideos";
+import FavoriteMark from "../../../../common/FavoriteMark/FavoriteMark";
 import "./MovieInfo.style.css";
 
 function CircularProgressWithLabel(props) {
@@ -34,13 +35,15 @@ function CircularProgressWithLabel(props) {
   );
 }
 
-const MovieInfo = memo(({ data, id }) => {
+const MovieInfo = memo(({ movie }) => {
   const [isVideo, setIsVideo] = useState(false);
 
-  const posterImgUrl = `https://media.themoviedb.org/t/p/w600_and_h900_bestv2${data.poster_path}`;
+  const posterImgUrl = `https://media.themoviedb.org/t/p/w600_and_h900_bestv2${movie.poster_path}`;
 
   const handleVideoOpen = () => setIsVideo(true);
   const handleVideoClose = () => setIsVideo(false);
+
+  console.log("d:", movie);
 
   return (
     <div className="info-comp">
@@ -50,21 +53,21 @@ const MovieInfo = memo(({ data, id }) => {
             className="position-absolute z-3 top-0 fs-4"
             onClick={handleVideoClose}
           >
-            <IoCloseCircleOutline/>
+            <IoCloseCircleOutline />
           </div>
-          <MovieVideos id={id} />
+          <MovieVideos id={movie.id} />
         </>
       ) : (
         <Row>
-          {data.poster_path !== null && (
+          {movie.poster_path !== null && (
             <Col xs={12} sm={4}>
               <img className="poster" src={posterImgUrl} alt="영화 포스터" />
             </Col>
           )}
           <Col xs={12} sm={8}>
-            <h1 className="title">{data.title}</h1>
+            <h1 className="title">{movie.title}</h1>
             <div className="badge-genres">
-              {data.genres.map((item, idx) => {
+              {movie.genres.map((item, idx) => {
                 return (
                   <Badge key={idx} className="badge" bg="danger">
                     {item.name}
@@ -76,23 +79,23 @@ const MovieInfo = memo(({ data, id }) => {
               <dl>
                 <div className="info__group">
                   <dt>등급</dt>
-                  <dd>{data.adult ? "19세 이상 관람가" : "전체"}</dd>
+                  <dd>{movie.adult ? "19세 이상 관람가" : "전체"}</dd>
                 </div>
                 <div className="info__group">
                   <dt>인기도</dt>
-                  <dd>{data.popularity}</dd>
+                  <dd>{movie.popularity}</dd>
                 </div>
                 <div className="info__group">
                   <dt>투표수</dt>
-                  <dd>{data.vote_count}</dd>
+                  <dd>{movie.vote_count}</dd>
                 </div>
                 <div className="info__group">
                   <dt>개봉일</dt>
-                  <dd>{data.release_date}</dd>
+                  <dd>{movie.release_date}</dd>
                 </div>
                 <div className="info__group">
                   <dt>러닝타임</dt>
-                  <dd>{data.runtime}분</dd>
+                  <dd>{movie.runtime}분</dd>
                 </div>
               </dl>
 
@@ -104,21 +107,29 @@ const MovieInfo = memo(({ data, id }) => {
                       sx={{
                         color: green[600],
                       }}
-                      value={data?.vote_average * 10}
+                      value={movie?.vote_average * 10}
                       thickness={4}
                     />
                   </div>
                 </div>
                 <div className="etc-group">
                   <strong>트레일러 재생</strong>
-                  <Button variant="outline-primary" onClick={handleVideoOpen}>
-                    <IoPlayOutline className="fs-4"/>
+                  <Button
+                    variant="outline-primary"
+                    onClick={handleVideoOpen}
+                    disabled={!movie.video}
+                  >
+                    <IoPlayOutline className="fs-4" />
                   </Button>
+                </div>
+                <div className="etc-group">
+                  <strong>찜한 영화</strong>
+                  <FavoriteMark movie={movie} fontSize="2rem" />
                 </div>
               </div>
               <div className="info__overview">
                 <h5>개요</h5>
-                <p>{data.overview}</p>
+                <p>{movie.overview}</p>
               </div>
             </div>
           </Col>
