@@ -59,8 +59,8 @@ const LoginPage = () => {
         navigate("/");
       })
       .catch((error) => {
-        console.error(error);
-        setErrorData(error.response.data);
+        console.error("실패: ", error);
+        setErrorData(error.response.data.message);
       })
       .finally(() => {
         setShowLoading(false);

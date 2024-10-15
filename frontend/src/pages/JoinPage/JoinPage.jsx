@@ -70,7 +70,7 @@ const JoinPage = () => {
       })
       .catch((error) => {
         console.error(error);
-        setErrorData(error.response.data);
+        setErrorData(error.response.data.message);
       })
       .finally(() => {
         setShowLoading(false);
