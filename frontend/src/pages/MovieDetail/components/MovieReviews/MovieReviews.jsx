@@ -6,12 +6,10 @@ import "./MovieReviews.style.css";
 
 const MovieReviews = ({ id }) => {
   const { data, isLoading, isError, error } = useMovieReviewsQuery(id);
-  // console.log("dataReviews: ", data);
 
   const sortedResult = data?.results?.sort(
     (a, b) => new Date(b.created_at) - new Date(a.created_at)
   );
-  // console.log("sortedResult: ", sortedResult);
 
   if (isLoading) {
     return (
@@ -20,9 +18,9 @@ const MovieReviews = ({ id }) => {
       </Spinner>
     );
   }
-  if (isError) {
-    return <Alert variant="danger">{error.message}</Alert>;
-  }
+  if (isError) return <Alert variant="danger">{error.message}</Alert>;
+  if (!data) return <Alert variant="danger">No data available</Alert>;
+
   return (
     <div className="reviews-box">
       <p className="mb-1 text-nowrap text-end"> 총 {sortedResult.length}건</p>
