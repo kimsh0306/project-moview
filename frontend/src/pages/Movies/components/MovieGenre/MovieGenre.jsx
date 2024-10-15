@@ -1,16 +1,10 @@
 import React from "react";
-import { Alert, Button, Spinner } from "react-bootstrap";
 import { useMovieGenreQuery } from "../../../../hooks/useMovieGenre";
+import { Alert, Button, Spinner } from "react-bootstrap";
 import "./MovieGenre.style.css";
 
 const MovieGenre = ({ selectedGenreIds, setSelectedGenreIds }) => {
-  const {
-    data: genreData,
-    status,
-    isLoading,
-    isError,
-    error,
-  } = useMovieGenreQuery();
+  const { data: genreData, isLoading, isError, error } = useMovieGenreQuery();
 
   const handleGenreClick = (event) => {
     const genreId = event.target.value;
@@ -24,18 +18,14 @@ const MovieGenre = ({ selectedGenreIds, setSelectedGenreIds }) => {
   };
 
   if (isLoading) {
-    console.log("Loading - genreData...");
     return (
       <Spinner animation="border" role="status">
         <span className="visually-hidden">Loading...</span>
       </Spinner>
     );
   }
-
-  if (isError) {
-    console.log("Error: ", error.message);
-    return <Alert variant="danger">{error.message}</Alert>;
-  }
+  if (isError) return <Alert variant="danger">{error.message}</Alert>;
+  if (!genreData) return null;
 
   return (
     <div className="movie-genre">

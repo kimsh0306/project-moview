@@ -1,29 +1,6 @@
 .not-found {
-  background-color: white;
-  color: black;
-  height: 100vh;
+  height: 90vh;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-.not-found h1 {
-  margin: 10px 0 0 4px;
-  text-align: center;
-  font-size: 80px;
-}
-
-.not-found h3 {
-  margin: 0;
-  text-align: center;
-  font-size: 50px;
-  font-weight: 100;
-  color: #8e8e8e;
-}
-
-.not-found div {
-  width: 300px;
-  height: 260px;
-  overflow: hidden;
 }

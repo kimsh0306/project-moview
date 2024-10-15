@@ -1,28 +1,23 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { usePopularMoviesQuery } from "../../../../hooks/useMovieListsQuerys";
-import { Alert, Badge, Button, Spinner } from "react-bootstrap";
+import { Alert, Badge, Button } from "react-bootstrap";
+import LoadingModal from "../../../../common/LoadingModal/LoadingModal";
 import "./Banner.style.css";
 
 const Banner = () => {
   const navigate = useNavigate();
   const { data, isLoading, isError, error } = usePopularMoviesQuery();
-  // console.log("dataBanner: ", data);
 
-  const handleBtnClick = () => navigate(`/movies/${data?.results[0].id}`);
+  const handleBtnClick = () => navigate(`/movies/${topMovie.id}`);
+  
+  if (isLoading) return <LoadingModal show={true} />;
+  if (isError) return <Alert variant="danger">{error.message}</Alert>;
+  if (!data) return <Alert variant="danger">No data available</Alert>;
+  
+  const topMovie = data.results[0];
+  const imgUrl = `https://media.themoviedb.org/t/p/w1066_and_h600_bestv2${topMovie.poster_path}`;
 
-  if (isLoading) {
-    return (
-      <Spinner animation="border" role="status">
-        <span className="visually-hidden">Loading...</span>
-      </Spinner>
-    );
-  }
-  if (isError) {
-    <Alert variant="danger">{error.message}</Alert>;
-  }
-
-  const imgUrl = `https://media.themoviedb.org/t/p/w1066_and_h600_bestv2${data?.results[0].poster_path}`;
   return (
     <div className="banner">
       <div className="banner__img-area">
@@ -34,8 +29,8 @@ const Banner = () => {
         <Badge className="mb-1" bg="primary">
           TOP1
         </Badge>
-        <h1>{data?.results[0].title}</h1>
-        <p>{data?.results[0].overview}</p>
+        <h1>{topMovie.title}</h1>
+        <p>{topMovie.overview}</p>
         <Button
           className="mt-3"
           variant="outline-primary"

@@ -2,9 +2,9 @@ import React, { memo, useState } from "react";
 import { green, grey } from "@mui/material/colors";
 import { Typography, Box, CircularProgress } from "@mui/material";
 import { Badge, Button, Col, Row } from "react-bootstrap";
-
-import "./MovieInfo.style.css";
+import { IoPlayOutline, IoCloseCircleOutline } from "react-icons/io5";
 import MovieVideos from "../MovieVideos/MovieVideos";
+import "./MovieInfo.style.css";
 
 function CircularProgressWithLabel(props) {
   return (
@@ -34,15 +34,10 @@ function CircularProgressWithLabel(props) {
   );
 }
 
-/*
-  React.memo 적용
-    부모 컴포넌트가 다시 렌더링되더라도 MovieInfo가 받는 props가 변경되지 않는 한, 
-    MovieInfo 컴포넌트가 불필요하게 재렌더링되는 것을 방지
-*/
 const MovieInfo = memo(({ data, id }) => {
   const [isVideo, setIsVideo] = useState(false);
-  const posterImgUrl = `https://media.themoviedb.org/t/p/w600_and_h900_bestv2${data?.poster_path}`;
-  console.log("posterImgUrl", posterImgUrl);
+
+  const posterImgUrl = `https://media.themoviedb.org/t/p/w600_and_h900_bestv2${data.poster_path}`;
 
   const handleVideoOpen = () => setIsVideo(true);
   const handleVideoClose = () => setIsVideo(false);
@@ -52,22 +47,22 @@ const MovieInfo = memo(({ data, id }) => {
       {isVideo ? (
         <>
           <div
-            className="position-absolute z-3 top-0"
+            className="position-absolute z-3 top-0 fs-4"
             onClick={handleVideoClose}
           >
-            X
+            <IoCloseCircleOutline/>
           </div>
           <MovieVideos id={id} />
         </>
       ) : (
         <Row>
-          {data?.poster_path !== null && (
+          {data.poster_path !== null && (
             <Col xs={12} sm={4}>
               <img className="poster" src={posterImgUrl} alt="영화 포스터" />
             </Col>
           )}
           <Col xs={12} sm={8}>
-            <h1 className="title">{data?.title}</h1>
+            <h1 className="title">{data.title}</h1>
             <div className="badge-genres">
               {data.genres.map((item, idx) => {
                 return (
@@ -81,31 +76,29 @@ const MovieInfo = memo(({ data, id }) => {
               <dl>
                 <div className="info__group">
                   <dt>등급</dt>
-                  <dd>{data?.adult ? "19세 이상 관람가" : "전체"}</dd>
+                  <dd>{data.adult ? "19세 이상 관람가" : "전체"}</dd>
                 </div>
                 <div className="info__group">
                   <dt>인기도</dt>
-                  <dd>{data?.popularity}</dd>
+                  <dd>{data.popularity}</dd>
                 </div>
                 <div className="info__group">
                   <dt>투표수</dt>
-                  <dd>{data?.vote_count}</dd>
+                  <dd>{data.vote_count}</dd>
                 </div>
                 <div className="info__group">
                   <dt>개봉일</dt>
-                  <dd>{data?.release_date}</dd>
+                  <dd>{data.release_date}</dd>
                 </div>
                 <div className="info__group">
                   <dt>러닝타임</dt>
-                  <dd>{data?.runtime}분</dd>
+                  <dd>{data.runtime}분</dd>
                 </div>
               </dl>
 
               <div className="info__etc">
                 <div className="etc-group">
-                  <div>
-                    <strong>회원점수</strong>
-                  </div>
+                  <strong>회원점수</strong>
                   <div className="vote-avr">
                     <CircularProgressWithLabel
                       sx={{
@@ -117,17 +110,15 @@ const MovieInfo = memo(({ data, id }) => {
                   </div>
                 </div>
                 <div className="etc-group">
-                  <div>
-                    <strong>트레일러 재생</strong>
-                  </div>
+                  <strong>트레일러 재생</strong>
                   <Button variant="outline-primary" onClick={handleVideoOpen}>
-                    play
+                    <IoPlayOutline className="fs-4"/>
                   </Button>
                 </div>
               </div>
               <div className="info__overview">
                 <h5>개요</h5>
-                <p>{data?.overview}</p>
+                <p>{data.overview}</p>
               </div>
             </div>
           </Col>

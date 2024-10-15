@@ -23,19 +23,19 @@ const MovieCard = ({ movie }) => {
   const { data: genreData } = useMovieGenreQuery();
 
   useEffect(() => {
-    if(!movie) return;
+    if (!movie) return;
     const userId = localStorage.getItem("userId");
     const userNum = localStorage.getItem("userNum");
 
     if (userId && userNum) {
       setUserData({ userId, userNum });
-    };
+    }
 
     if (myMovies.some((myMovie) => myMovie.id === movie.id)) {
       setIsFavorite(true);
     } else {
       setIsFavorite(false);
-    };
+    }
   }, [movie, myMovies]);
 
   const handleFavoriteItem = (e) => {
@@ -44,7 +44,7 @@ const MovieCard = ({ movie }) => {
       console.log("로그인이 필요한 서비스입니다.");
       setShowCheckLoginModal(true);
       return;
-    };
+    }
     const payload = {
       id: movie.id,
       title: movie.title,
@@ -105,8 +105,6 @@ const MovieCard = ({ movie }) => {
     return genreNameList;
   };
 
-  const handleLoadingClose = () => setShowLoading(false);
-
   return (
     <>
       <div
@@ -155,7 +153,7 @@ const MovieCard = ({ movie }) => {
         show={showCheckLoginModal}
         setShow={setShowCheckLoginModal}
       />
-      <LoadingModal show={showLoading} handleClose={handleLoadingClose} />
+      <LoadingModal show={showLoading} />
     </>
   );
 };

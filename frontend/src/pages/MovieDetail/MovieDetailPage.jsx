@@ -1,16 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useMovieDetailQuery } from "../../hooks/useMovieDetail";
-import {
-  Alert,
-  Col,
-  Container,
-  Row,
-  Tab,
-  Tabs,
-  Spinner,
-} from "react-bootstrap";
-import MovieImages from "./components/MovieImages/MovieImages";
+import { Alert, Col, Container, Row, Tab, Tabs } from "react-bootstrap";
 import MovieReviews from "./components/MovieReviews/MovieReviews";
 import MovieInfo from "./components/MovieInfo/MovieInfo";
 import MovieCredits from "./components/MovieCredits/MovieCredits";
@@ -19,24 +10,16 @@ import LoadingModal from "../../common/LoadingModal/LoadingModal";
 import "./MovieDetailPage.style.css";
 
 const MovieDetailPage = () => {
-  let { id } = useParams();
   const [activeTab, setActiveTab] = useState("credits");
+
+  let { id } = useParams();
+
   const { data, isLoading, isError, error } = useMovieDetailQuery(id);
-
-  useEffect(() => {
-    data || setActiveTab("credits");
-    data && console.log("dataDetail!!: ", data);
-  }, [data]);
-
-  if (isLoading) {
-    console.log("Loading...");
-    return <LoadingModal show={true} handleClose={() => {}} />;
-  }
-  if (isError) {
-    return <Alert variant="danger">{error.message}</Alert>;
-  }
-
   const mainImgUrl = `https://media.themoviedb.org/t/p/w1066_and_h600_bestv2${data?.poster_path}`;
+
+  if (isLoading) return <LoadingModal show={true} />;
+  if (isError) return <Alert variant="danger">{error.message}</Alert>;
+  if (!data) return <Alert variant="danger">No data available</Alert>;
 
   return (
     <div className="detail-page">

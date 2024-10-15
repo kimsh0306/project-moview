@@ -2,31 +2,22 @@
   padding: 1.875rem;
 }
 
-.movie-page__header {
+.movie-page .header {
   margin-bottom: 2rem;
   gap: 1rem;
 }
 
-.movie-page .page-name {
+.movie-page .title {
   display: flex;
   align-items: center;
   gap: 1rem;
 }
 
-.movie-page .page-name h2{
+.movie-page .title h2{
   margin: 0;
 }
 
-.movie-page .dropdown{
-  padding-top: .1rem;
-}
-
-.movie-page__genre .genre {
-  padding: 1rem;
-  text-align: center;
-}
-
-.movie-page__contents.row {
+.movie-page .contents {
   --bs-gutter-x: .5rem;
   --bs-gutter-y: .5rem;
 }

@@ -3,16 +3,17 @@ import Modal from "react-bootstrap/Modal";
 import Spinner from "react-bootstrap/Spinner";
 import "./LoadingModal.style.css";
 
-const LoadingModal = ({ show, handleClose }) => {
+const LoadingModal = ({ show }) => {
+  if (!show) return null;
+
   return (
     <Modal
       className="loading"
       show={show}
-      onHide={handleClose}
       animation={false}
       aria-labelledby="contained-modal-title-vcenter"
       centered
-      backdrop="static" 
+      backdrop="static"
       keyboard={false}
     >
       <Spinner animation="border" role="status">

@@ -18,7 +18,7 @@ const MovieVideos = ({ id }) => {
 
   if (isLoading) {
     console.log("Loading...");
-    return <LoadingModal show={true} handleClose={() => {}} />;
+    return <LoadingModal show={true} />;
   }
   if (isError) {
     return <Alert variant="danger">{error.message}</Alert>;

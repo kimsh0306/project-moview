@@ -5,7 +5,7 @@ import MoviePage from './pages/Movies/MoviePage';
 import MovieDetailPage from './pages/MovieDetail/MovieDetailPage';
 import MyListPage from './pages/MyListPage/MyListPage';
 import LoginPage from './pages/LoginPage/LoginPage';
-import SignUpPage from './pages/SignUpPage/SignUpPage';
+import JoinPage from './pages/JoinPage/JoinPage';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./styles/custom.scss";
@@ -24,7 +24,7 @@ function App() {
         <Route path="*" element={<NotFoundPage />} />
       </Route>
       <Route path="login" element={<LoginPage />} />
-      <Route path="sign-up" element={<SignUpPage />} />
+      <Route path="join" element={<JoinPage />} />
     </Routes>
   );
 }

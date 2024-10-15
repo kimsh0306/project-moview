@@ -1,8 +1,8 @@
 import React from "react";
-import { Alert, Spinner } from "react-bootstrap";
 import { useUpcomingMoviesQuery } from "../../../../hooks/useMovieListsQuerys";
-import MovieSlider from "../../../../common/MovieSlider/MovieSlider";
+import { Alert, Spinner } from "react-bootstrap";
 import { responsive } from "../../../../constants/responsive";
+import MovieSlider from "../../../../common/MovieSlider/MovieSlider";
 
 const UpcomingMovieSlide = () => {
   const { data, isLoading, isError, error } = useUpcomingMoviesQuery();
@@ -13,10 +13,10 @@ const UpcomingMovieSlide = () => {
         <span className="visually-hidden">Loading...</span>
       </Spinner>
     );
-  };
-  if (isError) {
-    return <Alert variant="danger">{error.message}</Alert>;
-  };
+  }
+  if (isError) return <Alert variant="danger">{error.message}</Alert>;
+  if (!data) return <Alert variant="danger">No data available</Alert>;
+  
   return (
     <MovieSlider
       title="개봉 예정 영화"
