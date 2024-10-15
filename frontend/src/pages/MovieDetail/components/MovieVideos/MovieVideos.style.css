@@ -7,19 +7,17 @@
   /* border: 1px solid green; */
 }
 
-.video-comp .responsive-iframe {
+.video-comp .youtube {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  /* border: 1px solid white; */
+  /* border: 1px solid red; */
 }
 
-@media (min-width: 62rem) {
-  .video-comp {
-    width: 1280px;
-    height: 720px;
-    padding-bottom: 0;
-  }
+.video-comp .responsive-iframe {
+  width: 100%;
+  height: 100%;
+  /* border: 1px solid white; */
 }
