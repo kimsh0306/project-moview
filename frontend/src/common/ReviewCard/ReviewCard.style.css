@@ -1,4 +1,5 @@
-.detail-page .more-button, .close-button {
+.review-card .more-button,
+.close-button {
   color: var(--custom-primary);
   cursor: pointer;
   margin-left: 5px;
