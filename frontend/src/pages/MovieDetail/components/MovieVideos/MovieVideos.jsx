@@ -16,13 +16,10 @@ const MovieVideos = ({ id }) => {
     },
   };
 
-  if (isLoading) {
-    console.log("Loading...");
-    return <LoadingModal show={true} />;
-  }
-  if (isError) {
-    return <Alert variant="danger">{error.message}</Alert>;
-  }
+  if (isLoading) return <LoadingModal show={true} />;
+  if (isError) return <Alert variant="danger">{error.message}</Alert>;
+  if (!data) return <Alert variant="danger">No data available</Alert>;
+
   return (
     <div className="video-comp">
       <YouTube

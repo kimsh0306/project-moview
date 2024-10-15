@@ -43,8 +43,6 @@ const MovieInfo = memo(({ movie }) => {
   const handleVideoOpen = () => setIsVideo(true);
   const handleVideoClose = () => setIsVideo(false);
 
-  console.log("d:", movie);
-
   return (
     <div className="info-comp">
       {isVideo ? (
@@ -117,7 +115,6 @@ const MovieInfo = memo(({ movie }) => {
                   <Button
                     variant="outline-primary"
                     onClick={handleVideoOpen}
-                    disabled={!movie.video}
                   >
                     <IoPlayOutline className="fs-4" />
                   </Button>
