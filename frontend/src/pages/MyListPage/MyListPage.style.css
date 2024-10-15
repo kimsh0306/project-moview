@@ -2,21 +2,22 @@
   padding: 1.875rem;
 }
 
-.my-list__header {
+.my-list .header {
   margin-bottom: 2rem;
   gap: 1rem;
 }
 
-.my-list .page-name {
+.my-list .title {
   display: flex;
   align-items: center;
   gap: 1rem;
 }
 
-.my-list .page-name h2{
+.my-list .title h2{
   margin: 0;
 }
 
-.my-list .dropdown{
-  padding-top: .1rem;
+.my-list .contents {
+  --bs-gutter-x: .5rem;
+  --bs-gutter-y: .5rem;
 }
