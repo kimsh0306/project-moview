@@ -1,10 +1,11 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 import { Navbar, Button, Form } from "react-bootstrap";
 import { ImNotification } from "react-icons/im";
 import LoadingModal from "../../common/LoadingModal/LoadingModal";
 import SuccessJoinModal from "./components/SuccessJoinModal/SuccessJoinModal";
+import { authenticateAction } from "../../redux/actions/authenticateAction";
 import "./JoinPage.style.css";
 
 const initData = {
@@ -15,15 +16,15 @@ const initData = {
 };
 
 const JoinPage = () => {
-  const [userData, setUserData] = useState(initData);
-  const [resData, setResData] = useState();
-  const [errorData, setErrorData] = useState();
-  const [showLoading, setShowLoading] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
+  const [joinPayload, setJoinPayload] = useState(initData);
+  const [errorMessage, setErrorMessage] = useState();
+
+  const { user, loading, error } = useSelector((state) => state.auth);
 
   const inputRefs = useRef([]);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (inputRefs.current[0]) {
@@ -31,50 +32,43 @@ const JoinPage = () => {
     }
   }, []);
 
+  useEffect(() => {
+    if (!error) return;
+    error.response
+      ? setErrorMessage(error.response.data.message)
+      : setErrorMessage(error.message);
+  }, [error]);
+
   const handleInputChange = (e) => {
-    setUserData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+    setJoinPayload((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
   const handleJoinSubmit = (e) => {
     e.preventDefault();
-    setErrorData();
-    if (userData.user_id === "") {
+    setErrorMessage();
+
+    if (joinPayload.user_id === "") {
       inputRefs.current[0].focus();
-      setErrorData("아이디를 입력해주세요.");
+      setErrorMessage("아이디를 입력해주세요.");
       return;
     }
-    if (userData.name === "") {
+    if (joinPayload.name === "") {
       inputRefs.current[1].focus();
-      setErrorData("이름을 입력해주세요.");
+      setErrorMessage("이름을 입력해주세요.");
       return;
     }
-    if (userData.email === "") {
+    if (joinPayload.email === "") {
       inputRefs.current[2].focus();
-      setErrorData("이메일을 입력해주세요.");
+      setErrorMessage("이메일을 입력해주세요.");
       return;
     }
-    if (userData.password === "") {
+    if (joinPayload.password === "") {
       inputRefs.current[3].focus();
-      setErrorData("비밀번호를 입력해주세요.");
+      setErrorMessage("비밀번호를 입력해주세요.");
       return;
     }
-    setShowLoading(true);
-    axios
-      .post("https://project-moview-api.vercel.app/users", userData)
-      .then((res) => {
-        const { _id, user_id } = res.data;
-        localStorage.setItem("userId", user_id);
-        localStorage.setItem("userNum", _id);
-        setResData(res.data);
-        setShowSuccess(true);
-      })
-      .catch((error) => {
-        console.error(error);
-        setErrorData(error.response.data.message);
-      })
-      .finally(() => {
-        setShowLoading(false);
-      });
+
+    dispatch(authenticateAction.join(joinPayload));
   };
 
   return (
@@ -127,10 +121,10 @@ const JoinPage = () => {
               placeholder="비밀번호 입력"
             />
           </Form.Group>
-          {errorData && (
+          {errorMessage && (
             <p className="error-text">
               <ImNotification className="me-2" />
-              {errorData}
+              {errorMessage}
             </p>
           )}
           <Button variant="primary" type="submit" className="w-100">
@@ -146,11 +140,8 @@ const JoinPage = () => {
           로그인
         </div>
       </div>
-      <SuccessJoinModal
-        show={showSuccess}
-        resData={resData}
-      />
-      <LoadingModal show={showLoading} />
+      <SuccessJoinModal show={user} user={user} />
+      <LoadingModal show={loading} />
     </>
   );
 };

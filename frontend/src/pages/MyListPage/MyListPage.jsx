@@ -1,11 +1,11 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Container, Row, Col } from "react-bootstrap";
-import "./MyListPage.style.css";
 import MovieCard from "../../common/MovieCard/MovieCard";
+import "./MyListPage.style.css";
 
 const MyListPage = () => {
-  const myMovies = useSelector((state) => state.myMovies);
+  const myMoviesState = useSelector((state) => state.myMovies?.movies);
 
   return (
     <div className="my-list">
@@ -16,7 +16,7 @@ const MyListPage = () => {
           </div>
         </Row>
         <Row className="contents">
-          {myMovies.map((movie, idx) => (
+          {myMoviesState.map((movie, idx) => (
             <Col key={idx} xl={2} lg={3} md={4} sm={6} xs={6}>
               <MovieCard movie={movie} />
             </Col>

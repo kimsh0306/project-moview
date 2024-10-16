@@ -1,21 +1,17 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 import { Navbar, Button, Form } from "react-bootstrap";
 import { ImNotification } from "react-icons/im";
+import { authenticateAction } from "../../redux/actions/authenticateAction";
 import LoadingModal from "../../common/LoadingModal/LoadingModal";
 import "./LoginPage.style.css";
 
-const initData = {
-  user_id: "",
-  password: "",
-};
-
 const LoginPage = () => {
-  const [userData, setUserData] = useState(initData);
-  const [errorData, setErrorData] = useState();
-  const [showLoading, setShowLoading] = useState(false);
+  const [loginPayload, setLoginPayload] = useState();
+  const [errorMessage, setErrorMessage] = useState();
+
+  const { user, loading, error } = useSelector((state) => state.auth);
 
   const inputRefs = useRef([]);
 
@@ -28,43 +24,39 @@ const LoginPage = () => {
     }
   }, []);
 
+  useEffect(() => {
+    if (!user) return;
+    console.log("user:", user);
+    navigate("/");
+  }, [user]);
+
+  useEffect(() => {
+    if (!error) return;
+    error.response
+      ? setErrorMessage(error.response.data.message)
+      : setErrorMessage(error.message);
+  }, [error]);
+
   const handleInputChange = (e) => {
-    setUserData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+    setLoginPayload((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
-    setErrorData();
-    if (userData.user_id === "") {
+    setErrorMessage();
+
+    if (loginPayload.user_id === "") {
       inputRefs.current[0].focus();
-      setErrorData("아이디를 입력해주세요.");
+      setErrorMessage("아이디를 입력해주세요.");
       return;
     }
-    if (userData.password === "") {
+    if (loginPayload.password === "") {
       inputRefs.current[1].focus();
-      setErrorData("비밀번호를 입력해주세요.");
+      setErrorMessage("비밀번호를 입력해주세요.");
       return;
     }
-    setShowLoading(true);
-    axios
-      .post("https://project-moview-api.vercel.app/users/login", userData)
-      .then((res) => {
-        const { _id, user_id, my_lists } = res.data;
-        localStorage.setItem("userId", user_id);
-        localStorage.setItem("userNum", _id);
-        dispatch({
-          type: "LOGIN",
-          payload: { myMovies: my_lists.movies },
-        });
-        navigate("/");
-      })
-      .catch((error) => {
-        console.error("실패: ", error);
-        setErrorData(error.response.data.message);
-      })
-      .finally(() => {
-        setShowLoading(false);
-      });
+
+    dispatch(authenticateAction.login(loginPayload));
   };
 
   return (
@@ -101,10 +93,10 @@ const LoginPage = () => {
               placeholder="비밀번호 입력"
             />
           </Form.Group>
-          {errorData && (
+          {errorMessage && (
             <p className="error-text">
               <ImNotification className="me-2" />
-              {errorData}
+              {errorMessage}
             </p>
           )}
           <Button className="w-100" type="submit" variant="primary">
@@ -120,7 +112,7 @@ const LoginPage = () => {
           회원가입
         </div>
       </div>
-      <LoadingModal show={showLoading} />
+      <LoadingModal show={loading} />
     </>
   );
 };

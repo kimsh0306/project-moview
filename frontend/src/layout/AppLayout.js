@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Button,
   Container,
@@ -10,6 +10,7 @@ import {
 } from 'react-bootstrap';
 import "./AppLayout.style.css";
 import CheckLoginModal from '../common/CheckLoginModal/CheckLoginModal';
+import { authenticateAction } from '../redux/actions/authenticateAction';
 
 const AppLayout = () => {
   const navigate = useNavigate();
@@ -17,16 +18,13 @@ const AppLayout = () => {
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
   const [keyword, setKeyword] = useState("");
   const [showButton, setShowButton] = useState(false);
-  const [userData, setUserData] = useState();
   const [showCheckLoginModal, setShowCheckLoginModal] = useState(false);
 
+  const userState = useSelector((state) => state.auth.user);
+  
+  console.log("*** render AppLayout")
+  
   useEffect(() => {
-    const userId = localStorage.getItem('userId');
-    const userNum = localStorage.getItem('userNum');
-    if (userId && userNum) {
-      setUserData({ userId, userNum });
-    };
-
     const handleScroll = () => {
       // 스크롤 위치가 600px 이상 내려갔을 때 버튼을 보여줌
       if (window.scrollY > 600) {
@@ -69,15 +67,12 @@ const AppLayout = () => {
   };
 
   const handleLogout = () => {
-    setUserData();
-    localStorage.removeItem('userId')
-    localStorage.removeItem('userNum')
-    dispatch({ type: "LOGOUT" });
+    dispatch(authenticateAction.logout());
     navigate("/");
   };
 
   const handelMyList = () => {
-    if (!userData) {
+    if (!userState) {
       setShowCheckLoginModal(true);
       return;
     };
@@ -120,10 +115,10 @@ const AppLayout = () => {
         </Container>
         <div className='added-item'>
           <div className='d-flex align-items-center me-2'>
-            {userData
+            {userState
               ?
               <>
-                <button className='login-btn' onClick={handleLogout}>{userData.userId}</button>
+                <button className='login-btn' onClick={handleLogout}>{userState.userId}</button>
                 <div
                   style={{
                     width: "30px",

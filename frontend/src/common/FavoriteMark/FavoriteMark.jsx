@@ -10,54 +10,58 @@ const FavoriteMark = ({ movie, fontSize = "1.7rem" }) => {
   const [isFavorite, setIsFavorite] = useState();
   const [showCheckLoginModal, setShowCheckLoginModal] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
-  const myMovies = useSelector((state) => state.myMovies);
+
+  const userState = useSelector((state) => state.auth.user);
+  const myMoviesState = useSelector((state) => state.myMovies.movies);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!movie) return;
+    if (!movie || !myMoviesState) return;
 
-    if (myMovies.some((myMovie) => myMovie.id === movie.id)) {
+    if (myMoviesState.some((myMovie) => myMovie.id === movie.id)) {
       setIsFavorite(true);
     } else {
       setIsFavorite(false);
     }
-  }, [movie, myMovies]);
+  }, [movie, myMoviesState]);
 
   const handleFavoriteMark = (e) => {
-    const userId = localStorage.getItem("userId");
-    const userNum = localStorage.getItem("userNum");
-
     e.stopPropagation();
-    if (!userId || !userNum) {
+    if (!userState) {
       console.log("로그인이 필요한 서비스입니다.");
       setShowCheckLoginModal(true);
       return;
     }
-    const payload = {
+    const moviePayload = {
       id: movie.id,
       title: movie.title,
       poster_path: movie.poster_path,
       adult: movie.adult,
       vote_average: movie.vote_average,
+      vote_count: movie.vote_count,
+      popularity: movie.popularity,
       genre_ids: movie.genre_ids,
     };
-    // db에 추가/삭제
+    // db에 추가/제거
     if (isFavorite) {
       setShowLoading(true);
       axios
         .delete(
-          `https://project-moview-api.vercel.app/users/${userNum}/my_movies/${movie.id}`
+          `https://project-moview-api.vercel.app/users/${userState.userNum}/my_movies/${movie.id}`
         )
         .then((res) => {
-          console.log("my_movies 삭제 성공:", res.data);
-          dispatch({ type: "DELETE_MY_MOVIE", payload: { myMovie: payload } });
+          console.log("my_movies 제거 성공:", res.data);
+          dispatch({
+            type: "REMOVE_MY_MOVIES",
+            payload: { movie: moviePayload },
+          });
           setIsFavorite(false);
         })
         .catch((error) => {
           const { message } = error.response.data;
           console.error(error);
-          console.log("my_movies 삭제 실패:", message);
+          message && error.response.data.message && console.error("my_movies 제거 실패:", message);
         })
         .finally(() => {
           setShowLoading(false);
@@ -66,18 +70,18 @@ const FavoriteMark = ({ movie, fontSize = "1.7rem" }) => {
       setShowLoading(true);
       axios
         .post(
-          `https://project-moview-api.vercel.app/users/${userNum}/my_movies`,
-          payload
+          `https://project-moview-api.vercel.app/users/${userState.userNum}/my_movies`,
+          moviePayload
         )
         .then((res) => {
           console.log("my_movies 추가 성공:", res.data);
-          dispatch({ type: "PUT_MY_MOVIE", payload: { myMovie: payload } });
+          dispatch({ type: "ADD_MY_MOVIES", payload: { movie: moviePayload } });
           setIsFavorite(true);
         })
         .catch((error) => {
           const { message } = error.response.data;
           console.error(error);
-          console.log("my_movies 추가 실패:", message);
+          message && console.error("my_movies 추가 실패:", message);
         })
         .finally(() => {
           setShowLoading(false);
@@ -88,7 +92,7 @@ const FavoriteMark = ({ movie, fontSize = "1.7rem" }) => {
   return (
     <>
       {isFavorite ? (
-        <OverlayTrigger overlay={<Tooltip>찜목록에서 제거</Tooltip>}>
+        <OverlayTrigger overlay={<Tooltip>찜 제거</Tooltip>}>
           <div>
             <BsBookmarkDashFill
               className="favorite-selected"
@@ -98,7 +102,7 @@ const FavoriteMark = ({ movie, fontSize = "1.7rem" }) => {
           </div>
         </OverlayTrigger>
       ) : (
-        <OverlayTrigger overlay={<Tooltip>찜목록에 추가</Tooltip>}>
+        <OverlayTrigger overlay={<Tooltip>찜 추가</Tooltip>}>
           <div>
             <BsBookmarkPlus
               className="favorite-unselected"

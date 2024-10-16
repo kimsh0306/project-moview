@@ -8,11 +8,12 @@ const CheckLoginModal = ({ show, setShow }) => {
   const navigate = useNavigate();
   const handleClose = () => setShow(false);
 
+  if(!show) return null;
+
   return (
     <>
       <Modal
         show={show}
-        onHide={handleClose}
         centered
         backdrop="static"
         keyboard={false}

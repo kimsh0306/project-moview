@@ -2,10 +2,10 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Modal, Button } from "react-bootstrap";
 
-const SuccessJoinModal = ({ show, resData }) => {
+const SuccessJoinModal = ({ show, user }) => {
   const navigate = useNavigate();
 
-  if (!show || !resData) return null;
+  if (!show || !user) return null;
 
   return (
     <Modal show={show} backdrop="static" keyboard={false}>
@@ -13,15 +13,15 @@ const SuccessJoinModal = ({ show, resData }) => {
         <Modal.Title>회원가입 완료!</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p>{`${resData.name}님, ${resData.message}`}</p>
+        <p>{`${user.userName}님, 회원가입이 완료되었습니다.`}</p>
         <dl>
           <div className="d-flex">
             <dt style={{ width: "4rem" }}>아이디</dt>
-            <dd>{resData.user_id}</dd>
+            <dd>{user.userId}</dd>
           </div>
           <div className="d-flex">
             <dt style={{ width: "4rem" }}>회원번호</dt>
-            <dd>{resData._id}</dd>
+            <dd>{user.userNum}</dd>
           </div>
         </dl>
       </Modal.Body>
