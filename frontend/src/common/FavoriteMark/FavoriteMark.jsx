@@ -4,12 +4,12 @@ import axios from "axios";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { BsBookmarkPlus, BsBookmarkDashFill } from "react-icons/bs";
 import CheckLoginModal from "../CheckLoginModal/CheckLoginModal";
-import LoadingModal from "../LoadingModal/LoadingModal";
+import AlertModal from "../AlertModal/AlertModal";
 
 const FavoriteMark = ({ movie, fontSize = "1.7rem" }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [showCheckLoginModal, setShowCheckLoginModal] = useState(false);
-  const [showLoading, setShowLoading] = useState(false);
+  const [alertContent, setAlertContent] = useState();
 
   const userState = useSelector((state) => state.auth.user);
   const myMoviesState = useSelector((state) => state.myMovies.movies);
@@ -29,7 +29,9 @@ const FavoriteMark = ({ movie, fontSize = "1.7rem" }) => {
       const url = `https://project-moview-api.vercel.app/users/${userState.userNum}/my_movies/${movie.id}`;
       return await axios.delete(url);
     } catch (error) {
-      throw new Error(`찜 삭제 요청 실패: ${error.message}`, { cause: error });
+      throw new Error(`찜 삭제 요청이 실패했습니다. 제목: ${movie.title}`, {
+        cause: error,
+      });
     }
   };
 
@@ -38,7 +40,9 @@ const FavoriteMark = ({ movie, fontSize = "1.7rem" }) => {
       const url = `https://project-moview-api.vercel.app/users/${userState.userNum}/my_movies`;
       return await axios.post(url, moviePayload);
     } catch (error) {
-      throw new Error(`찜 추가 요청 실패: ${error.message}`, { cause: error });
+      throw new Error(`찜 추가 요청이 실패했습니다. 제목: ${movie.title}`, {
+        cause: error,
+      });
     }
   };
 
@@ -72,14 +76,15 @@ const FavoriteMark = ({ movie, fontSize = "1.7rem" }) => {
           payload: { movie: moviePayload },
         });
         const res = await removeMyMovies();
-        console.log(`${res.data.message} 제목: ${moviePayload.title}`);
+        console.log(`${res.data.message} 제목: ${movie.title}`);
       } else {
         setIsFavorite(true);
         dispatch({ type: "ADD_MY_MOVIES", payload: { movie: moviePayload } });
         const res = await addMyMovies(moviePayload);
-        console.log(`${res.data.message} 제목: ${moviePayload.title}`);
+        console.log(`${res.data.message} 제목: ${movie.title}`);
       }
     } catch (error) {
+      setAlertContent(error.message);
       setIsFavorite(prevIsFavorite);
       console.error("에러 메시지:", error.message);
       if (error.cause) {
@@ -87,6 +92,10 @@ const FavoriteMark = ({ movie, fontSize = "1.7rem" }) => {
       }
       dispatch({ type: "SET_MY_MOVIES", payload: myMoviesState });
     }
+  };
+
+  const handleAlertClose = (e) => {
+    setAlertContent();
   };
 
   return (
@@ -116,7 +125,7 @@ const FavoriteMark = ({ movie, fontSize = "1.7rem" }) => {
         show={showCheckLoginModal}
         setShow={setShowCheckLoginModal}
       />
-      <LoadingModal show={showLoading} />
+      <AlertModal show={alertContent} handleClose={handleAlertClose} />
     </>
   );
 };
