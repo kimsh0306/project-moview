@@ -5,6 +5,7 @@ import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { BsBookmarkPlus, BsBookmarkDashFill } from "react-icons/bs";
 import CheckLoginModal from "../CheckLoginModal/CheckLoginModal";
 import AlertModal from "../AlertModal/AlertModal";
+import "./FavoriteMark.style.css";
 
 const FavoriteMark = ({ movie, fontSize = "1.7rem" }) => {
   const [isFavorite, setIsFavorite] = useState(false);
@@ -37,7 +38,7 @@ const FavoriteMark = ({ movie, fontSize = "1.7rem" }) => {
 
   const addMyMovies = async (moviePayload) => {
     try {
-      const url = `https://project-moview-api.vercel.app/users/${userState.userNum}/my_movies`;
+      const url = `https://project-moview-api.vercel.app/users/${userState.userNum}/my_moviesㅇㄴ`;
       return await axios.post(url, moviePayload);
     } catch (error) {
       throw new Error(`찜 추가 요청이 실패했습니다. 제목: ${movie.title}`, {
@@ -101,7 +102,7 @@ const FavoriteMark = ({ movie, fontSize = "1.7rem" }) => {
   return (
     <>
       {isFavorite ? (
-        <OverlayTrigger overlay={<Tooltip>찜 제거</Tooltip>}>
+        <OverlayTrigger overlay={<Tooltip className="favorite-mark">찜 제거</Tooltip>}>
           <div>
             <BsBookmarkDashFill
               className="favorite-selected"
@@ -111,7 +112,7 @@ const FavoriteMark = ({ movie, fontSize = "1.7rem" }) => {
           </div>
         </OverlayTrigger>
       ) : (
-        <OverlayTrigger overlay={<Tooltip>찜 추가</Tooltip>}>
+        <OverlayTrigger overlay={<Tooltip className="favorite-mark">찜 추가</Tooltip>}>
           <div>
             <BsBookmarkPlus
               className="favorite-unselected"
