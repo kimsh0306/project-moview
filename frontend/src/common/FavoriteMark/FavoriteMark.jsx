@@ -38,7 +38,7 @@ const FavoriteMark = ({ movie, fontSize = "1.7rem" }) => {
 
   const addMyMovies = async (moviePayload) => {
     try {
-      const url = `https://project-moview-api.vercel.app/users/${userState.userNum}/my_moviesㅇㄴ`;
+      const url = `https://project-moview-api.vercel.app/users/${userState.userNum}/my_movies`;
       return await axios.post(url, moviePayload);
     } catch (error) {
       throw new Error(`찜 추가 요청이 실패했습니다. 제목: ${movie.title}`, {
