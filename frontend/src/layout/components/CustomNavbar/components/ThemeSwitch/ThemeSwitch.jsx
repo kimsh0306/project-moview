@@ -5,6 +5,7 @@ const ThemeSwitch = () => {
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
 
   useEffect(() => {
+    // 리액트 부트 스트랩의 컬러 모드 사용하려면 dom 접근 필요
     document.documentElement.setAttribute("data-bs-theme", theme);
     localStorage.setItem("theme", theme);
   }, [theme]);
