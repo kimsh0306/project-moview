@@ -24,19 +24,18 @@ const MovieCard = ({ movie }) => {
 
   const handleMovieCardClick = (e) => {
     if (e.currentTarget === e.target) {
-      navigate(`/movies/${movie.id}`)
+      navigate(`/movies/${movie.id}`);
     }
   };
 
   return (
     <div
       className="movie-card"
-      onClick={handleMovieCardClick}
       style={{
         backgroundImage: `url(https://media.themoviedb.org/t/p/w600_and_h900_bestv2${movie.poster_path})`,
       }}
     >
-      <div className="overlay">
+      <div className="overlay" onClick={handleMovieCardClick}>
         <h1>{movie.title}</h1>
         {getGenreNames(movie.genre_ids).map((item, idx) => (
           <Badge key={idx} className="badge" bg="danger">
