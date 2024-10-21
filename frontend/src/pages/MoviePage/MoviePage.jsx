@@ -51,7 +51,7 @@ const MoviePage = () => {
           />
         </Col>
       </Row>
-      <Row className="g-2">
+      <Row className="g-1">
         {data && data.results.length > 0 ? (
           <>
             {data.results.map((movie, idx) => (

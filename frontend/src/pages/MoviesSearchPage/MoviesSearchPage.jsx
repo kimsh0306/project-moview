@@ -28,7 +28,7 @@ const MoviesSearchPage = () => {
           <h1>검색한 영화</h1>
         </Col>
       </Row>
-      <Row className="g-2">
+      <Row className="g-1">
         {data && data.results.length > 0 ? (
           <>
             {data.results.map((movie, idx) => (

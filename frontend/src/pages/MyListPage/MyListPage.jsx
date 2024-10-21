@@ -87,7 +87,7 @@ const MyListPage = () => {
           />
         </Col>
       </Row>
-      <Row className="g-2">
+      <Row className="g-1">
         {appliedData && appliedData.length > 0 ? (
           <>
             {appliedData.map((movie, idx) => (
