@@ -22,7 +22,7 @@ const CustomNavbar = () => {
       alert("검색할 영화를 입력해주세요.");
       return;
     };
-    navigate(`/movies?q=${keyword}`);
+    navigate(`/search?q=${keyword}`);
     setKeyword("");
   };
 

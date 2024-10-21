@@ -1,8 +1,9 @@
 import { Route, Routes } from 'react-router-dom';
 import AppLayout from './layout/AppLayout';
 import Homepage from './pages/Homepage/Homepage';
-import MoviePage from './pages/Movies/MoviePage';
+import MoviePage from './pages/MoviePage/MoviePage';
 import MovieDetailPage from './pages/MovieDetail/MovieDetailPage';
+import MoviesSearchPage from './pages/MoviesSearchPage/MoviesSearchPage';
 import MyListPage from './pages/MyListPage/MyListPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import JoinPage from './pages/JoinPage/JoinPage';
@@ -20,6 +21,7 @@ function App() {
           <Route index element={<MoviePage />} />
           <Route path=":id" element={<MovieDetailPage />} />
         </Route>
+        <Route path="search" element={<MoviesSearchPage />} />
         <Route path="my-list" element={<MyListPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>

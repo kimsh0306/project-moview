@@ -1,0 +1,12 @@
+.genres{
+  margin: -.2rem;
+}
+.wrapper{
+  display: inline-block;
+  margin: .2rem;
+}
+.genres .btn {
+  white-space: nowrap;
+  border-radius: 2rem;
+  font-size: .8rem;
+}

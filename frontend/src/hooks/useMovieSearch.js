@@ -11,6 +11,17 @@ const fetchRecommendMovie = (page) => {
   return api.get(`/movie/now_playing?page=${page}&language=ko-KR`)
 };
 
+const fetchDiscoverMovie = (page, sort, genres) => {
+  return api.get("/discover/movie", {
+    params: {
+      language: 'ko-KR',
+      page: page,
+      sort_by: sort,
+      with_genres: genres
+    }
+  });
+};
+
 const useSearchMovieQuery = (keyword, page) => {
   return useQuery({
     queryKey: ['movie-search', { keyword, page }],
@@ -27,7 +38,16 @@ const useRecommendMovieQuery = (page) => {
   });
 };
 
+const useDiscoverMovieQuery = (page, sort, genres) => {
+  return useQuery({
+    queryKey: ['movie-discover', page, sort, genres],
+    queryFn: () => fetchDiscoverMovie(page, sort, genres),
+    select: (result) => result.data,
+  });
+};
+
 export {
   useSearchMovieQuery,
   useRecommendMovieQuery,
+  useDiscoverMovieQuery
 };

@@ -3,13 +3,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import "./CustomDropdown.style.css";
 
-const sortTypeList = [
-  { value: "popularity", name: "인기 순" },
-  { value: "vote_count", name: "투표 순" },
-  { value: "vote_average", name: "투표 평균 순" },
-];
-
-const CustomDropdown = ({ sort, setSort }) => {
+const CustomDropdown = ({ sort, setSort, sortTypeList }) => {
   const handleSortChange = (eventKey) => {
     setSort(eventKey);
   };

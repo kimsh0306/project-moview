@@ -1,9 +1,9 @@
 import React from "react";
+import { useMovieGenreQuery } from "../../hooks/useMovieGenre";
 import { Alert, Button, Spinner } from "react-bootstrap";
-import { useMovieGenreQuery } from "../../../../../../hooks/useMovieGenre";
-import "./MovieGenre.style.css";
+import "./GenreSelector.style.css";
 
-const MovieGenre = ({ selectedGenreIds, setSelectedGenreIds }) => {
+const GenreSelector = ({ selectedGenreIds, setSelectedGenreIds }) => {
   const { data: genreData, isLoading, isError, error } = useMovieGenreQuery();
 
   const handleGenreClick = (event) => {
@@ -28,9 +28,9 @@ const MovieGenre = ({ selectedGenreIds, setSelectedGenreIds }) => {
   if (!genreData) return null;
 
   return (
-    <div className="movie-genre">
-      {genreData.map((item, idx) => {
-        return (
+    <div className="genres">
+      {genreData.map((item, idx) => (
+        <div className="wrapper">
           <Button
             key={`${item}-${idx}`}
             variant={
@@ -44,10 +44,10 @@ const MovieGenre = ({ selectedGenreIds, setSelectedGenreIds }) => {
           >
             {item.name}
           </Button>
-        );
-      })}
+        </div>
+      ))}
     </div>
   );
 };
 
-export default MovieGenre;
+export default GenreSelector;
