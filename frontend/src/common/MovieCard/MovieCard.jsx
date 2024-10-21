@@ -29,38 +29,41 @@ const MovieCard = ({ movie }) => {
   };
 
   return (
-    <div
-      className="movie-card"
-      style={{
-        backgroundImage: `url(https://media.themoviedb.org/t/p/w600_and_h900_bestv2${movie.poster_path})`,
-      }}
-    >
-      <div className="overlay" onClick={handleMovieCardClick}>
-        <h1>{movie.title}</h1>
-        {getGenreNames(movie.genre_ids).map((item, idx) => (
-          <Badge key={idx} className="badge" bg="danger">
-            {item}
-          </Badge>
-        ))}
-        <div className="movie-info">
-          <AdultBadge adult={movie.adult} />
-          {/* 
+    <div className="movie-card">
+      <div className="img-item">
+        <img
+          src={`https://media.themoviedb.org/t/p/w600_and_h900_bestv2${movie.poster_path}`}
+        />
+        <div className="overlay" onClick={handleMovieCardClick}>
+          <h1>{movie.title}</h1>
+          {getGenreNames(movie.genre_ids).map((item, idx) => (
+            <Badge key={idx} className="badge" bg="danger">
+              {item}
+            </Badge>
+          ))}
+          <div className="movie-info">
+            <AdultBadge adult={movie.adult} />
+            {/* 
           <div>투표평균: {movie.vote_average}</div>
           <div>인기도: {movie.popularity}</div>
           <div>투표수: {movie.vote_count}</div> 
           */}
-        </div>
-        <div
-          style={{
-            position: "absolute",
-            zIndex: 1,
-            bottom: 10,
-          }}
-        >
-          <FavoriteMark movie={movie} />
-        </div>
-        <div className="vote-avg">
-          <CircularProgressComp value={movie.vote_average * 10} thickness={2} />
+          </div>
+          <div
+            style={{
+              position: "absolute",
+              zIndex: 1,
+              bottom: 10,
+            }}
+          >
+            <FavoriteMark movie={movie} />
+          </div>
+          <div className="vote-avg">
+            <CircularProgressComp
+              value={movie.vote_average * 10}
+              thickness={2}
+            />
+          </div>
         </div>
       </div>
     </div>

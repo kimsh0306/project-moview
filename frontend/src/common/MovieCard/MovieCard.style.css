@@ -1,8 +1,21 @@
 .movie-card {
-  height: 20.625rem;
-  background-size: cover;
-  cursor: pointer;
-  transition: 0.5s;
+  padding: 4px;
+}
+
+.movie-card .img-item {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-top: 150%;
+}
+
+.movie-card .img-item img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   border-radius: 0.25rem;
 }
 
@@ -12,6 +25,9 @@
 
 .overlay {
   padding: 0.625rem;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   background: rgba(43, 41, 41, 0.9);
@@ -21,8 +37,8 @@
   font-weight: bold;
   word-break: break-all;
   overflow-wrap: break-word;
-  position: relative;
   border-radius: 0.25rem;
+  z-index: 10;
 }
 
 .overlay .badge:not(:last-of-type) {
@@ -50,5 +66,3 @@
   right: 2.1875rem;
   bottom: 2.1875rem;
 }
-
-

@@ -1,3 +1,7 @@
+.slide-box .carousel-wrapper {
+  margin: -4px;
+} 
+
  /* 컴포넌트 title */
 .slide-box h3 {
   font-size: 1rem;
