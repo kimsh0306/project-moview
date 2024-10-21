@@ -15,7 +15,7 @@ const UserMenu = () => {
   };
 
   return (
-    <div className="d-flex align-items-center me-2">
+    <div className="d-flex align-items-center me-3">
       {userState ? (
         <>
           <button className="login-btn" onClick={handleLogout}>

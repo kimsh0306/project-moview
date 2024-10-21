@@ -57,10 +57,12 @@ const CustomNavbar = () => {
             aria-label="Search"
             value={keyword}
             onChange={(event) => setKeyword(event.target.value)}
+            size="sm"
             data-bs-theme="dark"
           />
           <Button
             type="submit"
+            size="sm"
           >
             검색
           </Button>
