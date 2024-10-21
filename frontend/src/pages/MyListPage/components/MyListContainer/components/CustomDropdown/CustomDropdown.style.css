@@ -1,0 +1,14 @@
+.custom-dropdown .dropdown-toggle.btn {
+  font-size: .8rem;
+  width: 100%;
+}
+
+.custom-dropdown .dropdown-toggle.btn:focus {
+  color: var(--custom-primary);
+  background-color: transparent;
+}
+
+.custom-dropdown .dropdown-menu {
+  width: 100%;
+  font-size: .8rem;
+}

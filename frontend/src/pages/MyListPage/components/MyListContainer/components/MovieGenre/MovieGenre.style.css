@@ -1,0 +1,11 @@
+.movie-genre {
+  padding: 1rem;
+  text-align: center;
+}
+
+.movie-genre .btn {
+  white-space: nowrap;
+  border-radius: 2rem;
+  font-size: .8rem;
+  margin: .2rem;
+}
