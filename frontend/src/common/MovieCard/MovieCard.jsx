@@ -1,10 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import { useMovieGenreQuery } from "../../hooks/useMovieGenre";
 import { Badge } from "react-bootstrap";
-import CircularProgressComp from "./components/CircularProgressComp/CircularProgressComp";
-import AdultBadge from "./components/AdultBadge/AdultBadge";
 import FavoriteMark from "../FavoriteMark/FavoriteMark";
+import "react-circular-progressbar/dist/styles.css";
 import "./MovieCard.style.css";
 
 const MovieCard = ({ movie }) => {
@@ -35,19 +35,18 @@ const MovieCard = ({ movie }) => {
           src={`https://media.themoviedb.org/t/p/w600_and_h900_bestv2${movie.poster_path}`}
         />
         <div className="overlay" onClick={handleMovieCardClick}>
-          <h1>{movie.title}</h1>
-          {getGenreNames(movie.genre_ids).map((item, idx) => (
-            <Badge key={idx} className="badge" bg="danger">
-              {item}
+          <h1 className="mb-3">{movie.title}</h1>
+          <div className="mb-3">
+            {getGenreNames(movie.genre_ids).map((item, idx) => (
+              <Badge key={idx} className="badge" bg="danger">
+                {item}
+              </Badge>
+            ))}
+          </div>
+          <div>
+            <Badge className="badge_adult" bg="warning">
+              {movie.adult ? "19" : "all"}
             </Badge>
-          ))}
-          <div className="movie-info">
-            <AdultBadge adult={movie.adult} />
-            {/* 
-          <div>투표평균: {movie.vote_average}</div>
-          <div>인기도: {movie.popularity}</div>
-          <div>투표수: {movie.vote_count}</div> 
-          */}
           </div>
           <div
             style={{
@@ -58,10 +57,17 @@ const MovieCard = ({ movie }) => {
           >
             <FavoriteMark movie={movie} />
           </div>
-          <div className="vote-avg">
-            <CircularProgressComp
+          <div className="vote-avg" style={{ width: 80, height: 80 }}>
+            <CircularProgressbar
               value={movie.vote_average * 10}
-              thickness={2}
+              text={`${Math.ceil(movie.vote_average * 10)}%`}
+              strokeWidth={5}
+              styles={buildStyles({
+                textSize: "20px",
+                pathColor: "white",
+                textColor: "#fff",
+                trailColor: "#999",
+              })}
             />
           </div>
         </div>

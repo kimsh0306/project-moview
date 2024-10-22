@@ -1,39 +1,10 @@
 import React, { memo, useState } from "react";
-import { green, grey } from "@mui/material/colors";
-import { Typography, Box, CircularProgress } from "@mui/material";
+import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import { Badge, Button, Col, Row } from "react-bootstrap";
 import { IoPlayOutline, IoCloseCircleOutline } from "react-icons/io5";
 import MovieVideos from "../MovieVideos/MovieVideos";
 import FavoriteMark from "../../../../common/FavoriteMark/FavoriteMark";
 import "./MovieInfo.style.css";
-
-function CircularProgressWithLabel(props) {
-  return (
-    <Box sx={{ position: "relative", display: "inline-flex" }}>
-      <CircularProgress variant="determinate" {...props} />
-      <Box
-        sx={{
-          zIndex: "-1",
-          borderRadius: "50%",
-          border: "4px solid",
-          borderColor: grey[700],
-          top: 0,
-          left: 0,
-          bottom: 0,
-          right: 0,
-          position: "absolute",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Typography variant="caption" component="div" sx={{ color: grey[300] }}>
-          {`${Math.round(props.value)}%`}
-        </Typography>
-      </Box>
-    </Box>
-  );
-}
 
 const MovieInfo = memo(({ movie }) => {
   const [isVideo, setIsVideo] = useState(false);
@@ -99,23 +70,24 @@ const MovieInfo = memo(({ movie }) => {
 
               <div className="info__etc">
                 <div className="etc-group">
-                  <strong>회원점수</strong>
-                  <div className="vote-avr">
-                    <CircularProgressWithLabel
-                      sx={{
-                        color: green[600],
-                      }}
-                      value={movie?.vote_average * 10}
-                      thickness={4}
+                  <strong>평점</strong>
+                  <div className="vote-avg" style={{ width: 48, height: 48 }}>
+                    <CircularProgressbar
+                      value={movie.vote_average * 10}
+                      text={`${Math.ceil(movie.vote_average * 10)}%`}
+                      strokeWidth={5}
+                      styles={buildStyles({
+                        textSize: "28px",
+                        pathColor: "white",
+                        textColor: "#fff",
+                        trailColor: "#999",
+                      })}
                     />
                   </div>
                 </div>
                 <div className="etc-group">
                   <strong>트레일러 재생</strong>
-                  <Button
-                    variant="outline-primary"
-                    onClick={handleVideoOpen}
-                  >
+                  <Button variant="outline-primary" onClick={handleVideoOpen}>
                     <IoPlayOutline className="fs-4" />
                   </Button>
                 </div>
@@ -125,7 +97,7 @@ const MovieInfo = memo(({ movie }) => {
                 </div>
               </div>
               <div className="info__overview">
-                <h5>개요</h5>
+                <h5>줄거리</h5>
                 <p>{movie.overview}</p>
               </div>
             </div>
