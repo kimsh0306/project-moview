@@ -1,4 +1,5 @@
 import React from "react";
+import { Container } from "react-bootstrap";
 import Banner from "./components/Banner/Banner";
 import PopularMovieSlide from "./components/PopularMovieSlide/PopularMovieSlide";
 import TopRatedMovieSlide from "./components/TopRatedMovieSlide/TopRatedMovieSlide";
@@ -9,11 +10,11 @@ const Homepage = () => {
   return (
     <>
       <Banner />
-      <div className="home__content">
+      <Container fluid className="home__content p-5">
         <PopularMovieSlide />
         <TopRatedMovieSlide />
         <UpcomingMovieSlide />
-      </div>
+      </Container>
     </>
   );
 };
