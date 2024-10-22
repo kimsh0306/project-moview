@@ -13,6 +13,7 @@ const MovieSlider = ({ title, movies, responsive, noTitle = false }) => {
           draggable={true}
           centerMode={false}
           responsive={responsive}
+          itemClass="p-1"
           infinite={false} // true일 때, 불필요한 렌더링 문제 발생
         >
           {movies.map((movie, idx) => (
