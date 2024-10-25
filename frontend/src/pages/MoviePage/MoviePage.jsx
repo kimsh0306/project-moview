@@ -2,17 +2,16 @@ import React, { useEffect, useState } from "react";
 import { useDiscoverMovieQuery } from "../../hooks/useMovieSearch";
 import _ from "lodash";
 import { Alert, Col, Container, Row } from "react-bootstrap";
-import MovieCard from "../../common/MovieCard/MovieCard";
 import LoadingModal from "../../common/LoadingModal/LoadingModal";
 import Paginator from "../../common/Paginator/Paginator";
 import GenreSelector from "../../common/GenreSelector/GenreSelector";
 import CustomDropdown from "../../common/CustomDropdown/CustomDropdown";
+import FlipCard from "../../common/FlipCard/FlipCard";
 
 const sortTypeList = [
   { value: "popularity.desc", name: "인기 순" },
   { value: "vote_average.desc", name: "평점 순" },
   { value: "vote_count.desc", name: "평점 참여 순" },
-  { value: "primary_release_date.desc", name: "개봉일 순" },
 ];
 
 const MoviePage = () => {
@@ -56,7 +55,7 @@ const MoviePage = () => {
           <>
             {data.results.map((movie, idx) => (
               <Col key={idx} xl={2} lg={3} md={4} sm={6} xs={6}>
-                <MovieCard movie={movie} />
+                <FlipCard movie={movie} />
               </Col>
             ))}
             <Col xs={12}>

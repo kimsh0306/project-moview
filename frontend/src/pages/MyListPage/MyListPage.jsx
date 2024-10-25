@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import _ from "lodash";
 import { Alert, Col, Container, Row } from "react-bootstrap";
-import MovieCard from "../../common/MovieCard/MovieCard";
 import GenreSelector from "../../common/GenreSelector/GenreSelector";
 import CustomDropdown from "../../common/CustomDropdown/CustomDropdown";
+import FlipCard from "../../common/FlipCard/FlipCard";
 
 const sortTypeList = [
   { value: "popularity", name: "인기 순" },
@@ -92,7 +92,7 @@ const MyListPage = () => {
           <>
             {appliedData.map((movie, idx) => (
               <Col key={idx} xl={2} lg={3} md={4} sm={6} xs={6}>
-                <MovieCard movie={movie} />
+                <FlipCard movie={movie} />
               </Col>
             ))}
           </>
