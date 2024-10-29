@@ -9,14 +9,14 @@ function authenticateReducer(state = initialState, action) {
 
   switch (type) {
     case 'LOGIN_REQUEST':
-    case 'JOIN_REQUEST': 
+    case 'JOIN_REQUEST':
       return {
         ...state,
         loading: true,
         error: null,
       };
     case 'LOGIN_SUCCESS':
-    case 'JOIN_SUCCESS': 
+    case 'JOIN_SUCCESS':
       return {
         ...state,
         loading: false,
@@ -24,7 +24,7 @@ function authenticateReducer(state = initialState, action) {
         error: null,
       };
     case 'LOGIN_FAILURE':
-    case 'JOIN_FAILURE': 
+    case 'JOIN_FAILURE':
       return {
         ...state,
         loading: false,
@@ -32,6 +32,11 @@ function authenticateReducer(state = initialState, action) {
       };
     case 'LOGOUT':
       return { ...initialState };
+    case 'UPDATE_EXPIRATION':
+      return {
+        ...state,
+        user: { ...state.user, exp: payload }
+      };
     default:
       return state;
   }

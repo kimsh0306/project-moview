@@ -19,10 +19,6 @@ const SuccessJoinModal = ({ show, user }) => {
             <dt style={{ width: "4rem" }}>아이디</dt>
             <dd>{user.userId}</dd>
           </div>
-          <div className="d-flex">
-            <dt style={{ width: "4rem" }}>회원번호</dt>
-            <dd>{user.userNum}</dd>
-          </div>
         </dl>
       </Modal.Body>
       <Modal.Footer>

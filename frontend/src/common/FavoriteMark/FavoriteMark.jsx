@@ -27,22 +27,26 @@ const FavoriteMark = ({ movie, fontSize = "1.7rem" }) => {
 
   const removeMyMovies = async () => {
     try {
-      const url = `https://project-moview-api.vercel.app/users/${userState.userNum}/my_movies/${movie.id}`;
-      return await axios.delete(url);
+      const url = `${process.env.REACT_APP_API_URL}/my_lists/movies/${movie.id}`;
+      return await axios.delete(url, {
+        withCredentials: true,
+      });
     } catch (error) {
       throw new Error(`찜 삭제 요청이 실패했습니다. 제목: ${movie.title}`, {
-        cause: error,
+        cause: error.response ? error.response.data.message : error,
       });
     }
   };
 
   const addMyMovies = async (moviePayload) => {
     try {
-      const url = `https://project-moview-api.vercel.app/users/${userState.userNum}/my_movies`;
-      return await axios.post(url, moviePayload);
+      const url = `${process.env.REACT_APP_API_URL}/my_lists/movies`;
+      return await axios.post(url, moviePayload, {
+        withCredentials: true,
+      });
     } catch (error) {
       throw new Error(`찜 추가 요청이 실패했습니다. 제목: ${movie.title}`, {
-        cause: error,
+        cause: error.response ? error.response.data.message : error,
       });
     }
   };
@@ -102,7 +106,9 @@ const FavoriteMark = ({ movie, fontSize = "1.7rem" }) => {
   return (
     <>
       {isFavorite ? (
-        <OverlayTrigger overlay={<Tooltip className="favorite-mark">찜 제거</Tooltip>}>
+        <OverlayTrigger
+          overlay={<Tooltip className="favorite-mark">찜 제거</Tooltip>}
+        >
           <div>
             <BsBookmarkDashFill
               className="favorite-selected"
@@ -112,7 +118,9 @@ const FavoriteMark = ({ movie, fontSize = "1.7rem" }) => {
           </div>
         </OverlayTrigger>
       ) : (
-        <OverlayTrigger overlay={<Tooltip className="favorite-mark">찜 추가</Tooltip>}>
+        <OverlayTrigger
+          overlay={<Tooltip className="favorite-mark">찜 추가</Tooltip>}
+        >
           <div>
             <BsBookmarkPlus
               className="favorite-unselected"

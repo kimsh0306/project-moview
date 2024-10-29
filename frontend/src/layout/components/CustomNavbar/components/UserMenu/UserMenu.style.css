@@ -1,0 +1,23 @@
+/* 추가한 요소 1 - 로그인 버튼 */
+.user_menu .login-btn {
+  background-color: transparent;
+  border: none;
+  font-size: .8rem;
+  color: var(--color-gray-500);
+  white-space: nowrap;
+}
+
+.user_menu .login-btn:hover {
+  color: var(--custom-primary);
+}
+
+.user_menu .exp-time{
+  font-size: .8rem;
+  color: var(--color-gray-500);
+}
+
+.user_menu .extend-token-btn {
+  font-size: .7rem;
+  padding: 0 2px;
+  border-radius: 4px;
+}
