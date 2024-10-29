@@ -8,9 +8,15 @@
   color: var(--custom-primary);
 }
 
+/* 검색 입력창 */
+.navbar .form-control {
+  font-size: 0.8rem;
+}
+
 /* 검색 버튼 */
 .navbar .btn.btn-primary {
   margin-left: .3rem;
+  font-size: 0.8rem;
 }
 
 /* 햄버거 토글 */
@@ -26,40 +32,8 @@
   margin: 0 1rem 0 0;
   position: absolute;
   top: 0.8rem;
-  right: 14.2rem;
+  right: 13.4rem;
 }
-
-/* 추가한 요소 1 - 로그인 버튼 */
-.navbar .login-btn {
-  background-color: transparent;
-  border: none;
-  font-size: .8rem;
-  color: var(--color-gray-500);
-  white-space: nowrap;
-}
-
-.navbar .login-btn:hover {
-  color: var(--custom-primary);
-}
-
-/* 추가한 요소 2 - theme 컬러 모드 토글 */
-.navbar .fom-group {
-  display: flex;
-  align-items: center;
-}
-
-.navbar .form-label {
-  margin: 0;
-  font-size: .8rem;
-  color: var(--color-gray-500);
-  margin: 0 .5rem 0 0;
-  white-space: nowrap;
-}
-
-.navbar .form-check-input {
-  border-color: var(--custom-primary);
-}
-
 
 /* 미디어 쿼리 */
 @media (max-width: 62rem) {

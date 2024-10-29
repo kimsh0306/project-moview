@@ -13,36 +13,32 @@ const FlipCard = ({ movie }) => {
 
   const getGenreNames = (genreIdList) => {
     if (!genreData) return [];
-
     const genreNameList = genreIdList.map((id) => {
       const genreObj = genreData.find((genre) => genre.id === id);
       return genreObj.name;
     });
-
     return genreNameList;
   };
 
   const handleMovieCardClick = (e) => {
-    if (e.currentTarget === e.target) {
-      navigate(`/movies/${movie.id}`);
-    }
+    navigate(`/movies/${movie.id}`);
   };
 
   return (
-    <div class="flip-card">
-      <div class="flip-card-inner">
-        <div class="flip-card-front">
+    <div className="flip-card">
+      <div className="flip-card-inner">
+        <div className="flip-card-front">
           <img
             src={`https://media.themoviedb.org/t/p/w600_and_h900_bestv2${movie.poster_path}`}
             alt="Movie Poster"
           />
         </div>
-        <div class="flip-card-back">
+        <div className="flip-card-back">
           <img
             src={`https://media.themoviedb.org/t/p/w600_and_h900_bestv2${movie.poster_path}`}
             alt="Movie Poster"
           />
-          <div class="back-content" onClick={handleMovieCardClick}>
+          <div className="back-content" onClick={handleMovieCardClick}>
             <h3 className="mb-2">{movie.title}</h3>
             <div className="mb-2">
               {getGenreNames(movie.genre_ids).map((item, idx) => (

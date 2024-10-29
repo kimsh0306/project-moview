@@ -1,3 +1,7 @@
 .slide-box .carousel-wrapper {
   margin: -4px;
 } 
+
+.slide-box .custom-carousel {
+  overflow: visible;
+}

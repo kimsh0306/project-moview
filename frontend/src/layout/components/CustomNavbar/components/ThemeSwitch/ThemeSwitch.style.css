@@ -1,0 +1,17 @@
+/* 추가한 요소 2 - theme 컬러 모드 토글 */
+.theme-control .fom-group {
+  display: flex;
+  align-items: center;
+}
+
+.theme-control .form-label {
+  margin: 0;
+  font-size: .8rem;
+  color: var(--color-gray-500);
+  margin: 0 .5rem 0 0;
+  white-space: nowrap;
+}
+
+.theme-control .form-check-input {
+  border-color: var(--custom-primary);
+}

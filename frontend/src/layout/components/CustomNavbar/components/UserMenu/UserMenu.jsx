@@ -108,7 +108,7 @@ const UserMenu = () => {
               </span>
               {showExtendButton ? (
                 <Button
-                  className="extend-token-btn"
+                  className="extend-token-btn ms-2"
                   variant="outline-primary"
                   size="sm"
                   onClick={handleExtendSession}
@@ -158,16 +158,14 @@ const UserMenu = () => {
             </OverlayTrigger>
           </>
         ) : (
-          <>
-            <button
-              className="login-btn"
-              onClick={() => {
-                navigate("/login");
-              }}
-            >
-              로그인
-            </button>
-          </>
+          <button
+            className="login-btn"
+            onClick={() => {
+              navigate("/login");
+            }}
+          >
+            로그인
+          </button>
         )}
       </div>
       <AlertModal show={alertShow} handleClose={handleAlertClose} />

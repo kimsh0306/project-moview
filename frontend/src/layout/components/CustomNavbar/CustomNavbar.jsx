@@ -27,10 +27,6 @@ const CustomNavbar = () => {
   };
 
   const handelMyList = () => {
-    // if (!userState) {
-    //   setShowCheckLoginModal(true);
-    //   return;
-    // };
     navigate("/my-list");
   };
 
@@ -50,7 +46,7 @@ const CustomNavbar = () => {
           <Nav.Link onClick={() => { navigate('/movies') }}>영화</Nav.Link>
           <Nav.Link onClick={handelMyList}>내가 찜한 영화</Nav.Link>
         </Nav>
-        <Form className="d-flex" onSubmit={searchByKeyword}>
+        <Form className="form d-flex" onSubmit={searchByKeyword}>
           <Form.Control
             type="search"
             placeholder="제목"

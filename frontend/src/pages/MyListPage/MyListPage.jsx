@@ -15,7 +15,7 @@ const sortTypeList = [
 const MyListPage = () => {
   const [sort, setSort] = useState("popularity");
   const [selectedGenreIds, setSelectedGenreIds] = React.useState([]);
-  const [appliedData, setAppliedData] = React.useState();
+  const [appliedData, setAppliedData] = React.useState([]);
 
   const data = useSelector((state) => state.myMovies.movies);
 
@@ -72,23 +72,27 @@ const MyListPage = () => {
       <Row className="mb-4">
         <Col xs={12} className="d-flex align-items-center">
           <h1 className="m-0 me-4">내가 찜한 영화</h1>
-          <CustomDropdown
-            sort={sort}
-            setSort={setSort}
-            sortTypeList={sortTypeList}
-          />
+          {data.length > 0 && (
+            <CustomDropdown
+              sort={sort}
+              setSort={setSort}
+              sortTypeList={sortTypeList}
+            />
+          )}
         </Col>
       </Row>
-      <Row className="mb-5">
-        <Col xs={12}>
-          <GenreSelector
-            selectedGenreIds={selectedGenreIds}
-            setSelectedGenreIds={setSelectedGenreIds}
-          />
-        </Col>
-      </Row>
+      {data.length > 0 && (
+        <Row className="mb-5">
+          <Col xs={12}>
+            <GenreSelector
+              selectedGenreIds={selectedGenreIds}
+              setSelectedGenreIds={setSelectedGenreIds}
+            />
+          </Col>
+        </Row>
+      )}
       <Row className="g-2">
-        {appliedData && appliedData.length > 0 ? (
+        {appliedData.length > 0 ? (
           <>
             {appliedData.map((movie, idx) => (
               <Col key={idx} xl={2} lg={3} md={4} sm={6} xs={6}>
@@ -96,13 +100,19 @@ const MyListPage = () => {
               </Col>
             ))}
           </>
-        ) : (
+        ) : selectedGenreIds.length > 0 ? (
           <Col>
             <Alert show={true} variant="primary">
               <p className="m-0">
                 선택하신 장르의 영화를 찾지 못했습니다. 다른 장르를
                 선택해주세요.
               </p>
+            </Alert>
+          </Col>
+        ) : (
+          <Col>
+            <Alert show={true} variant="primary">
+              <p className="m-0">내가 찜한 영화가 없습니다.</p>
             </Alert>
           </Col>
         )}

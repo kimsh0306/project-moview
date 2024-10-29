@@ -30,9 +30,8 @@ const GenreSelector = ({ selectedGenreIds, setSelectedGenreIds }) => {
   return (
     <div className="genres">
       {genreData.map((item, idx) => (
-        <div className="wrapper">
+        <div className="wrapper" key={`${item.name}-${idx}`}>
           <Button
-            key={`${item}-${idx}`}
             variant={
               selectedGenreIds.includes(item.id.toString())
                 ? "primary"
