@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Outlet } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
-import CheckLoginModal from '../common/CheckLoginModal/CheckLoginModal';
 import CustomNavbar from './components/CustomNavbar/CustomNavbar';
 
 const AppLayout = () => {
-  console.log("*** render AppLayout")
   const [showButton, setShowButton] = useState(false);
-  const [showCheckLoginModal, setShowCheckLoginModal] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -51,10 +48,6 @@ const AppLayout = () => {
           Top
         </Button>
       )}
-      <CheckLoginModal
-        show={showCheckLoginModal}
-        setShow={setShowCheckLoginModal}
-      />
     </>
   )
 }
