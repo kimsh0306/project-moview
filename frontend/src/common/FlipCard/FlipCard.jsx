@@ -20,8 +20,10 @@ const FlipCard = ({ movie }) => {
     return genreNameList;
   };
 
-  const handleMovieCardClick = (e) => {
-    navigate(`/movies/${movie.id}`);
+  const handleCardClick = (e) => {
+    if (e.currentTarget === e.target) {
+      navigate(`/movies/${movie.id}`);
+    }
   };
 
   return (
@@ -38,7 +40,7 @@ const FlipCard = ({ movie }) => {
             src={`https://media.themoviedb.org/t/p/w600_and_h900_bestv2${movie.poster_path}`}
             alt="Movie Poster"
           />
-          <div className="back-content" onClick={handleMovieCardClick}>
+          <div className="back-content" onClick={handleCardClick}>
             <h3 className="mb-2">{movie.title}</h3>
             <div className="mb-2">
               {getGenreNames(movie.genre_ids).map((item, idx) => (
