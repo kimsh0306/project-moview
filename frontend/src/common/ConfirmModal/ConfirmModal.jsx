@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { ImNotification } from "react-icons/im";
 
-const ConfirmModal = ({ show, handleClose, handleOk }) => {
+const ConfirmModal = ({ show, handleClose, handleConfirm }) => {
   return (
     <Modal show={show} onHide={handleClose} centered backdrop="static" keyboard={false}>
       <Modal.Header closeButton>
@@ -13,7 +13,7 @@ const ConfirmModal = ({ show, handleClose, handleOk }) => {
       </Modal.Header>
       <Modal.Body>{show}</Modal.Body>
       <Modal.Footer>
-        <Button variant="primary" onClick={handleOk}>
+        <Button variant="primary" onClick={handleConfirm}>
           확인
         </Button>
       </Modal.Footer>

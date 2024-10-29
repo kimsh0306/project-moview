@@ -10,8 +10,8 @@ import "./UserMenu.style.css";
 const UserMenu = () => {
   const [timeLeft, setTimeLeft] = useState(null);
   const [showExtendButton, setShowExtendButton] = useState(false);
-  const [alertShow, setAlertShow] = useState(null);
-  const [confirmShow, setConfirmShow] = useState(null);
+  const [showAlertModal, setShowAlertModal] = useState(null);
+  const [showConfirmModal, setShowConfirmModal] = useState(null);
 
   const userState = useSelector((state) => state.auth.user);
   const { userId, exp: expirationTime } = userState || {};
@@ -51,7 +51,7 @@ const UserMenu = () => {
 
   useEffect(() => {
     if (showExtendButton) {
-      setConfirmShow("로그인 만료 10분 전입니다. 연장하시겠습니까?");
+      setShowConfirmModal("로그인 만료 10분 전입니다. 연장하시겠습니까?");
     }
   }, [showExtendButton]);
 
@@ -64,25 +64,20 @@ const UserMenu = () => {
   };
 
   const handleLogout = () => {
-    if (confirmShow) setConfirmShow(null);
+    if (showConfirmModal) setShowConfirmModal(null);
     dispatch(authenticateAction.logout());
-    setAlertShow("로그아웃되었습니다");
+    setShowAlertModal("로그아웃되었습니다");
     navigate("/");
   };
 
   // 세션 연장 함수
   const handleExtendSession = () => {
     dispatch(authenticateAction.extendSession());
-    if (confirmShow) setConfirmShow(null);
+    if (showConfirmModal) setShowConfirmModal(null);
   };
 
-  const handleAlertClose = () => {
-    setAlertShow(null);
-  };
-
-  const handleConfirmClose = () => {
-    setConfirmShow(null);
-  };
+  const handleConfirmClose = () =>  setShowConfirmModal(null);
+  const handleAlertClose = () =>  setShowAlertModal(null);
 
   return (
     <>
@@ -168,12 +163,12 @@ const UserMenu = () => {
           </button>
         )}
       </div>
-      <AlertModal show={alertShow} handleClose={handleAlertClose} />
       <ConfirmModal
-        show={confirmShow}
+        show={showConfirmModal}
         handleClose={handleConfirmClose}
-        handleOk={handleExtendSession}
+        handleConfirm={handleExtendSession}
       />
+      <AlertModal show={showAlertModal} handleClose={handleAlertClose} />
     </>
   );
 };

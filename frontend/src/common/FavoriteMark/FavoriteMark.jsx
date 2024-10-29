@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { BsBookmarkPlus, BsBookmarkDashFill } from "react-icons/bs";
-import CheckLoginModal from "../CheckLoginModal/CheckLoginModal";
 import AlertModal from "../AlertModal/AlertModal";
+import ConfirmModal from "../ConfirmModal/ConfirmModal";
 import "./FavoriteMark.style.css";
 
 const FavoriteMark = ({ movie, fontSize = "1.7rem" }) => {
   const [isFavorite, setIsFavorite] = useState(false);
-  const [showCheckLoginModal, setShowCheckLoginModal] = useState(false);
-  const [alertContent, setAlertContent] = useState();
+  const [showConfirmModal, setShowConfirmModal] = useState();
+  const [showAlertModal, setShowAlertModal] = useState();
 
   const userState = useSelector((state) => state.auth.user);
   const myMoviesState = useSelector((state) => state.myMovies.movies);
-
+  
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -55,8 +57,7 @@ const FavoriteMark = ({ movie, fontSize = "1.7rem" }) => {
     e.stopPropagation();
 
     if (!userState) {
-      console.log("로그인이 필요한 서비스입니다.");
-      setShowCheckLoginModal(true);
+      setShowConfirmModal("로그인이 필요한 서비스입니다. 로그인하시겠습니까?");
       return;
     }
 
@@ -89,7 +90,7 @@ const FavoriteMark = ({ movie, fontSize = "1.7rem" }) => {
         console.log(`${res.data.message} 제목: ${movie.title}`);
       }
     } catch (error) {
-      setAlertContent(error.message);
+      setShowAlertModal(error.message);
       setIsFavorite(prevIsFavorite);
       console.error("에러 메시지:", error.message);
       if (error.cause) {
@@ -99,9 +100,9 @@ const FavoriteMark = ({ movie, fontSize = "1.7rem" }) => {
     }
   };
 
-  const handleAlertClose = (e) => {
-    setAlertContent();
-  };
+  const handleConfirm = () => navigate("/login");
+  const handleConfirmClose = () => setShowConfirmModal();
+  const handleAlertClose = () => setShowAlertModal();
 
   return (
     <>
@@ -130,11 +131,12 @@ const FavoriteMark = ({ movie, fontSize = "1.7rem" }) => {
           </div>
         </OverlayTrigger>
       )}
-      <CheckLoginModal
-        show={showCheckLoginModal}
-        setShow={setShowCheckLoginModal}
+      <ConfirmModal
+        show={showConfirmModal}
+        handleClose={handleConfirmClose}
+        handleConfirm={handleConfirm}
       />
-      <AlertModal show={alertContent} handleClose={handleAlertClose} />
+      <AlertModal show={showAlertModal} handleClose={handleAlertClose} />
     </>
   );
 };
