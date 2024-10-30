@@ -55,6 +55,11 @@ const UserMenu = () => {
     }
   }, [showExtendButton]);
 
+  useEffect(() => {
+    if (!showAlertModal) return;
+    if (showConfirmModal) setShowConfirmModal(null);
+  }, [showAlertModal]);
+
   // 시간 형식 변환
   const formatTime = (milliseconds) => {
     const totalSeconds = Math.floor(milliseconds / 1000);
@@ -64,7 +69,6 @@ const UserMenu = () => {
   };
 
   const handleLogout = () => {
-    if (showConfirmModal) setShowConfirmModal(null);
     dispatch(authenticateAction.logout());
     setShowAlertModal("로그아웃되었습니다");
     navigate("/");
@@ -76,8 +80,8 @@ const UserMenu = () => {
     if (showConfirmModal) setShowConfirmModal(null);
   };
 
-  const handleConfirmClose = () =>  setShowConfirmModal(null);
-  const handleAlertClose = () =>  setShowAlertModal(null);
+  const handleConfirmClose = () => setShowConfirmModal(null);
+  const handleAlertClose = () => setShowAlertModal(null);
 
   return (
     <>
