@@ -25,8 +25,6 @@ const MoviePage = () => {
     genres
   );
 
-  console.log("data:", data);
-
   if (isLoading) return <LoadingModal show={true} />;
   if (isError) return <Alert variant="danger">{error.message}</Alert>;
 

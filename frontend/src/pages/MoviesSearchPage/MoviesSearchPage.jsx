@@ -23,7 +23,7 @@ const MoviesSearchPage = () => {
 
   return (
     <Container fluid className="p-5">
-      <Row className="mb-5">
+      <Row className="mb-4">
         <Col xs={12} className="d-flex align-items-center">
           <h1>검색한 영화</h1>
         </Col>
