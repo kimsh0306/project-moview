@@ -1,4 +1,5 @@
 import axios from "axios";
+import getErrorMessage from "../../utils/getErrorMessage";
 
 /*
   api 요청을 줄이기 위해 db의 user 안에 myLists를 저장
@@ -7,10 +8,13 @@ import axios from "axios";
 
 function join(joinPayload) {
   return async (dispatch) => {
+    dispatch({ type: 'RESET_ERROR' });
     const url = `${process.env.REACT_APP_API_URL}/auth/join`;
     try {
       dispatch({ type: 'JOIN_REQUEST' });
-      const res = await axios.post(url, joinPayload);
+      const res = await axios.post(url, joinPayload, {
+        withCredentials: true,
+      });
       const { user_id: userId, name: userName, exp } = res.data;
       console.log('회원가입 성공:', res);
       dispatch({
@@ -19,9 +23,10 @@ function join(joinPayload) {
       });
     } catch (error) {
       console.error('회원가입 실패:', error);
+      const errorMessage = getErrorMessage(error);
       dispatch({
-        type: 'LOGIN_FAILURE',
-        payload: error
+        type: 'JOIN_FAILURE',
+        payload: errorMessage
       });
     }
   }
@@ -29,6 +34,7 @@ function join(joinPayload) {
 
 function login(loginPayload) {
   return async (dispatch) => {
+    dispatch({ type: 'RESET_ERROR' });
     const url = `${process.env.REACT_APP_API_URL}/auth/login`;
     try {
       dispatch({ type: 'LOGIN_REQUEST' });
@@ -48,9 +54,10 @@ function login(loginPayload) {
       });
     } catch (error) {
       console.error('로그인 실패:', error);
+      const errorMessage = getErrorMessage(error);
       dispatch({
         type: 'LOGIN_FAILURE',
-        payload: error
+        payload: errorMessage
       });
     }
   }
@@ -58,6 +65,7 @@ function login(loginPayload) {
 
 function logout() {
   return async (dispatch) => {
+    dispatch({ type: 'RESET_ERROR' });
     const url = `${process.env.REACT_APP_API_URL}/auth/logout`;
     try {
       const res = await axios.post(url, {}, { withCredentials: true });
@@ -69,6 +77,10 @@ function logout() {
     }
   };
 }
+
+const resetError = () => ({
+  type: 'RESET_ERROR'
+});
 
 function extendSession() {
   return async (dispatch) => {
@@ -84,4 +96,4 @@ function extendSession() {
   };
 }
 
-export const authenticateAction = { join, login, logout, extendSession };
+export const authenticateAction = { join, login, logout, resetError, extendSession };

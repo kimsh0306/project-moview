@@ -7,9 +7,19 @@ import { authenticateAction } from "../../redux/actions/authenticateAction";
 import LoadingModal from "../../common/LoadingModal/LoadingModal";
 import "./LoginPage.style.css";
 
+const initPayload = {
+  user_id: null,
+  password: null,
+};
+const initErrorMessage = {
+  server: null,
+  user_id: null,
+  password: null,
+};
+
 const LoginPage = () => {
-  const [loginPayload, setLoginPayload] = useState();
-  const [errorMessage, setErrorMessage] = useState();
+  const [loginPayload, setLoginPayload] = useState(initPayload);
+  const [errorMessage, setErrorMessage] = useState(initErrorMessage);
 
   const { user, loading, error } = useSelector((state) => state.auth);
 
@@ -19,6 +29,8 @@ const LoginPage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(authenticateAction.resetError());
+
     if (inputRefs.current[0]) {
       inputRefs.current[0].focus();
     }
@@ -31,11 +43,51 @@ const LoginPage = () => {
   }, [user]);
 
   useEffect(() => {
-    if (!error) return;
-    error.response
-      ? setErrorMessage(error.response.data.message)
-      : setErrorMessage(error.message);
+    if (!error?.login) return;
+    // 서버에서 응답받은 에러 저장
+    setErrorMessage((prev) => ({ ...prev, server: error.login }));
   }, [error]);
+
+  useEffect(() => {
+    // payload 유효성 검사, 에러 발생 시 저장
+    Object.keys(loginPayload).map((item) => {
+      if (loginPayload[item]) {
+        const itemError = validateItem(item, loginPayload[item]);
+        itemError
+          ? setErrorMessage((prev) => ({ ...prev, [item]: itemError }))
+          : setErrorMessage((prev) => ({ ...prev, [item]: null }));
+      }
+    });
+  }, [loginPayload]);
+
+  const validateItem = (item, itemValue) => {
+    switch (item) {
+      case "user_id":
+        if (
+          itemValue.length < 4 ||
+          !/^[a-z0-9]+$/.test(itemValue) ||
+          !/[a-z]/.test(itemValue)
+        ) {
+          console.log("!!");
+          return "유효 아이디: 4자 이상, 영문 소문자와 숫자";
+        }
+        return null;
+
+      case "password":
+        if (
+          itemValue.length < 6 ||
+          !/[a-z]/.test(itemValue) ||
+          !/[0-9]/.test(itemValue) ||
+          !/[!@#$%^&*]/.test(itemValue)
+        ) {
+          return "유효 비밀번호: 6자 이상, 영문 소문자, 숫자, 특수문자 포함";
+        }
+        return null;
+
+      default:
+        return null;
+    }
+  };
 
   const handleInputChange = (e) => {
     setLoginPayload((prev) => ({ ...prev, [e.target.id]: e.target.value }));
@@ -43,18 +95,7 @@ const LoginPage = () => {
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
-    setErrorMessage();
-
-    if (loginPayload.user_id === "") {
-      inputRefs.current[0].focus();
-      setErrorMessage("아이디를 입력해주세요.");
-      return;
-    }
-    if (loginPayload.password === "") {
-      inputRefs.current[1].focus();
-      setErrorMessage("비밀번호를 입력해주세요.");
-      return;
-    }
+    setErrorMessage((prev) => ({ ...prev, server: null }));
 
     dispatch(authenticateAction.login(loginPayload));
   };
@@ -77,29 +118,46 @@ const LoginPage = () => {
           onChange={handleInputChange}
           onSubmit={handleLoginSubmit}
         >
-          <Form.Group className="mb-3" controlId="user_id">
-            <Form.Label>아이디</Form.Label>
-            <Form.Control
-              ref={(el) => (inputRefs.current[0] = el)}
-              type="text"
-              placeholder="아이디 입력"
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="password">
-            <Form.Label>비밀번호</Form.Label>
-            <Form.Control
-              ref={(el) => (inputRefs.current[1] = el)}
-              type="password"
-              placeholder="비밀번호 입력"
-            />
-          </Form.Group>
-          {errorMessage && (
+          {Object.keys(loginPayload).map((item, idx) => {
+            return (
+              <Form.Group className="mb-3" controlId={item}>
+                <Form.Label>
+                  {(item === "user_id" && "아이디") ||
+                    (item === "password" && "패스워드")}
+                </Form.Label>
+                <Form.Control
+                  ref={(el) => (inputRefs.current[idx] = el)}
+                  type={item === "password" ? "password" : "text"}
+                  placeholder={
+                    (item === "user_id" && "아이디 입력") ||
+                    (item === "password" && "패스워드 입력")
+                  }
+                />
+                {errorMessage[item] && (
+                  <Form.Text className="error-text">
+                    {errorMessage[item]}
+                  </Form.Text>
+                )}
+              </Form.Group>
+            );
+          })}
+          {errorMessage.server && (
             <p className="error-text">
               <ImNotification className="me-2" />
-              {errorMessage}
+              {errorMessage.server}
             </p>
           )}
-          <Button className="w-100" type="submit" variant="primary">
+          <Button
+            className="w-100"
+            type="submit"
+            variant="primary"
+            disabled={
+              !loginPayload.user_id ||
+              !loginPayload.password ||
+              errorMessage.user_id ||
+              errorMessage.password
+            }
+          >
             로그인
           </Button>
         </Form>

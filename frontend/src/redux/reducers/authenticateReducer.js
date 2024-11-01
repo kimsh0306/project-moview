@@ -24,11 +24,16 @@ function authenticateReducer(state = initialState, action) {
         error: null,
       };
     case 'LOGIN_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        error: { ...state.error, login: payload }
+      };
     case 'JOIN_FAILURE':
       return {
         ...state,
         loading: false,
-        error: payload,
+        error: { ...state.error, join: payload }
       };
     case 'LOGOUT':
       return { ...initialState };
@@ -36,6 +41,11 @@ function authenticateReducer(state = initialState, action) {
       return {
         ...state,
         user: { ...state.user, exp: payload }
+      };
+    case 'RESET_ERROR':
+      return {
+        ...state,
+        error: null,
       };
     default:
       return state;
