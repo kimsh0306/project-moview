@@ -68,10 +68,24 @@ const UserMenu = () => {
     return `${minutes}:${seconds}`;
   };
 
-  const handleLogout = () => {
-    dispatch(authenticateAction.logout());
-    setShowAlertModal("로그아웃되었습니다");
-    navigate("/");
+  const handleLogout = async () => {
+    try {
+      await dispatch(authenticateAction.logout());
+      setShowAlertModal("로그아웃이 완료됐습니다");
+      navigate("/");
+    } catch (error) {
+      setShowAlertModal("로그아웃에 실패했습니다.");
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    try {
+      await dispatch(authenticateAction.deleteAccount());
+      setShowAlertModal("회원탈퇴가 완료됐습니다");
+      navigate("/");
+    } catch (error) {
+      setShowAlertModal("회원탈퇴에 실패했습니다.");
+    }
   };
 
   // 세션 연장 함수
@@ -124,13 +138,15 @@ const UserMenu = () => {
                 <Popover data-bs-theme="dark" style={{ color: "white" }}>
                   <Popover.Header as="h3">{userId || "Guest"}</Popover.Header>
                   <Popover.Body>
-                    <Button
-                      onClick={handleLogout}
-                      size="sm"
-                      variant="outline-primary"
-                    >
-                      로그아웃
-                    </Button>
+                    <div className="text-center mt-1">
+                      <span onClick={handleLogout} className="pointer">
+                        로그아웃
+                      </span>
+                      <span className="mx-1">|</span>
+                      <span onClick={handleDeleteAccount} className="pointer">
+                        회원탈퇴
+                      </span>
+                    </div>
                   </Popover.Body>
                 </Popover>
               }

@@ -36,6 +36,7 @@ function authenticateReducer(state = initialState, action) {
         error: { ...state.error, join: payload }
       };
     case 'LOGOUT':
+    case 'DELETE_ACCOUNT':
       return { ...initialState };
     case 'UPDATE_EXPIRATION':
       return {

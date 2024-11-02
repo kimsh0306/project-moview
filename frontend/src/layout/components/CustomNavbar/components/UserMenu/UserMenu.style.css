@@ -11,7 +11,7 @@
   color: var(--custom-primary);
 }
 
-.user_menu .exp-time{
+.user_menu .exp-time {
   font-size: .8rem;
   color: var(--color-gray-500);
 }
@@ -20,4 +20,8 @@
   font-size: .7rem;
   padding: 0 2px;
   border-radius: 4px;
+}
+
+.fade.show.popover.bs-popover-bottom {
+  --bs-popover-zindex: 1054;
 }
