@@ -47,6 +47,10 @@
   animation-fill-mode: forwards;
 }
 
+.banner-items .overview {
+  word-break: keep-all;
+}
+
 @keyframes position {
   from {
     bottom: -50px;

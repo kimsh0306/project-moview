@@ -25,7 +25,7 @@ const BannerItems = ({ movie, idx }) => {
             TOP{idx+1}
           </Badge>
           <h1 className="mb-2">{movie.title}</h1>
-          <p className="mb-3">{truncateText(movie.overview, 100)}</p>
+          <p className="overview mb-3">{truncateText(movie.overview, 100)}</p>
           <Button variant="outline-primary" size="sm" onClick={handleBtnClick}>
             영화 상세 정보
           </Button>
