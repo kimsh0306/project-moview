@@ -131,7 +131,11 @@ const JoinPage = () => {
         >
           {Object.keys(joinPayload).map((item, idx) => {
             return (
-              <Form.Group className="mb-3" controlId={item}>
+              <Form.Group
+                className="mb-3"
+                controlId={item}
+                key={`${item}-${idx}`}
+              >
                 <Form.Label>
                   {(item === "user_id" && "아이디") ||
                     (item === "password" && "패스워드") ||
@@ -181,7 +185,7 @@ const JoinPage = () => {
           </Button>
         </Form>
         <div
-          className="mt-2 text-center"
+          className="mt-2 text-center pointer"
           onClick={() => {
             navigate("/login");
           }}

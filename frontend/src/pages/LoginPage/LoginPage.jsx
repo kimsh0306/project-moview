@@ -38,7 +38,6 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (!user) return;
-    console.log("user:", user);
     navigate("/");
   }, [user]);
 
@@ -69,7 +68,7 @@ const LoginPage = () => {
           !/[a-z]/.test(itemValue)
         ) {
           console.log("!!");
-          return "유효 아이디: 4자 이상, 영문 소문자와 숫자";
+          return "4자 이상, 영문 소문자와 숫자";
         }
         return null;
 
@@ -80,7 +79,7 @@ const LoginPage = () => {
           !/[0-9]/.test(itemValue) ||
           !/[!@#$%^&*]/.test(itemValue)
         ) {
-          return "유효 비밀번호: 6자 이상, 영문 소문자, 숫자, 특수문자 포함";
+          return "영문 소문자, 숫자, 특수문자 포함";
         }
         return null;
 
@@ -120,7 +119,11 @@ const LoginPage = () => {
         >
           {Object.keys(loginPayload).map((item, idx) => {
             return (
-              <Form.Group className="mb-3" controlId={item}>
+              <Form.Group
+                className="mb-3"
+                controlId={item}
+                key={`${item}-${idx}`}
+              >
                 <Form.Label>
                   {(item === "user_id" && "아이디") ||
                     (item === "password" && "패스워드")}
@@ -162,7 +165,7 @@ const LoginPage = () => {
           </Button>
         </Form>
         <div
-          className="mt-2 text-center"
+          className="mt-2 text-center pointer"
           onClick={() => {
             navigate("/join");
           }}
