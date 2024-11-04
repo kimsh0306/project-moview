@@ -7,21 +7,23 @@ const CustomToast = ({ show, setShow }) => {
   if (!show) return;
 
   return (
-    <ToastContainer position="middle-center" className="custom-toast">
-      <Toast
-        onClose={() => setShow(false)}
-        show={show}
-        delay={2000}
-        animation={true}
-        autohide
-        bg="dark"
-      >
-        <Toast.Header>
-          <ImNotification className="me-auto"/>
-        </Toast.Header>
-        <Toast.Body>{show}</Toast.Body>
-      </Toast>
-    </ToastContainer>
+    <div className="custom-toast">
+      <ToastContainer position="middle-center">
+        <Toast
+          onClose={() => setShow(false)}
+          show={show}
+          delay={2000}
+          animation={true}
+          autohide
+          bg="dark"
+        >
+          <Toast.Header>
+            <ImNotification className="me-auto" />
+          </Toast.Header>
+          <Toast.Body>{show}</Toast.Body>
+        </Toast>
+      </ToastContainer>
+    </div>
   );
 };
 
