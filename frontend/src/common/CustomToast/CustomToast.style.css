@@ -1,0 +1,11 @@
+.custom-toast {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1056;
+}
+
+.custom-toast .btn-close {
+  display: none;
+}

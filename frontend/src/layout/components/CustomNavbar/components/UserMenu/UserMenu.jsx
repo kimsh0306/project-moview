@@ -5,13 +5,16 @@ import { Button, OverlayTrigger, Popover } from "react-bootstrap";
 import { authenticateAction } from "../../../../../redux/actions/authenticateAction";
 import AlertModal from "../../../../../common/AlertModal/AlertModal";
 import ConfirmModal from "../../../../../common/ConfirmModal/ConfirmModal";
+import CustomToast from "../../../../../common/CustomToast/CustomToast";
 import "./UserMenu.style.css";
 
 const UserMenu = () => {
   const [timeLeft, setTimeLeft] = useState(null);
   const [showExtendButton, setShowExtendButton] = useState(false);
-  const [showAlertModal, setShowAlertModal] = useState(null);
-  const [showConfirmModal, setShowConfirmModal] = useState(null);
+  const [showExtendSessionModal, setShowExtendSessionModal] = useState(null);
+  const [showLogoutModal, setShowLogoutModal] = useState(null);
+  const [showDeleteAccountModal, setShowDeleteAccountModal] = useState(null);
+  const [showAlertToast, setShowAlertToast] = useState(null);
 
   const userState = useSelector((state) => state.auth.user);
   const { userId, exp: expirationTime } = userState || {};
@@ -50,15 +53,9 @@ const UserMenu = () => {
   }, [userState, expirationTime]);
 
   useEffect(() => {
-    if (showExtendButton) {
-      setShowConfirmModal("로그인 만료 10분 전입니다. 연장하시겠습니까?");
-    }
+    if (showExtendButton)
+      setShowExtendSessionModal("로그인 만료 10분 전입니다. 연장하시겠습니까?");
   }, [showExtendButton]);
-
-  useEffect(() => {
-    if (!showAlertModal) return;
-    if (showConfirmModal) setShowConfirmModal(null);
-  }, [showAlertModal]);
 
   // 시간 형식 변환
   const formatTime = (milliseconds) => {
@@ -68,34 +65,36 @@ const UserMenu = () => {
     return `${minutes}:${seconds}`;
   };
 
+  const handleExtendSession = () => {
+    dispatch(authenticateAction.extendSession());
+    if (showExtendSessionModal) setShowExtendSessionModal(null);
+  };
+
   const handleLogout = async () => {
     try {
       await dispatch(authenticateAction.logout());
-      setShowAlertModal("로그아웃이 완료됐습니다");
+      if (showLogoutModal) setShowLogoutModal(null);
+      setShowAlertToast("로그아웃 완료");
       navigate("/");
     } catch (error) {
-      setShowAlertModal("로그아웃에 실패했습니다.");
+      setShowAlertToast("로그아웃 실패");
     }
   };
 
   const handleDeleteAccount = async () => {
     try {
       await dispatch(authenticateAction.deleteAccount());
-      setShowAlertModal("회원탈퇴가 완료됐습니다");
+      if (showDeleteAccountModal) setShowDeleteAccountModal(null);
+      setShowAlertToast("회원탈퇴 완료");
       navigate("/");
     } catch (error) {
-      setShowAlertModal("회원탈퇴에 실패했습니다.");
+      setShowAlertToast("회원탈퇴 실패");
     }
   };
 
-  // 세션 연장 함수
-  const handleExtendSession = () => {
-    dispatch(authenticateAction.extendSession());
-    if (showConfirmModal) setShowConfirmModal(null);
-  };
-
-  const handleConfirmClose = () => setShowConfirmModal(null);
-  const handleAlertClose = () => setShowAlertModal(null);
+  const handleExtendSessionClose = () => setShowExtendSessionModal(null);
+  const handleLogoutClose = () => setShowLogoutModal(null);
+  const handleDeleteAccountClose = () => setShowDeleteAccountModal(null);
 
   return (
     <>
@@ -139,11 +138,21 @@ const UserMenu = () => {
                   <Popover.Header as="h3">{userId || "Guest"}</Popover.Header>
                   <Popover.Body>
                     <div className="text-center mt-1">
-                      <span onClick={handleLogout} className="pointer">
+                      <span
+                        onClick={() =>
+                          setShowLogoutModal("로그아웃하시겠습니까?")
+                        }
+                        className="pointer"
+                      >
                         로그아웃
                       </span>
                       <span className="mx-1">|</span>
-                      <span onClick={handleDeleteAccount} className="pointer">
+                      <span
+                        onClick={() =>
+                          setShowDeleteAccountModal("회원탈퇴하시겠습니까?")
+                        }
+                        className="pointer"
+                      >
                         회원탈퇴
                       </span>
                     </div>
@@ -183,12 +192,26 @@ const UserMenu = () => {
           </button>
         )}
       </div>
-      <ConfirmModal
-        show={showConfirmModal}
-        handleClose={handleConfirmClose}
-        handleConfirm={handleExtendSession}
-      />
-      <AlertModal show={showAlertModal} handleClose={handleAlertClose} />
+      {userState && (
+        <>
+          <ConfirmModal
+            show={showExtendSessionModal}
+            handleClose={handleExtendSessionClose}
+            handleConfirm={handleExtendSession}
+          />
+          <ConfirmModal
+            show={showLogoutModal}
+            handleClose={handleLogoutClose}
+            handleConfirm={handleLogout}
+          />
+          <ConfirmModal
+            show={showDeleteAccountModal}
+            handleClose={handleDeleteAccountClose}
+            handleConfirm={handleDeleteAccount}
+          />
+        </>
+      )}
+      <CustomToast show={showAlertToast} setShow={setShowAlertToast} />
     </>
   );
 };
