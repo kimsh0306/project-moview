@@ -5,7 +5,7 @@ import MyListPage from '../pages/MyListPage/MyListPage';
 import ConfirmModal from '../common/ConfirmModal/ConfirmModal';
 
 const PrivateRoute = () => {
-  const [showConfirmModal, setShowConfirmModal] = useState();
+  const [showConfirmModal, setShowConfirmModal] = useState(null);
 
   const userState = useSelector((state) => state.auth.user);
 
@@ -17,11 +17,11 @@ const PrivateRoute = () => {
   }, [])
 
   useEffect(() => {
-    if (showConfirmModal === "홈으로...") navigate("/")
+    if (showConfirmModal === "뒤로...") navigate(-1)
   }, [showConfirmModal])
 
   const handleConfirm = () => navigate("/login")
-  const handleClose = () => setShowConfirmModal("홈으로...")
+  const handleClose = () => setShowConfirmModal("뒤로...")
 
   if (!userState) {
     return <ConfirmModal show={showConfirmModal} handleClose={handleClose} handleConfirm={handleConfirm} />
