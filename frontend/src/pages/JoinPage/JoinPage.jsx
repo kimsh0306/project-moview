@@ -34,7 +34,7 @@ const JoinPage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(authenticateAction.resetError());
+    if (error) dispatch(authenticateAction.resetError());
 
     if (inputRefs.current[0]) {
       inputRefs.current[0].focus();
@@ -67,7 +67,6 @@ const JoinPage = () => {
           !/^[a-z0-9]+$/.test(itemValue) ||
           !/[a-z]/.test(itemValue)
         ) {
-          console.log("!!");
           return "4자 이상, 영문 소문자와 숫자만 사용해 주세요.";
         }
         return null;

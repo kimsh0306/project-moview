@@ -29,7 +29,7 @@ const LoginPage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(authenticateAction.resetError());
+    if (error) dispatch(authenticateAction.resetError());
 
     if (inputRefs.current[0]) {
       inputRefs.current[0].focus();
