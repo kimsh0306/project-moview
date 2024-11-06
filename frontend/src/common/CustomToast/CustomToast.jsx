@@ -15,7 +15,6 @@ const CustomToast = ({ show, setShow }) => {
           delay={2000}
           animation={true}
           autohide
-          bg="dark"
         >
           <Toast.Header>
             <ImNotification className="me-auto" />

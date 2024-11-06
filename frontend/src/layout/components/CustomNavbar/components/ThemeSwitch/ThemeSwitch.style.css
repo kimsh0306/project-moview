@@ -7,7 +7,7 @@
 .theme-control .form-label {
   margin: 0;
   font-size: .8rem;
-  color: var(--color-gray-500);
+  color: var(--bs-body-color);
   margin: 0 .5rem 0 0;
   white-space: nowrap;
 }

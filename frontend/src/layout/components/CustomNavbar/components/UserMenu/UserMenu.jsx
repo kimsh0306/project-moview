@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, OverlayTrigger, Popover } from "react-bootstrap";
 import { authenticateAction } from "../../../../../redux/actions/authenticateAction";
-import AlertModal from "../../../../../common/AlertModal/AlertModal";
 import ConfirmModal from "../../../../../common/ConfirmModal/ConfirmModal";
 import CustomToast from "../../../../../common/CustomToast/CustomToast";
 import "./UserMenu.style.css";
@@ -134,7 +133,7 @@ const UserMenu = () => {
               key="bottom"
               placement="bottom"
               overlay={
-                <Popover data-bs-theme="dark" style={{ color: "white" }}>
+                <Popover>
                   <Popover.Header as="h3">{userId || "Guest"}</Popover.Header>
                   <Popover.Body>
                     <div className="text-center mt-1">
@@ -182,14 +181,14 @@ const UserMenu = () => {
             </OverlayTrigger>
           </>
         ) : (
-          <button
+          <Button
             className="login-btn"
             onClick={() => {
               navigate("/login");
             }}
           >
             로그인
-          </button>
+          </Button>
         )}
       </div>
       {userState && (

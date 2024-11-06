@@ -20,6 +20,11 @@
 }
 
 /* 햄버거 토글 */
+.navbar .navbar-toggler,
+.navbar .navbar-toggler.collapsed {
+  border: none;
+}
+
 .navbar .navbar-toggler:focus {
   box-shadow: none;
 }
@@ -33,6 +38,7 @@
   position: absolute;
   top: 0.8rem;
   right: 13.4rem;
+  color: var(--bs-nav-link-color);
 }
 
 /* 미디어 쿼리 */

@@ -64,6 +64,7 @@
 
 .flip-card .back-content h3 {
   word-break: keep-all;
+  color: #fff;
 }
 
 .flip-card .badge_genre:not(:last-of-type) {
