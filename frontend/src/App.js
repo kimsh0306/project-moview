@@ -9,7 +9,7 @@ import JoinPage from './pages/JoinPage/JoinPage';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 import PrivateRoute from './route/PrivateRoute';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "./styles/custom.scss";
+import "./styles/App.scss";
 import './App.css';
 
 function App() {

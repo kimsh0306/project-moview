@@ -152,10 +152,7 @@ $breakpoint-xxl: 87.5rem;
 
   // primary color custom 설정 2/2
   --custom-primary: #{$primary};
-
-  // gray border box
-  --custom-border-light: var(--color-gray-700);
-  --custom-border-dark: var(--color-gary-300);
+  
 }
 
 // primary color를 custom 하기 위해 import
