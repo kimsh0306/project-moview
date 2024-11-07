@@ -1,6 +1,7 @@
 import React from "react";
 import Carousel from "react-multi-carousel";
 import FlipCard from "../FlipCard/FlipCard";
+import MovieCard from "../MovieCard/MovieCard";
 import "react-multi-carousel/lib/styles.css";
 import "./MovieSlider.style.css";
 
@@ -18,7 +19,7 @@ const MovieSlider = ({ title, movies, responsive, noTitle = false }) => {
           className="custom-carousel"
         >
           {movies.map((movie, idx) => (
-            <FlipCard movie={movie} key={`${movie.id}-${idx}`} />
+            <MovieCard movie={movie} key={`${movie.id}-${idx}`} />
           ))}
         </Carousel>
       </div>
