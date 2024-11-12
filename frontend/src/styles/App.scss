@@ -143,16 +143,12 @@ $breakpoint-xxl: 87.5rem;
   --color-black: #000000;
   --color-white: #ffffff;
 
-  /* theme - color modes */
-  --bs-body-bg-light: var(--color-white);
-  --bs-body-bg-dark: var(--color-gray-900);
-
-  --bs-body-text-light: var(--color-black);
-  --bs-body-text-dark: var(--color-white);
-
   // primary color custom 설정 2/2
   --custom-primary: #{$primary};
-  
+
+  /* theme - color modes */
+  --body-bg-color: var(--color-white);
+  --body-text-color: var(--color-black);
 }
 
 // primary color를 custom 하기 위해 import
