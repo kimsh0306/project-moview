@@ -1,6 +1,5 @@
 import React from "react";
 import Carousel from "react-multi-carousel";
-import FlipCard from "../FlipCard/FlipCard";
 import MovieCard from "../MovieCard/MovieCard";
 import "react-multi-carousel/lib/styles.css";
 import "./MovieSlider.style.css";
