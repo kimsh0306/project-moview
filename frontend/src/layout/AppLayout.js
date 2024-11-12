@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Outlet } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import CustomNavbar from './components/CustomNavbar/CustomNavbar';
+import Footer from './components/Footer/Footer';
 
 const AppLayout = () => {
   const [showButton, setShowButton] = useState(false);
@@ -32,6 +33,7 @@ const AppLayout = () => {
     <>
       <CustomNavbar />
       <Outlet />
+      <Footer />
       {showButton && (
         <Button
           onClick={scrollToTop}
