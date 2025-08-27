@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
+import { useSelector } from "react-redux";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { BsBookmarkPlus, BsBookmarkDashFill } from "react-icons/bs";
 import AlertModal from "../AlertModal/AlertModal";
 import ConfirmModal from "../ConfirmModal/ConfirmModal";
+import { useMyMoviesQuery } from "../../hooks/useMyMoviesQuery";
+import { useAddMyMovieMutation, useRemoveMyMovieMutation } from "../../hooks/useMyMoviesMutation";
 import "./FavoriteMark.style.css";
 
 const FavoriteMark = ({ movie, fontSize = "1.7rem" }) => {
@@ -14,46 +15,19 @@ const FavoriteMark = ({ movie, fontSize = "1.7rem" }) => {
   const [showAlertModal, setShowAlertModal] = useState();
 
   const userState = useSelector((state) => state.auth.user);
-  const myMoviesState = useSelector((state) => state.myMovies.movies);
-  
+  const { data: myMovies } = useMyMoviesQuery();
+  const addMovieMutation = useAddMyMovieMutation();
+  const removeMovieMutation = useRemoveMyMovieMutation();
+
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!movie || !myMoviesState) return;
+    if (!movie || !myMovies) return;
 
-    if (myMoviesState.some((myMovie) => myMovie.id === movie.id)) {
-      setIsFavorite(true);
-    }
-  }, [movie, myMoviesState]);
+    setIsFavorite(myMovies.some((myMovie) => myMovie.id === movie.id));
+  }, [movie, myMovies]);
 
-  const removeMyMovies = async () => {
-    try {
-      const url = `${process.env.REACT_APP_API_URL}/my_lists/movies/${movie.id}`;
-      return await axios.delete(url, {
-        withCredentials: true,
-      });
-    } catch (error) {
-      throw new Error(`찜 삭제 요청이 실패했습니다. 제목: ${movie.title}`, {
-        cause: error.response ? error.response.data.message : error,
-      });
-    }
-  };
-
-  const addMyMovies = async (moviePayload) => {
-    try {
-      const url = `${process.env.REACT_APP_API_URL}/my_lists/movies`;
-      return await axios.post(url, moviePayload, {
-        withCredentials: true,
-      });
-    } catch (error) {
-      throw new Error(`찜 추가 요청이 실패했습니다. 제목: ${movie.title}`, {
-        cause: error.response ? error.response.data.message : error,
-      });
-    }
-  };
-
-  const handleFavoriteMark = async (e) => {
+  const handleFavoriteMark = (e) => {
     e.stopPropagation();
 
     if (!userState) {
@@ -61,7 +35,6 @@ const FavoriteMark = ({ movie, fontSize = "1.7rem" }) => {
       return;
     }
 
-    const prevIsFavorite = isFavorite;
     const moviePayload = {
       id: movie.id,
       title: movie.title,
@@ -73,30 +46,20 @@ const FavoriteMark = ({ movie, fontSize = "1.7rem" }) => {
       genre_ids: movie.genre_ids,
     };
 
-    // 낙관적 업데이트 적용
-    try {
-      if (isFavorite) {
-        setIsFavorite(false);
-        dispatch({
-          type: "REMOVE_MY_MOVIES",
-          payload: { movie: moviePayload },
-        });
-        const res = await removeMyMovies();
-        console.log(`${res.data.message} 제목: ${movie.title}`);
-      } else {
-        setIsFavorite(true);
-        dispatch({ type: "ADD_MY_MOVIES", payload: { movie: moviePayload } });
-        const res = await addMyMovies(moviePayload);
-        console.log(`${res.data.message} 제목: ${movie.title}`);
-      }
-    } catch (error) {
-      setShowAlertModal(error.message);
-      setIsFavorite(prevIsFavorite);
-      console.error("에러 메시지:", error.message);
-      if (error.cause) {
-        console.error("원인:", error.cause);
-      }
-      dispatch({ type: "SET_MY_MOVIES", payload: myMoviesState });
+    if (isFavorite) {
+      removeMovieMutation.mutate(movie.id, {
+        onError: (error) => {
+          setShowAlertModal(error.message);
+          console.error("Error removing movie:", error);
+        },
+      });
+    } else {
+      addMovieMutation.mutate(moviePayload, {
+        onError: (error) => {
+          setShowAlertModal(error.message);
+          console.error("Error adding movie:", error);
+        },
+      });
     }
   };
 
