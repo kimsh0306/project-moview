@@ -1,11 +1,11 @@
 import React from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
-import "./CustomDropdown.style.css";
+import "./CustomDropdown.css";
 
-const CustomDropdown = ({ sort, setSort, sortTypeList }) => {
-  const handleSortChange = (eventKey) => {
-    setSort(eventKey);
+const CustomDropdown = ({ selectedItem, setSelectedItem, itemData }) => {
+  const handleOnSelect = (eventKey) => {
+    setSelectedItem(eventKey);
   };
   return (
     <div className="custom-dropdown">
@@ -13,18 +13,17 @@ const CustomDropdown = ({ sort, setSort, sortTypeList }) => {
         size="sm"
         variant="outline-primary"
         id="dropdown-basic-button"
-        title={sortTypeList.map((type) => sort === type.value && type.name)
-        }
-        onSelect={handleSortChange}
+        title={itemData.filter((item) => item.value === selectedItem)[0].name}
+        onSelect={handleOnSelect}
       >
-        {sortTypeList.map((type, idx) => {
+        {itemData.map((item) => {
           return (
             <Dropdown.Item
-              key={`${type.value}-${idx}`}
-              eventKey={type.value}
-              disabled={sort === type.value}
+              key={item.value}
+              eventKey={item.value}
+              disabled={item.value === selectedItem}
             >
-              {type.name}
+              {item.name}
             </Dropdown.Item>
           );
         })}

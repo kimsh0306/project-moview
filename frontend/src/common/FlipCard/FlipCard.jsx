@@ -1,4 +1,4 @@
-import React from "react";
+import React, {memo} from "react";
 import { useNavigate } from "react-router-dom";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import { useMovieGenreQuery } from "../../hooks/useMovieGenre";
@@ -9,8 +9,8 @@ import "./FlipCard.style.css";
 
 const FlipCard = ({ movie }) => {
   const { data: genreData } = useMovieGenreQuery();
+  
   const navigate = useNavigate();
-
   const getGenreNames = (genreIdList) => {
     if (!genreData) return [];
     const genreNameList = genreIdList.map((id) => {
@@ -43,8 +43,8 @@ const FlipCard = ({ movie }) => {
           <div className="back-content" onClick={handleCardClick}>
             <h3 className="mb-2">{movie.title}</h3>
             <div className="mb-2">
-              {getGenreNames(movie.genre_ids).map((item, idx) => (
-                <Badge key={idx} className="badge_genre" bg="danger">
+              {getGenreNames(movie.genre_ids).map((item) => (
+                <Badge key={item} className="badge_genre" bg="danger">
                   {item}
                 </Badge>
               ))}
@@ -75,4 +75,4 @@ const FlipCard = ({ movie }) => {
   );
 };
 
-export default FlipCard;
+export default memo(FlipCard);

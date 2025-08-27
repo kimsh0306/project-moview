@@ -1,0 +1,14 @@
+.genre-btns-box {
+  margin: -.2rem;
+}
+
+.btn-wrapper {
+  display: inline-block;
+  margin: .2rem;
+}
+
+.genre-btns-box .btn{
+  white-space: nowrap;
+  border-radius: 2rem;
+  font-size: .8rem;
+}

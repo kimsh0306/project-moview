@@ -1,0 +1,76 @@
+.banner-movie {
+  position: relative;
+  color: white !important;
+}
+
+.banner-movie .img-area {
+  width: 100%;
+  max-height: 600px;
+  overflow: hidden;
+  position: relative;
+}
+
+.banner-movie .img-box::before {
+  content: "";
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(to top, black, transparent);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.banner-movie .img-area img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.banner-movie .content-area {
+  width: 100%;
+  position: absolute;
+  z-index: 2;
+  bottom: 0;
+  padding: 40px 48px;
+  overflow: hidden;
+}
+
+.banner-movie .content-box {
+  position: relative;
+  bottom: 0;
+  opacity: 0;
+  max-width: 400px;
+  animation-name: position, opacity;
+  animation-duration: 1000ms, 1500ms;
+  animation-timing-function: ease-out;
+  animation-delay: 100ms;
+  animation-fill-mode: forwards;
+  word-break: keep-all;
+}
+
+@keyframes position {
+  from {
+    bottom: -50px;
+  }
+
+  to {
+    bottom: 0;
+  }
+}
+
+@keyframes opacity {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 36rem) {
+  .banner-movie .content-area {
+    background-color: black;
+    position: static;
+  }
+}

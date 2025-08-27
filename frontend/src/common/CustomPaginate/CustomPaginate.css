@@ -1,0 +1,41 @@
+.custom-paginate .pagination {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  gap: .5rem;
+}
+
+.custom-paginate .page-link {
+  transition: all 0.25s;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.7rem;
+  border-radius: 0.3rem;
+  background-color: transparent;
+  color: var(--color-gray-600);
+  border-color: var(--color-gray-600);
+}
+
+.custom-paginate .page-link.active {
+  background-color: transparent;
+  border-color: var(--custom-primary);
+  color: var(--custom-primary);
+}
+
+.custom-paginate .page-link:hover {
+  background-color: var(--custom-primary);
+  border-color: var(--custom-primary);
+  color: white
+}
+
+.custom-paginate .page-link:focus {
+  box-shadow: none;
+}
+
+.custom-paginate .disabled .page-link {
+  cursor: none;
+  pointer-events: none;
+  background-color: transparent;
+  color: var(--color-gray-600);
+  border-color: var(--color-gray-600);
+}

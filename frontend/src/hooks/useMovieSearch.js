@@ -4,27 +4,27 @@ import api from "../utils/api"
 const fetchSearchMovie = (keyword, page) => {
   return keyword
     ? api.get(`/search/movie?query=${keyword}&page=${page}&language=ko-KR`)
-    : api.get(`/movie/now_playing?page=${page}&language=ko-KR`)
+    : api.get(`/trending/movie/week?&language=ko-KR`)
 };
 
 const fetchRecommendMovie = (page) => {
   return api.get(`/movie/now_playing?page=${page}&language=ko-KR`)
 };
 
-const fetchDiscoverMovie = (page, sort, genres) => {
+const fetchDiscoverMovie = (page, sortOption, genreIds) => {
   return api.get("/discover/movie", {
     params: {
       language: 'ko-KR',
       page: page,
-      sort_by: sort,
-      with_genres: genres
+      sort_by: sortOption,
+      with_genres: genreIds
     }
   });
 };
 
 const useSearchMovieQuery = (keyword, page) => {
   return useQuery({
-    queryKey: ['movie-search', { keyword, page }],
+    queryKey: ['movie-search', keyword, page],
     queryFn: () => fetchSearchMovie(keyword, page),
     select: (result) => result.data,
   });
@@ -38,11 +38,12 @@ const useRecommendMovieQuery = (page) => {
   });
 };
 
-const useDiscoverMovieQuery = (page, sort, genres) => {
+const useDiscoverMovieQuery = (page, sortOption, genreIds) => {
   return useQuery({
-    queryKey: ['movie-discover', page, sort, genres],
-    queryFn: () => fetchDiscoverMovie(page, sort, genres),
+    queryKey: ['movie-discover', page, sortOption, genreIds],
+    queryFn: () => fetchDiscoverMovie(page, sortOption, genreIds),
     select: (result) => result.data,
+    // staleTime: 1000 * 60 * 60 * 24, // 24시간
   });
 };
 
