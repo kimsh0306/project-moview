@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Container, Nav, Navbar, Button, Form } from "react-bootstrap";
 import { useNavigate, useLocation } from "react-router-dom";
 import SwitchControl from "common/SwitchControl/SwitchControl";
+import UserMenu from "./UserMenu/UserMenu";
 import "./NavbarScroll.css";
 
 const NavbarScroll = ({ brandName, menuItems, theme, handleThemeChange }) => {
@@ -33,7 +34,8 @@ const NavbarScroll = ({ brandName, menuItems, theme, handleThemeChange }) => {
           <strong>{brandName}</strong>
         </Navbar.Brand>
         {/* 추가한 설정들 - 1.로그인 설정(예정) 2.다크 테마 설정 */}
-        <div className="added-items">
+        <div className="added-items d-flex align-items-center">
+          <UserMenu />
           <SwitchControl
             label="다크 테마"
             onChange={handleThemeChange}
