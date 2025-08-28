@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { BsBookmarkPlus, BsBookmarkDashFill } from "react-icons/bs";
-import AlertModal from "../AlertModal/AlertModal";
-import ConfirmModal from "../ConfirmModal/ConfirmModal";
-import { useMyMoviesQuery } from "../../hooks/useMyMoviesQuery";
-import { useAddMyMovieMutation, useRemoveMyMovieMutation } from "../../hooks/useMyMoviesMutation";
+import AlertModal from "common/AlertModal/AlertModal";
+import ConfirmModal from "common/ConfirmModal/ConfirmModal";
+import { useMyMoviesQuery } from "hooks/useMyMoviesQuery";
+import { useAddMyMovieMutation, useRemoveMyMovieMutation } from "hooks/useMyMoviesMutation";
 import "./FavoriteMark.style.css";
 
 const FavoriteMark = ({ movie, fontSize = "1.7rem" }) => {
@@ -15,9 +15,12 @@ const FavoriteMark = ({ movie, fontSize = "1.7rem" }) => {
   const [showAlertModal, setShowAlertModal] = useState();
 
   const userState = useSelector((state) => state.auth.user);
+  
   const { data: myMovies } = useMyMoviesQuery();
   const addMovieMutation = useAddMyMovieMutation();
   const removeMovieMutation = useRemoveMyMovieMutation();
+
+  const isLoading = addMovieMutation.isPending || removeMovieMutation.isPending;
 
   const navigate = useNavigate();
 
@@ -75,9 +78,9 @@ const FavoriteMark = ({ movie, fontSize = "1.7rem" }) => {
         >
           <div>
             <BsBookmarkDashFill
-              className="favorite-selected"
-              onClick={handleFavoriteMark}
-              style={{ fontSize: fontSize }}
+              className={`favorite-selected ${isLoading ? 'loading' : ''}`}
+              onClick={isLoading ? undefined : handleFavoriteMark}
+              style={{ fontSize: fontSize, opacity: isLoading ? 0.5 : 1 }}
             />
           </div>
         </OverlayTrigger>
@@ -87,9 +90,9 @@ const FavoriteMark = ({ movie, fontSize = "1.7rem" }) => {
         >
           <div>
             <BsBookmarkPlus
-              className="favorite-unselected"
-              onClick={handleFavoriteMark}
-              style={{ fontSize: fontSize }}
+              className={`favorite-unselected ${isLoading ? 'loading' : ''}`}
+              onClick={isLoading ? undefined : handleFavoriteMark}
+              style={{ fontSize: fontSize, opacity: isLoading ? 0.5 : 1 }}
             />
           </div>
         </OverlayTrigger>
