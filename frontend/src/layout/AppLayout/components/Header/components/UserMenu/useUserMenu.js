@@ -1,15 +1,9 @@
 import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+// 절대 경로 인식 오류 때문에 상대 경로로 변경
 import { authenticateAction } from "../../../../../../redux/actions/authenticateAction";
-
-const formatTime = (milliseconds) => {
-  if (milliseconds === null || milliseconds < 0) return "00:00";
-  const totalSeconds = Math.floor(milliseconds / 1000);
-  const minutes = String(Math.floor(totalSeconds / 60)).padStart(2, "0");
-  const seconds = String(totalSeconds % 60).padStart(2, "0");
-  return `${minutes}:${seconds}`;
-};
+import { formatTime } from "utils/formatTime";
 
 export const useUserMenu = () => {
   const [timeLeft, setTimeLeft] = useState(null);
