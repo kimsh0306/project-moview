@@ -9,20 +9,6 @@ const getAllUsers = asyncHandler(async (req, res) => {
   res.send(userList);
 });
 
-// @desc Create user
-// @route POST /users
-const createUser = asyncHandler(async (req, res) => {
-  const { user_id, password, name, email } = req.body;
-  if (!user_id || !password || !name || !email) {
-    return res.send("필수 값이 입력되지 않았습니다.");
-  };
-
-  const user = await User.create({
-    user_id, password, name, email
-  });
-  res.send("Create user");
-});
-
 // @desc Get user
 // @route GET /users/:id
 const getUser = asyncHandler(async (req, res) => {
@@ -33,11 +19,10 @@ const getUser = asyncHandler(async (req, res) => {
 // @desc Update user
 // @route PUT /users/:id
 const updateUser = asyncHandler(async (req, res) => {
-  const id = req.params.id;
   const { user_id, password, name, email } = req.body
   const user = await User.findById(req.params.id);
   if (!user) {
-    throw new Error("User not found.");
+    throw new Error("사용자를 찾을 수 없습니다.");
   }
 
   user.user_id = user_id;
@@ -53,21 +38,18 @@ const updateUser = asyncHandler(async (req, res) => {
 // @desc Delete user
 // @route DELETE /users/:id
 const deleteUser = asyncHandler(async (req, res) => {
-  const id = req.params.id;
-
   const user = await User.findById(req.params.id);
   if (!user) {
-    throw new Error("User not found.");
+    throw new Error("사용자를 찾을 수 없습니다.");
   }
 
   await User.deleteOne();
-  res.send("Deleted");
+  res.send("삭제되었습니다.");
 });
 
 module.exports = {
   getAllUsers,
-  createUser,
   getUser,
   updateUser,
-  deleteUser
+  deleteUser,
 };
