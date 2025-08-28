@@ -1,3 +1,9 @@
 .favorite-mark.fade.show.tooltip.bs-tooltip-top {
   --bs-tooltip-zindex: 1054;
 }
+
+.favorite-selected.loading,
+.favorite-unselected.loading {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

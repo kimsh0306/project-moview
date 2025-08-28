@@ -65,15 +65,17 @@ export const useFavoriteMark = (movie) => {
   return {
     isFavorite,
     isLoading,
-    modalState: {
-      showConfirmModal,
-      showAlertModal,
+    favoriteMarkProps: {
+      onClick: isLoading ? undefined : handleFavoriteMark,
     },
-    handlers: {
-      handleFavoriteMark,
-      handleConfirm,
-      handleConfirmClose,
-      handleAlertClose,
+    confirmModalProps: {
+      show: showConfirmModal,
+      handleClose: handleConfirmClose,
+      handleConfirm: handleConfirm,
+    },
+    alertModalProps: {
+      show: showAlertModal,
+      handleClose: handleAlertClose,
     },
   };
 };
