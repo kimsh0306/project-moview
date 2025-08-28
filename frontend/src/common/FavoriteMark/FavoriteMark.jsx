@@ -1,74 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import React from "react";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { BsBookmarkPlus, BsBookmarkDashFill } from "react-icons/bs";
 import AlertModal from "common/AlertModal/AlertModal";
 import ConfirmModal from "common/ConfirmModal/ConfirmModal";
-import { useMyMoviesQuery } from "hooks/useMyMoviesQuery";
-import { useAddMyMovieMutation, useRemoveMyMovieMutation } from "hooks/useMyMoviesMutation";
+import { useFavoriteMark } from "./useFavoriteMark";
 import "./FavoriteMark.style.css";
 
 const FavoriteMark = ({ movie, fontSize = "1.7rem" }) => {
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [showConfirmModal, setShowConfirmModal] = useState();
-  const [showAlertModal, setShowAlertModal] = useState();
-
-  const userState = useSelector((state) => state.auth.user);
-  
-  const { data: myMovies } = useMyMoviesQuery();
-  const addMovieMutation = useAddMyMovieMutation();
-  const removeMovieMutation = useRemoveMyMovieMutation();
-
-  const isLoading = addMovieMutation.isPending || removeMovieMutation.isPending;
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!movie || !myMovies) return;
-
-    setIsFavorite(myMovies.some((myMovie) => myMovie.id === movie.id));
-  }, [movie, myMovies]);
-
-  const handleFavoriteMark = (e) => {
-    e.stopPropagation();
-
-    if (!userState) {
-      setShowConfirmModal("로그인이 필요한 서비스입니다. 로그인하시겠습니까?");
-      return;
-    }
-
-    const moviePayload = {
-      id: movie.id,
-      title: movie.title,
-      poster_path: movie.poster_path,
-      adult: movie.adult,
-      vote_average: movie.vote_average,
-      vote_count: movie.vote_count,
-      popularity: movie.popularity,
-      genre_ids: movie.genre_ids,
-    };
-
-    if (isFavorite) {
-      removeMovieMutation.mutate(movie.id, {
-        onError: (error) => {
-          setShowAlertModal(error.message);
-          console.error("Error removing movie:", error);
-        },
-      });
-    } else {
-      addMovieMutation.mutate(moviePayload, {
-        onError: (error) => {
-          setShowAlertModal(error.message);
-          console.error("Error adding movie:", error);
-        },
-      });
-    }
-  };
-
-  const handleConfirm = () => navigate("/login");
-  const handleConfirmClose = () => setShowConfirmModal();
-  const handleAlertClose = () => setShowAlertModal();
+  const {
+    isFavorite,
+    isLoading,
+    modalState,
+    handlers,
+  } = useFavoriteMark(movie);
 
   return (
     <>
@@ -79,7 +23,7 @@ const FavoriteMark = ({ movie, fontSize = "1.7rem" }) => {
           <div>
             <BsBookmarkDashFill
               className={`favorite-selected ${isLoading ? 'loading' : ''}`}
-              onClick={isLoading ? undefined : handleFavoriteMark}
+              onClick={isLoading ? undefined : handlers.handleFavoriteMark}
               style={{ fontSize: fontSize, opacity: isLoading ? 0.5 : 1 }}
             />
           </div>
@@ -91,18 +35,21 @@ const FavoriteMark = ({ movie, fontSize = "1.7rem" }) => {
           <div>
             <BsBookmarkPlus
               className={`favorite-unselected ${isLoading ? 'loading' : ''}`}
-              onClick={isLoading ? undefined : handleFavoriteMark}
+              onClick={isLoading ? undefined : handlers.handleFavoriteMark}
               style={{ fontSize: fontSize, opacity: isLoading ? 0.5 : 1 }}
             />
           </div>
         </OverlayTrigger>
       )}
       <ConfirmModal
-        show={showConfirmModal}
-        handleClose={handleConfirmClose}
-        handleConfirm={handleConfirm}
+        show={modalState.showConfirmModal}
+        handleClose={handlers.handleConfirmClose}
+        handleConfirm={handlers.handleConfirm}
       />
-      <AlertModal show={showAlertModal} handleClose={handleAlertClose} />
+      <AlertModal
+        show={modalState.showAlertModal}
+        handleClose={handlers.handleAlertClose}
+      />
     </>
   );
 };
