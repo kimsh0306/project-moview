@@ -30,20 +30,20 @@ const MyListPage = () => {
       <Row className="mb-4">
         <Col xs={12} className="d-flex align-items-center">
           <h1 className="m-0 me-4">내가 찜한 영화</h1>
-          <CustomDropdown
+          {/* <CustomDropdown
             selectedItem={sort}
             setSelectedItem={setSort}
             itemData={sortTypeList}
-          />
+          /> */}
         </Col>
       </Row>
       <Row className="mb-5">
-        <Col xs={12}>
+        {/* <Col xs={12}>
           <GenreSelector
             selectedGenreIds={selectedGenreIds}
             setSelectedGenreIds={setSelectedGenreIds}
           />
-        </Col>
+        </Col> */}
       </Row>
       <Row className="g-2">
         {data.length > 0 ? (
