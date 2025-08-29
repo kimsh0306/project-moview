@@ -1,19 +1,17 @@
-.custom-dropdown .dropdown-toggle.btn {
+.sort-selector .dropdown-toggle.btn {
   font-size: .8rem;
-  width: 100%;
 }
 
-.custom-dropdown .dropdown-toggle.btn:focus {
+.sort-selector .dropdown-toggle.btn:focus {
   color: var(--custom-primary);
   background-color: transparent;
 }
 
-.custom-dropdown .dropdown-toggle.show {
+.sort-selector .dropdown-toggle.show {
   color: var(--custom-primary);
   background-color: transparent;
 }
 
-.custom-dropdown .dropdown-menu {
-  width: 100%;
+.sort-selector .dropdown-menu {
   font-size: .8rem;
 }

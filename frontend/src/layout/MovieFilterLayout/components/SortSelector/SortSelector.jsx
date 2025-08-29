@@ -1,11 +1,10 @@
 import React, { useContext, memo } from "react";
-import { DropdownButton, Dropdown } from "react-bootstrap";
-import { sortOptionDataArray } from "constants/sortOptions";
+import { DropdownButton, Dropdown, Col, Row } from "react-bootstrap";
+import { sortOptionDataList } from "constants/sortOptions";
 import { MovieFilterContext } from "context/MovieFilterContext";
-import SectionWrapper from "../SectionWrapper";
 import "./SortSelector.css";
 
-const SortSelector = ({ pageTitle, noFilter }) => {
+const SortSelector = ({ pageTitle }) => {
   const { filterState, dispatch } = useContext(MovieFilterContext);
   const { sortOption } = filterState;
 
@@ -14,26 +13,21 @@ const SortSelector = ({ pageTitle, noFilter }) => {
   };
 
   return (
-    <SectionWrapper
-      sectionProps={{ className: "sort-selector" }}
-      rowProps={{ className: "mb-4" }}
-      colProps={{ xs: "12", className: "d-flex align-items-center" }}
-    >
-      <h1 className="m-0 me-4">{pageTitle}</h1>
-      {noFilter || (
-        <div className="custom-dropdown">
+    <section className="sort-selector">
+      <Row className="mb-4">
+        <Col xs="12" className="d-flex align-items-center">
+          <h1 className="m-0 me-4">{pageTitle}</h1>
           <DropdownButton
             size="sm"
             variant="outline-primary"
-            id="dropdown-basic-button"
             title={
-              sortOptionDataArray.filter(
+              sortOptionDataList.filter(
                 (sortOptionData) => sortOptionData.value === sortOption
               )[0].name
             }
             onSelect={handleSortSelect}
           >
-            {sortOptionDataArray.map((sortOptionData) => {
+            {sortOptionDataList.map((sortOptionData) => {
               return (
                 <Dropdown.Item
                   key={sortOptionData.value}
@@ -45,9 +39,9 @@ const SortSelector = ({ pageTitle, noFilter }) => {
               );
             })}
           </DropdownButton>
-        </div>
-      )}
-    </SectionWrapper>
+        </Col>
+      </Row>
+    </section>
   );
 };
 

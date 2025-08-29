@@ -5,18 +5,14 @@ import GenreSelector from "./components/GenreSelector/GenreSelector";
 import MoviesViewer from "./components/MoviesViewer/MoviesViewer";
 import Paginator from "./components/Paginator/Paginator";
 
-const MovieFilterLayout = ({ domain, pageTitle, data, noFilter }) => {
+const MovieFilterLayout = ({ domain, pageTitle, data }) => {
   return (
     <main className={domain}>
       <CustomContainer>
-        <div className="filter-block">
-          <SortSelector pageTitle={pageTitle} noFilter={noFilter} />
-          {noFilter || <GenreSelector />}
-        </div>
-        <div className="viewer-block">
-          <MoviesViewer data={data} />
-          <Paginator data={data} />
-        </div>
+        <SortSelector pageTitle={pageTitle} />
+        <GenreSelector />
+        <MoviesViewer data={data} />
+        <Paginator data={data} />
       </CustomContainer>
     </main>
   );
