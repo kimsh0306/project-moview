@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React from "react";
 import { DropdownButton, Dropdown, Col, Row } from "react-bootstrap";
 import { useMovieSortFilter } from "hooks/filter";
 import { sortOptionDataList } from "constants/sortOptions";
@@ -45,4 +45,4 @@ const SortSelector = ({ pageTitle }) => {
   );
 };
 
-export default memo(SortSelector);
+export default SortSelector;
