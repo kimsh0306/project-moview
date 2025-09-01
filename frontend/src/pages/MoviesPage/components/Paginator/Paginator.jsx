@@ -1,4 +1,4 @@
-import React, { memo, useContext } from "react";
+import React from "react";
 import { useMoviePageFilter } from "hooks/filter";
 import CustomPaginate from "common/CustomPaginate/CustomPaginate";
 import { Col, Row } from "react-bootstrap";
@@ -27,4 +27,4 @@ const Paginator = ({ data }) => {
   );
 };
 
-export default memo(Paginator);
+export default Paginator;
