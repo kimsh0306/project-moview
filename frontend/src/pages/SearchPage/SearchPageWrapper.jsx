@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Alert } from "react-bootstrap";
 import { useMovieFilterState } from "context/MovieFilterContext";
-import { useSearchMovieQuery } from "hooks/useMovieSearch";
+import { useSearchMovieQuery } from "hooks/movie/useMovieSearch";
 import MovieFilterLayout from "layout/MovieFilterLayout/MovieFilterLayout";
 import LoadingModal from "common/LoadingModal/LoadingModal";
 import { useSearchParams } from "react-router-dom";
