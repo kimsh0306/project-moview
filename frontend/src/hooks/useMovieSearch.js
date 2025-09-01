@@ -43,6 +43,7 @@ const useDiscoverMovieQuery = (page, sortOption, genreIds) => {
     queryKey: ['movie-discover', page, sortOption, genreIds],
     queryFn: () => fetchDiscoverMovie(page, sortOption, genreIds),
     select: (result) => result.data,
+    staleTime: 0
     // staleTime: 1000 * 60 * 60 * 24, // 24시간
   });
 };

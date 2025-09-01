@@ -1,12 +1,12 @@
-import React, { useContext, memo } from "react";
+import React, { memo } from "react";
 import { DropdownButton, Dropdown, Col, Row } from "react-bootstrap";
+import { useMovieSortFilter } from "hooks/filter";
 import { sortOptionDataList } from "constants/sortOptions";
-import { MovieFilterContext } from "context/MovieFilterContext";
 import "./SortSelector.css";
 
 const SortSelector = ({ pageTitle }) => {
-  const { filterState, dispatch } = useContext(MovieFilterContext);
-  const { sortOption } = filterState;
+  console.log('🔥 SortSelector 컴포넌트 리렌더링!');
+  const [sortOption, setSortOption] = useMovieSortFilter();
 
   const handleSortSelect = (eventKey) => {
     setSortOption(eventKey);

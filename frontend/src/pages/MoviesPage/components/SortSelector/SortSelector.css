@@ -1,0 +1,17 @@
+.sort-selector .dropdown-toggle.btn {
+  font-size: .8rem;
+}
+
+.sort-selector .dropdown-toggle.btn:focus {
+  color: var(--custom-primary);
+  background-color: transparent;
+}
+
+.sort-selector .dropdown-toggle.show {
+  color: var(--custom-primary);
+  background-color: transparent;
+}
+
+.sort-selector .dropdown-menu {
+  font-size: .8rem;
+}
