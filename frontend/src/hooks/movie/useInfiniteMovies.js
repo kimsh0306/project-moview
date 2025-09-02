@@ -47,7 +47,7 @@ export const useInfiniteMovies = (sortOption, genreIds) => {
       // console.log(`다음 페이지 로드: ${currentPage + 1}`);
       setCurrentPage(prev => prev + 1);
     }
-  }, [hasMore, isLoading, currentPage]);
+  }, [hasMore, isLoading]);
 
   return {
     movies: allMovies,
