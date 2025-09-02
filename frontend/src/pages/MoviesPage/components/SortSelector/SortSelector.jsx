@@ -5,7 +5,6 @@ import { sortOptionDataList } from "constants/sortOptions";
 import "./SortSelector.css";
 
 const SortSelector = ({ pageTitle }) => {
-  console.log('🔥 SortSelector 컴포넌트 리렌더링!');
   const [sortOption, setSortOption] = useMovieSortFilter();
 
   const handleSortSelect = (eventKey) => {

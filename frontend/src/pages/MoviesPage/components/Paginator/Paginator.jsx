@@ -4,7 +4,6 @@ import CustomPaginate from "common/CustomPaginate/CustomPaginate";
 import { Col, Row } from "react-bootstrap";
 
 const Paginator = ({ data }) => {
-  console.log('🔥 Paginator 컴포넌트 리렌더링!');
   const [page, setPage] = useMoviePageFilter();
 
   const handlePageChange = ({ selected }) => {

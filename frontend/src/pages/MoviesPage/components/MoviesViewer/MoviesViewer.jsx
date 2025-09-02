@@ -7,8 +7,6 @@ import FlipCard from "common/FlipCard/FlipCard";
 import LoadingModal from "common/LoadingModal/LoadingModal";
 
 const MoviesViewer = () => {
-  console.log("🔥 MoviesViewer 컴포넌트 리렌더링!");
-
   const { sortOption, genreIds } = useMovieFilterState();
   const { movies, loadMore, hasMore, isLoading, isError, error } =
     useInfiniteMovies(sortOption, genreIds);

@@ -21,7 +21,6 @@ const GenreButton = ({ genre, isSelected, onClick }) => {
 };
 
 const GenreSelector = () => {
-  console.log("🔥 GenreSelector 컴포넌트 리렌더링!");
   const [genreIds, setGenreIds] = useMovieGenreFilter();
 
   // 전체 장르 데이터

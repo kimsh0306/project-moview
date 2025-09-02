@@ -7,7 +7,6 @@ import CustomContainer from "common/CustomContainer/CustomContainer";
 import ScrollToTop from "common/ScrollToTop/ScrollToTop";
 
 const MoviesPage = () => {
-  console.log("🔥 MoviesPage 컴포넌트 리렌더링!");
   return (
     <MovieFilterProvider>
       <main className="movie-page">
