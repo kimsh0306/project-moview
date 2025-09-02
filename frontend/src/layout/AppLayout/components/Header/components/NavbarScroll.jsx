@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
+import { ThemeContext } from "context/ThemeContext";
 import SwitchControl from "common/SwitchControl/SwitchControl";
 import UserMenu from "./UserMenu/UserMenu";
+import SearchBar from "./SearchBar";
 import "./NavbarScroll.css";
-import SearchBar from "./SearchBar/SearchBar";
 
-const NavbarScroll = ({ brandName, menuItems, theme, handleThemeChange }) => {
-  console.log("!! NavbarScroll 리렌더")
+const NavbarScroll = ({ brandName, menuItems }) => {
+  const { theme, setTheme } = useContext(ThemeContext);
   const location = useLocation();
+
+  const handleThemeChange = () =>
+    setTheme((prevTheme) => (prevTheme === "dark" ? "light" : "dark"));
 
   return (
     <Navbar

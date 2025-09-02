@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import { ThemeContext } from "context/ThemeContext";
+import React from "react";
 import NavbarScroll from "./components/NavbarScroll";
 
 const menuItems = [
@@ -8,18 +7,11 @@ const menuItems = [
 ];
 
 const Header = () => {
-  const { theme, setTheme } = useContext(ThemeContext);
-
-  const handleThemeChange = () =>
-    setTheme((prevTheme) => (prevTheme === "dark" ? "light" : "dark"));
-
   return (
-    <header className="header">
+    <header>
       <NavbarScroll
         brandName="Moview"
         menuItems={menuItems}
-        theme={theme}
-        handleThemeChange={handleThemeChange}
       />
     </header>
   );
