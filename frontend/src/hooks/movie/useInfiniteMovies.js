@@ -29,8 +29,10 @@ export const useInfiniteMovies = (sortOption, genreIds) => {
       } else {
         // 중복 제거하면서 추가
         setAllMovies(prev => {
-          const existingIds = new Set(prev.map(movie => movie.id));
-          const newMovies = data.results.filter(movie => !existingIds.has(movie.id));
+          const prevMovieIds = prev.map(movie => movie.id);
+          const newMovies = data.results.filter(movie =>
+            !prevMovieIds.includes(movie.id)
+          );
           return [...prev, ...newMovies];
         });
       }
