@@ -28,7 +28,7 @@ const MoviesViewer = () => {
       <Row className="g-2">
         {movies.map((movie, index) => (
           <Col
-            key={`${movie.id}_${index}`}
+            key={`${movie.id}`}
             xl={2}
             lg={3}
             md={4}
