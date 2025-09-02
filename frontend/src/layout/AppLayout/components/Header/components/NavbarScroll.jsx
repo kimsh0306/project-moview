@@ -1,27 +1,17 @@
-import React, { useState } from "react";
-import { Container, Nav, Navbar, Button, Form } from "react-bootstrap";
+import React from "react";
+import { Container, Nav, Navbar } from "react-bootstrap";
 import { useNavigate, useLocation } from "react-router-dom";
 import SwitchControl from "common/SwitchControl/SwitchControl";
 import UserMenu from "./UserMenu/UserMenu";
 import "./NavbarScroll.css";
+import SearchBar from "./SearchBar/SearchBar";
 
 const NavbarScroll = ({ brandName, menuItems, theme, handleThemeChange }) => {
-  const [keyword, setKeyword] = useState("");
-
+  console.log("!! NavbarScroll 리렌더")
   const location = useLocation();
   const navigate = useNavigate();
 
   const handleMenuClick = (eventKey) => navigate(eventKey);
-
-  const handleKeywordSubmit = (event) => {
-    event.preventDefault();
-    if (!keyword) {
-      alert("검색할 영화를 입력해주세요.");
-      return;
-    }
-    navigate(`/search?q=${keyword}`);
-    setKeyword("");
-  };
 
   return (
     <Navbar
@@ -58,21 +48,7 @@ const NavbarScroll = ({ brandName, menuItems, theme, handleThemeChange }) => {
               );
             })}
           </Nav>
-          <Form className="d-flex" onSubmit={handleKeywordSubmit}>
-            <Form.Control
-              className="me-1"
-              type="text"
-              placeholder="제목"
-              aria-label="Search"
-              value={keyword}
-              onChange={(event) => setKeyword(event.target.value)}
-              data-bs-theme={theme}
-              size="sm"
-            />
-            <Button type="submit" size="sm">
-              검색
-            </Button>
-          </Form>
+        <SearchBar theme={theme}/>
         </Navbar.Collapse>
       </Container>
     </Navbar>
