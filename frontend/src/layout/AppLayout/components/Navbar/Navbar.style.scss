@@ -1,0 +1,19 @@
+.navbar .container-fluid {
+  position: relative;
+}
+
+/* 브랜드 로고 */
+.navbar .navbar-brand {
+  cursor: pointer;
+  color: var(--custom-primary);
+}
+
+/* 햄버거 토글 */
+.navbar .navbar-toggler,
+.navbar .navbar-toggler.collapsed {
+  border: none;
+}
+
+.navbar .navbar-toggler:focus {
+  box-shadow: none;
+}

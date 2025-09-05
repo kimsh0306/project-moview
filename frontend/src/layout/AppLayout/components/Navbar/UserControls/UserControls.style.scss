@@ -1,0 +1,32 @@
+/* 추가한 요소 */
+.navbar .user-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  height: 1.875rem;
+  font-size: .8rem;
+  position: absolute;
+  right: 14rem;
+}
+
+// theme 토글
+.navbar .user-controls .theme-control {
+  color: var(--bs-navbar-color);
+  
+  &:hover {
+    color: var(--bs-navbar-hover-color);
+  }
+}
+
+.navbar .switch-control .form-check-input {
+  border-color: var(--custom-primary);
+}
+
+/* 미디어 쿼리 */
+@media (max-width: 62rem) {
+  .navbar .user-controls {
+    position: absolute;
+    top: .3rem;
+    right: 4rem;
+  }
+}

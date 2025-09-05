@@ -1,17 +1,17 @@
 /* 추가한 요소 1 - 로그인 버튼 */
-.user_menu .btn.login-btn {
+.user_menu .login-btn {
   background-color: transparent;
   border: none;
   font-size: .8rem;
-  color: var(--bs-body-color);
+  color: var(--bs-navbar-color);
   white-space: nowrap;
   margin: 0;
   padding: 0;
-}
 
-.user_menu .btn.login-btn:hover {
-  color: var(--custom-primary);
-  background-color: transparent;
+  &:hover {
+    color: var(--bs-navbar-hover-color);
+    background-color: transparent;
+  }
 }
 
 .user_menu .exp-time {

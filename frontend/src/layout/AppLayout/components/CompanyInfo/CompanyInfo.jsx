@@ -1,9 +1,9 @@
 import React from "react";
-import "./Footer.style.css";
+import "./CompanyInfo.style.css";
 
-const Footer = () => {
+const CompanyInfo = () => {
   return (
-    <footer className="footer">
+    <div className="company-info">
       <div style={{ margin: "10px 0" }}>
         <a
           href="https://github.com/kimsh0306/project-moview"
@@ -29,9 +29,8 @@ const Footer = () => {
           TMDB.
         </p>
       </div>
-
-    </footer>
+    </div>
   );
 };
 
-export default Footer;
+export default CompanyInfo;

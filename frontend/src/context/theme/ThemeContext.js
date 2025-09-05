@@ -1,10 +1,10 @@
 import React, { createContext, useState, useEffect } from "react";
 
 // Context 생성
-export const ThemeContext = createContext();
+const ThemeContext = createContext();
 
+// Provider 컴포넌트
 export const ThemeProvider = ({ children }) => {
-  // 테마 상태 관리
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "dark");
 
   useEffect(() => {
@@ -13,9 +13,24 @@ export const ThemeProvider = ({ children }) => {
     localStorage.setItem("theme", theme);
   }, [theme]);
 
+  const toggleTheme = () => {
+    setTheme(prevTheme => prevTheme === "dark" ? "light" : "dark");
+  };
+
+  const value = {
+    theme,
+    setTheme,
+    toggleTheme,
+    isDark: theme === "dark",
+    isLight: theme === "light",
+  };
+
   return (
-    <ThemeContext.Provider value={{ theme, setTheme }}>
+    <ThemeContext.Provider value={value}>
       {children}
     </ThemeContext.Provider>
   );
 };
+
+// Context export
+export { ThemeContext };

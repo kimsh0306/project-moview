@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 // 절대 경로 인식 오류 때문에 상대 경로로 변경
-import { authenticateAction } from "../../../../../../redux/actions/authenticateAction";
+import { authenticateAction } from "../../../../../redux/actions/authenticateAction";
 import { formatTime } from "utils/formatTime";
 
 export const useUserMenu = () => {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 // import useScrollTo from "./hooks/useScrollTo";
-import { ThemeProvider } from "context/ThemeContext";
+import { ThemeProvider } from "context/theme/ThemeContext";
 import { Route, Routes } from 'react-router-dom';
 import AppLayout from 'layout/AppLayout/AppLayout';
 import Homepage from 'pages/Homepage/Homepage';
