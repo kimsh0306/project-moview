@@ -10,19 +10,12 @@ const BSToggle = ({ className, label = null, onChange, checked }) => {
     }
   };
 
-  const handleLabelFocus = () => {
-    if (switchRef.current) {
-      console.log("!!")
-    }
-  };
-
   return (
     <Form.Group className={`${className} d-flex align-items-center`}>
       {label && (
         <Form.Label
           className="label m-0 me-2"
           onClick={handleLabelClick}
-          onMouseEnter={handleLabelFocus}
         >
           {label}
         </Form.Label>
