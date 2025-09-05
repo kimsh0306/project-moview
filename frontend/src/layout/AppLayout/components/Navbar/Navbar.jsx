@@ -8,18 +8,22 @@ import "./Navbar.style.scss";
 
 const Navbar = () => {
   const { theme, isDark } = useTheme();
-
   return (
-    <BSNavbar
-      brandName="Moview"
-      menus={NAV_MENUS}
-      userControlNode={UserControls}
-      searchBarNode={SearchBar}
-      // Navbar props
-      bg={isDark ? "dark" : "white"}
-      data-bs-theme={theme} 
-      expand="lg"
-    />
+    <BSNavbar bg={isDark ? "dark" : "white"} theme={theme}>
+      <BSNavbar.Brand to="/">Moview</BSNavbar.Brand>
+      {/* 추가한 컴포넌트 */}
+      <UserControls />
+      <BSNavbar.Toggle />
+      <BSNavbar.Collapse>
+        <BSNavbar.Nav
+          className="me-auto my-2 my-lg-0"
+          menus={NAV_MENUS}
+          navbarScroll
+        />
+        {/* 검색바 분리 */}
+        <SearchBar />
+      </BSNavbar.Collapse>
+    </BSNavbar>
   );
 };
 

@@ -28,7 +28,7 @@ const BSNavbar = ({
   );
 };
 
-// 하위 컴포넌트들을 속성으로 연결
+// Compound Component Pattern: 하위 컴포넌트들을 속성으로 연결
 BSNavbar.Brand = BSNavbarBrand;
 BSNavbar.Toggle = BSNavbarToggle;
 BSNavbar.Collapse = BSNavbarCollapse;
