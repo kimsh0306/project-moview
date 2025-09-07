@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Navbar, Button, Form } from "react-bootstrap";
 import { ImNotification } from "react-icons/im";
-import { authenticateAction } from "../../redux/actions/authenticateAction";
+import { authenticateAction } from "store/actions/authenticateAction";
 import LoadingModal from "../../common/LoadingModal/LoadingModal";
 import "./LoginPage.style.css";
 

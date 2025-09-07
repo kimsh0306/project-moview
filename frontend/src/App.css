@@ -8,6 +8,11 @@ body {
   color: var(--body-text-color);
 }
 
+/* 모든 링크 밑줄 제거 */
+a {
+  text-decoration: none;
+}
+
 
 /* 공통 적용 */
 .btn.btn-primary {

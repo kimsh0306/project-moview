@@ -5,7 +5,7 @@ import { Navbar, Button, Form } from "react-bootstrap";
 import { ImNotification } from "react-icons/im";
 import LoadingModal from "../../common/LoadingModal/LoadingModal";
 import SuccessJoinModal from "./components/SuccessJoinModal/SuccessJoinModal";
-import { authenticateAction } from "../../redux/actions/authenticateAction";
+import { authenticateAction } from "store/actions/authenticateAction";
 import "./JoinPage.style.css";
 
 const initPayload = {

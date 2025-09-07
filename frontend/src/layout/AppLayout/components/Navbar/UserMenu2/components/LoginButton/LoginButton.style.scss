@@ -1,0 +1,14 @@
+.login-btn {
+  background-color: transparent;
+  border: none;
+  font-size: .8rem;
+  color: var(--bs-navbar-color);
+  white-space: nowrap;
+  margin: 0;
+  padding: 0;
+
+  &:hover {
+    color: var(--bs-navbar-hover-color);
+    background-color: transparent;
+  }
+}
