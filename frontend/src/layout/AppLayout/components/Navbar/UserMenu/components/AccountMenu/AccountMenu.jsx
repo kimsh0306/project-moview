@@ -10,7 +10,7 @@ const AccountMenu = ({ userId }) => {
 
   const popover = (
     <Popover id="pop">
-      <Popover.Header as="h3">{userId || "Guest"}</Popover.Header>
+      <Popover.Header className="text-center" as="h3">{userId || "Guest"}</Popover.Header>
       <Popover.Body>
         <AtomButton onClick={logout}>로그아웃</AtomButton>
         <span className="mx-1">|</span>
