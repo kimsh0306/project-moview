@@ -9,7 +9,7 @@ const TimerBlock = ({ timeLeft }) => {
   return (
     <div className="timer-block">
       <div className="timer-title">인증 만료</div>
-      <div className="timer">
+      <div className="timer-time">
         <strong>{formatTime(timeLeft)}</strong>
       </div>
     </div>
