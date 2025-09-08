@@ -2,6 +2,7 @@ import React from "react";
 import { useAuthActions } from "hooks/auth/useAuthActions";
 import { Popover, Image } from "react-bootstrap";
 import BSOverlayTrigger from "components/lib/BSOverlayTrigger/BSOverlayTrigger";
+import AtomButton from "components/atoms/AtomButton";
 
 const AccountMenu = ({ userId }) => {
   const { logout, deleteAccount } = useAuthActions();
@@ -10,11 +11,9 @@ const AccountMenu = ({ userId }) => {
     <Popover id="pop">
       <Popover.Header as="h3">{userId || "Guest"}</Popover.Header>
       <Popover.Body>
-        <div className="text-center mt-1">
-          <span onClick={logout}>로그아웃</span>
-          <span className="mx-1">|</span>
-          <span onClick={deleteAccount}>회원탈퇴</span>
-        </div>
+        <AtomButton onClick={logout}>로그아웃</AtomButton>
+        <span className="mx-1">|</span>
+        <AtomButton onClick={deleteAccount}>회원탈퇴</AtomButton>
       </Popover.Body>
     </Popover>
   );

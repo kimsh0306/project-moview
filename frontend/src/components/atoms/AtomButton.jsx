@@ -1,8 +1,9 @@
 import React from "react";
+import "./AtomButton.style.scss";
 
-const AtomButton = ({children, ...rest}) => {
+const AtomButton = ({className, children, ...rest}) => {
   return (
-    <button {...rest}>
+    <button className={`atom-button ${className}`} {...rest}>
       {children}
     </button>
   );
