@@ -4,7 +4,10 @@ export const useSessionTimer = (expirationTime, onExpire) => {
   const [timeLeft, setTimeLeft] = useState(null);
 
   useEffect(() => {
-    if (!expirationTime) { setTimeLeft(null); return; }
+    if (!expirationTime) { 
+      setTimeLeft(null); 
+      return; 
+    }
 
     const tick = () => {
       const remaining = Math.max(0, expirationTime - Date.now());
