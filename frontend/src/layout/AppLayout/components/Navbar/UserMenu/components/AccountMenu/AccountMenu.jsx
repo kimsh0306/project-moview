@@ -3,6 +3,7 @@ import { useAuthActions } from "hooks/auth/useAuthActions";
 import { Popover, Image } from "react-bootstrap";
 import BSOverlayTrigger from "components/lib/BSOverlayTrigger/BSOverlayTrigger";
 import AtomButton from "components/atoms/AtomButton";
+import "./AccountMenu.style.scss";
 
 const AccountMenu = ({ userId }) => {
   const { logout, deleteAccount } = useAuthActions();
@@ -21,6 +22,7 @@ const AccountMenu = ({ userId }) => {
   return (
     <BSOverlayTrigger overlay={popover}>
       <Image
+        className="user-avatar"
         width={30}
         height={30}
         src="https://as2.ftcdn.net/v2/jpg/03/49/49/79/1000_F_349497933_Ly4im8BDmHLaLzgyKg2f2yZOvJjBtlw5.jpg"

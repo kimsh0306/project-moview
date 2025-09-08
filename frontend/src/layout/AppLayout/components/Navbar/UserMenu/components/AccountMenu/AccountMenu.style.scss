@@ -1,0 +1,10 @@
+.user-avatar {
+  cursor: pointer;
+  border: solid 1px var(--bs-border-color);
+
+  &:hover {
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
+    outline: 0;
+  }
+}
