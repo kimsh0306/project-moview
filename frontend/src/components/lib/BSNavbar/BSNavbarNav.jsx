@@ -2,10 +2,10 @@ import React from "react";
 import { Nav } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
 
-const BSNavbarNav = ({ menus, ...props }) => {
+const BSNavbarNav = ({ className, menus, ...rest }) => {
   const location = useLocation();
   return (
-    <Nav className="me-auto" activeKey={location.pathname} {...props}>
+    <Nav className={`${className} me-auto my-2 my-lg-0`} activeKey={location.pathname} navbarScroll {...rest}>
       {menus.map((menu) => (
         <Nav.Link
           as={Link}

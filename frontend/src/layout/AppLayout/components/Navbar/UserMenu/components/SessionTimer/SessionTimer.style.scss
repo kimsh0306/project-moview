@@ -1,0 +1,20 @@
+.session-timer {
+  font-size: 0.8rem;
+  color: var(--bs-body-color);
+
+  .text {
+    width: "61px";
+    text-align: "end";
+  }
+
+  .timer {          
+    width: "43px";
+    text-align: "end";
+  }
+
+  .extend-btn {
+    font-size: 0.7rem;
+    padding: 0 2px;
+  }
+}
+

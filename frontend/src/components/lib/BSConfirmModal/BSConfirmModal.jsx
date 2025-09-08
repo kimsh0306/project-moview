@@ -8,8 +8,10 @@ const BSConfirmModal = ({
   onHide,
   message,
   onClick,
-  btnVariant = "primary",
-  btnValue = "확인",
+  confirmVariant = "primary",
+  cancelVariant = "primary",
+  confirmText = "확인",
+  cancelText = "취소",
   ...rest
 }) => {
   if (!show) return null;
@@ -30,8 +32,11 @@ const BSConfirmModal = ({
       </Modal.Header>
       <Modal.Body>{message}</Modal.Body>
       <Modal.Footer>
-        <Button variant={btnVariant} onClick={onClick}>
-          {btnValue}
+        <Button variant={cancelVariant} onClick={onHide}>
+          {cancelText}
+        </Button>
+        <Button variant={confirmVariant} onClick={onClick}>
+          {confirmText}
         </Button>
       </Modal.Footer>
     </Modal>
