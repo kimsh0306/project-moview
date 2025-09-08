@@ -7,12 +7,12 @@ import "./SessionTimer.style.scss";
 
 const TimerBlock = ({ timeLeft }) => {
   return (
-    <>
-      <span className="text me-1">인증 만료</span>
-      <span className="timer">
+    <div className="timer-block">
+      <div className="timer-title">인증 만료</div>
+      <div className="timer">
         <strong>{formatTime(timeLeft)}</strong>
-      </span>
-    </>
+      </div>
+    </div>
   );
 };
 

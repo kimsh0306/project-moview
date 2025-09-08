@@ -1,15 +1,20 @@
 .session-timer {
   font-size: 0.8rem;
-  color: var(--bs-body-color);
+  color: var(--bs-navbar-hover-color);
 
-  .text {
-    width: "61px";
-    text-align: "end";
-  }
+  .timer-block {
+    display: flex;
+    flex-direction: row;
 
-  .timer {          
-    width: "43px";
-    text-align: "end";
+    .timer-title {
+      width: 45px;
+      white-space: nowrap;
+    }
+
+    .timer {
+      width: 45px;
+      text-align: end;
+    }
   }
 
   .extend-btn {
@@ -17,4 +22,3 @@
     padding: 0 2px;
   }
 }
-
