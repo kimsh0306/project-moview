@@ -1,5 +1,5 @@
 // contexts/modal/ConfirmModalContext.jsx
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useCallback, useMemo } from "react";
 import BSConfirmModal from "components/lib/BSConfirmModal/BSConfirmModal";
 
 const ConfirmModalContext = createContext();
@@ -15,7 +15,7 @@ export const ConfirmModalProvider = ({ children }) => {
     confirmVariant: "primary",
   });
 
-  const showConfirm = ({
+  const showConfirm = useCallback(({
     title = "",
     message = "",
     confirmText = "확인",
@@ -40,7 +40,7 @@ export const ConfirmModalProvider = ({ children }) => {
         ...additionalProps,
       });
     });
-  };
+  }, []);
 
   const closeModal = () => {
     setModalState((prev) => ({
@@ -49,8 +49,10 @@ export const ConfirmModalProvider = ({ children }) => {
     }));
   };
 
+  const value = useMemo(() => ({ showConfirm }), [showConfirm]);
+
   return (
-    <ConfirmModalContext.Provider value={{ showConfirm }}>
+    <ConfirmModalContext.Provider value={value}>
       {children}
       {modalState.show && <BSConfirmModal {...modalState} />}
     </ConfirmModalContext.Provider>
