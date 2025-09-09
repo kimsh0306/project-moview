@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 // import useScrollTo from "./hooks/useScrollTo";
-import { ThemeProvider } from "context/theme/ThemeContext";
+import { ThemeProvider } from "contexts/theme/ThemeContext";
+import { ConfirmModalProvider } from 'contexts/modal/ConfirmModalContext';
 import { Route, Routes } from 'react-router-dom';
 import AppLayout from 'layout/AppLayout/AppLayout';
 import Homepage from 'pages/Homepage/Homepage';
@@ -22,21 +23,23 @@ function App() {
 
   return (
     <ThemeProvider>
-      <Routes>
-        <Route path="/" element={<AppLayout />}>
-          <Route index element={<Homepage />} />
-          <Route path="movies">
-            <Route index element={<MoviesPage />} />
-            <Route path=":id" element={<MovieDetailPage />} />
+      <ConfirmModalProvider>
+        <Routes>
+          <Route path="/" element={<AppLayout />}>
+            <Route index element={<Homepage />} />
+            <Route path="movies">
+              <Route index element={<MoviesPage />} />
+              <Route path=":id" element={<MovieDetailPage />} />
+            </Route>
+            {/* <Route path="search" element={<SearchPage />} /> */}
+            <Route path="my-list" element={<PrivateRoute />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Route>
-          {/* <Route path="search" element={<SearchPage />} /> */}
-          <Route path="my-list" element={<PrivateRoute />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Route>
-        <Route path="login" element={<LoginPage />} />
-        <Route path="join" element={<JoinPage />} />
-      </Routes>
-      {/* {isShowTopBtn && <ScrollButton label="Top" onClick={handleTopBtnClick} />} */}
+          <Route path="login" element={<LoginPage />} />
+          <Route path="join" element={<JoinPage />} />
+        </Routes>
+        {/* {isShowTopBtn && <ScrollButton label="Top" onClick={handleTopBtnClick} />} */}
+      </ConfirmModalProvider>
     </ThemeProvider>
   );
 }

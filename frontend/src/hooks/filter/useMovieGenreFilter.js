@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { GenreContext } from "context/filter";
+import { GenreContext } from "contexts/filter";
 
 export const useMovieGenreFilter = () => {
   const context = useContext(GenreContext);

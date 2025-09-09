@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { PageContext } from "context/filter";
+import { PageContext } from "contexts/filter";
 
 export const useMoviePageFilter = () => {
   const context = useContext(PageContext);

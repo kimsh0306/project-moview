@@ -1,4 +1,4 @@
-import { SortContext } from "context/filter";
+import { SortContext } from "contexts/filter";
 import { useContext } from "react";
 
 export const useMovieSortFilter = () => {

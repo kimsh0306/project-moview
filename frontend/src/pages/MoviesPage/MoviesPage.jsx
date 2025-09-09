@@ -1,5 +1,5 @@
 import React from "react";
-import { MovieFilterProvider } from "context/filter";
+import { MovieFilterProvider } from "contexts/filter";
 import SortSelector from "pages/MoviesPage/components/SortSelector/SortSelector";
 import GenreSelector from "pages/MoviesPage/components/GenreSelector/GenreSelector";
 import MoviesViewer from "pages/MoviesPage/components/MoviesViewer/MoviesViewer";

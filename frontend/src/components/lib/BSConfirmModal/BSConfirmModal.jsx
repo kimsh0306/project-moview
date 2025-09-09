@@ -6,8 +6,9 @@ import { ImNotification } from "react-icons/im";
 const BSConfirmModal = ({
   show,
   onHide,
-  message,
   onClick,
+  title,
+  message,
   confirmVariant = "primary",
   confirmText = "확인",
   ...rest
@@ -24,9 +25,7 @@ const BSConfirmModal = ({
       {...rest}
     >
       <Modal.Header closeButton>
-        <Modal.Title>
-          <ImNotification />
-        </Modal.Title>
+        <Modal.Title>{title || <ImNotification />}</Modal.Title>
       </Modal.Header>
       <Modal.Body>{message}</Modal.Body>
       <Modal.Footer>
