@@ -52,7 +52,7 @@ export const ConfirmModalProvider = ({ children }) => {
   return (
     <ConfirmModalContext.Provider value={{ showConfirm }}>
       {children}
-      <BSConfirmModal {...modalState} />
+      {modalState.show && <BSConfirmModal {...modalState} />}
     </ConfirmModalContext.Provider>
   );
 };
