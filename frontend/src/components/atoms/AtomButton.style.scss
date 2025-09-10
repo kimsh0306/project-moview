@@ -1,4 +1,12 @@
 .atom-button {
   border: none;
   background-color: transparent;
+  padding: 0;
+  margin: 0;
+
+  &:focus{
+    border: none;
+    box-shadow: none;
+    outline: none;
+  }
 }
