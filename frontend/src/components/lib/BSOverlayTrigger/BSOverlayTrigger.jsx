@@ -13,7 +13,7 @@ const BSOverlayTrigger = ({
       trigger={trigger}
       placement={placement}
       overlay={overlay}
-      rootClose
+      rootClose={false}
       {...rest}
     >
       {children}
